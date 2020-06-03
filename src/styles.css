@@ -31,12 +31,24 @@ header #title{
 	font-size: 2.5rem;
 }
 
-.container{
+#root .container{
 	flex: 1 0 auto;
 	width: 100%;
 }
 
-footer{
+footer .container{
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-column-gap: 9%;
+}
+
+footer .container .button{
+	width: 100%;
+	height: auto;
+	stroke: var(--primary);
+}
+
+.container .button > *{
 	
 }
 
