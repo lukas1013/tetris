@@ -7,6 +7,16 @@ import './styles.css';
 import Dot from './components/dot';
 
 function App() {
+	const ref = useRef(null);
+	const [tableWidth, setTW] = useState(0);
+	const [tableHeight, setTH] = useState(0);
+	
+	useEffect(() => {
+		const {width: w, height: h} = ref.current.getBoundingClientRect();
+		
+		//alert(h)
+	}, []);
+	
   return (
   		<>
   		
@@ -14,12 +24,13 @@ function App() {
   			<h1 id='title'>Tetris</h1>
   		</header>
   		
-		<div className='container'>
+		<div ref={ref} className='container'>
 			<svg version="1.1"
    			baseProfile="full"
    			xmlns="http://www.w3.org/2000/svg"
    			width='100'
    			height='100'
+   			fill='darkcyan'
    			className='block-container'
    			viewBox='0 0 100 100'>
 				<Dot posX='0'/>
