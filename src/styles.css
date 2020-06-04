@@ -27,7 +27,7 @@ header{
 }
 
 header #title{
-	margin-left: 1%;
+	margin: 2% 1%;
 	font-size: 2.5rem;
 }
 
@@ -40,6 +40,7 @@ footer .container{
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	grid-column-gap: 9%;
+	place-items: center;
 }
 
 footer .container .button{
@@ -48,8 +49,18 @@ footer .container .button{
 	stroke: var(--primary);
 }
 
-.container .button > *{
-	
+.container .button.spin{
+	fill: var(--primary);
+}
+
+.container .button:hover{
+	animation: buttonClick .8s;
+}
+
+@keyframes buttonClick{
+	from{
+		width: 90%;
+	}
 }
 
 header,
