@@ -8,14 +8,6 @@ import Dot from './components/dot';
 
 function App() {
 	const ref = useRef(null);
-	const [tableWidth, setTW] = useState(0);
-	const [tableHeight, setTH] = useState(0);
-	
-	useEffect(() => {
-		const {width: w, height: h} = ref.current.getBoundingClientRect();
-		
-		//alert(h)
-	}, []);
 	
   return (
   		<>
@@ -26,14 +18,12 @@ function App() {
   		
 		<div ref={ref} className='container'>
 			<svg version="1.1"
-   			baseProfile="full"
    			xmlns="http://www.w3.org/2000/svg"
    			width='100'
-   			height='100'
-   			fill='darkcyan'
-   			className='block-container'
-   			viewBox='0 0 100 100'>
-				<Dot posX='0'/>
+   			height='200'
+   			viewBox='0 0 100 200'
+   			className='block-container'>
+				<Dot posX='40'/>
 			</svg>
 		</div>
 		
@@ -51,6 +41,7 @@ function App() {
 				<GiClockwiseRotation className='button spin' />
 				
 			</div>
+			
 		</footer>
 		
 		</>
