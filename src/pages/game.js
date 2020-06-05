@@ -3,9 +3,10 @@ import { GiPauseButton, GiPlayButton, GiAnticlockwiseRotation, GiClockwiseRotati
 import { FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCircle } from 'react-icons/fi';
 
 import { useGame } from '../contexts/game';
+import Dot from '../components/dot';
 
 function Game() {
-	const { pieces, cancelMove, moveRight } = useGame();
+	const { poliminosData, cancelMove, moveRight } = useGame();
 	
 	return (
 		<>
@@ -21,7 +22,16 @@ function Game() {
    			viewBox='0 0 100 200'
    			className='block-container'>
 				{
-					pieces
+					poliminosData.map((item, key) => {
+						switch (item.type) {
+							case 'dot':
+								return <Dot key={key} {...item} />
+								break;
+							
+							default:
+								// code
+						}
+					})
 				}
 			</svg>
 		</div>

@@ -7,32 +7,45 @@ import
 		useContext 
 	} from 'react';
 	
-import Dot from '../components/dot';
+//import Dot from '../components/dot';
+import gameConfig from '../config/game';
 
 const GameContext = createContext({});
 
 export const GameProvider = ({children}) => {
-	const [moving, setMoving] = useState(false);
-	const [pieces, setPieces] = useState([]);
+	//const [moving, setMoving] = useState(false);
+	const [poliminosData, setPoliminosData] = useState([]);
+	const [focused, setFocused] = useState(null);
 	
 	useEffect(() => {
-		setPieces(<Dot/>)
+		setPoliminosData([{type: 'dot', posX: 40}])
 	}, [])
 	
 	function moveLeft() {
-		setMoving(true)
+		//setMoving(true)
 	}
 	
 	function moveRight() {
-		setMoving(true)
+		if (poliminosData[0].posX < gameConfig.maxX) {
+			setPoliminosData(previous => {
+				const newPoliminosData = [...previous];
+				
+				newPoliminosData[0].posX += 10
+				
+				return newPoliminosData;
+			})
+			//poliminosData[0].posX += 10
+		}
+		
+		//setMoving(true)
 	}
 	
 	function cancelMove() {
-		setMoving(false)
+		//setMoving(false)
 	}
 	
 	return (
-		<GameContext.Provider value={{ pieces, moving, cancelMove, moveLeft, moveRight }}>
+		<GameContext.Provider value={{ poliminosData, focused, cancelMove, moveLeft, moveRight }}>
 			{children}
 		</GameContext.Provider>
 	);
