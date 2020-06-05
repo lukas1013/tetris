@@ -12,6 +12,7 @@ body{
 	height: 100%;
 	font-size: 62.5%;
 	overflow: scroll;
+	user-select: none;
 	background-color: var(--dGray);
 }
 

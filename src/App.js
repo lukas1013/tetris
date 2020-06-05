@@ -5,9 +5,32 @@ import { FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCircle } from 'react-
 import './styles.css';
 
 import Dot from './components/dot';
+//import Footer from './components/footer';
 
 function App() {
 	const ref = useRef(null);
+	const pieceRef = useRef(null);
+	const [posX, setX] = useState(40);
+
+	const [moving, setMoving] = useState(false)
+
+	useEffect(() => {
+		console.log('moving...')
+		let newX = posX + 10;
+		if (newX < 100) {
+			moving && setTimeout(() => {
+				setX(newX);
+			}, 100);
+		}
+	}, [moving, posX]);
+	
+	function toLeftTouchStart(e) {
+		setMoving(true)
+	}
+	
+	function toLeftTouchEnd(e) {
+		setMoving(false)
+	}
 	
   return (
   		<>
@@ -23,7 +46,7 @@ function App() {
    			height='200'
    			viewBox='0 0 100 200'
    			className='block-container'>
-				<Dot posX='40'/>
+				<Dot focused={pieceRef} posX={posX}/>
 			</svg>
 		</div>
 		
@@ -36,14 +59,14 @@ function App() {
 				
 				<FiArrowDownCircle className='button' />
 				
-				<FiArrowRightCircle className='button' />
+				<FiArrowRightCircle onTouchEnd={toLeftTouchEnd} onTouchStart={toLeftTouchStart} className='button' />
 				
 				<GiClockwiseRotation className='button spin' />
 				
 			</div>
 			
 		</footer>
-		
+
 		</>
   );
 }
