@@ -6,7 +6,7 @@ import { useGame } from '../contexts/game';
 import Dot from '../components/dot';
 
 function Game() {
-	const { poliminosData, cancelMove, moveRight } = useGame();
+	const { poliminosData, cancelMove, moveLeft, moveRight } = useGame();
 	
 	return (
 		<>
@@ -41,7 +41,7 @@ function Game() {
 			
 				<GiAnticlockwiseRotation className='button spin' />
 				
-				<FiArrowLeftCircle className='button' />
+				<FiArrowLeftCircle onTouchEnd={cancelMove} onTouchStart={moveLeft} className='button' />
 				
 				<FiArrowDownCircle className='button' />
 				

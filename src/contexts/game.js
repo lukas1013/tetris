@@ -22,6 +22,15 @@ export const GameProvider = ({children}) => {
 	}, [])
 	
 	function moveLeft() {
+		if (poliminosData[0].posX > gameConfig.minX) {
+			setPoliminosData(previous => {
+				const newPoliminosData = [...previous];
+				
+				newPoliminosData[0].posX -= 10
+				
+				return newPoliminosData;
+			})
+		}
 		//setMoving(true)
 	}
 	
