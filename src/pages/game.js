@@ -7,6 +7,16 @@ import Dot from '../components/dot';
 
 function Game() {
 	const { poliminosData, cancelMove, moveLeft, moveRight } = useGame();
+	const [poliminos, setPoliminos] = useState([]);
+
+	useEffect(() => {
+		const newPoliminos = poliminosData.map((item, key) => {
+			if (item.type === 'dot')
+				return <Dot key={key} posX={item.posX}/>;
+		});
+		
+		setPoliminos(newPoliminos);
+	}, [poliminosData]);
 	
 	return (
 		<>
@@ -22,16 +32,7 @@ function Game() {
    			viewBox='0 0 100 200'
    			className='block-container'>
 				{
-					poliminosData.map((item, key) => {
-						switch (item.type) {
-							case 'dot':
-								return <Dot key={key} {...item} />
-								break;
-							
-							default:
-								// code
-						}
-					})
+					poliminos
 				}
 			</svg>
 		</div>

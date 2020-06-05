@@ -7,60 +7,36 @@ import
 		useContext 
 	} from 'react';
 	
-//import Dot from '../components/dot';
+import Dot from '../components/dot';
 import gameConfig from '../config/game';
 
 const GameContext = createContext({});
 
 export const GameProvider = ({children}) => {
-	//const [moving, setMoving] = useState(false);
-	//const [poliminosData, setPoliminosData] = useState([]);
-	//const [focused, setFocused] = useState(null);
-	const poliminosData = [{type: 'dot', posX: 40}];
+	const [poliminosData, setPoliminosData] = useState([{type: 'dot', posX: 40}]);
+	const [inFocus, setInFocus] = useState(0);
 	
-	useEffect(() => {
-		//setPoliminosData([{type: 'dot', posX: 40}])
-	}, []);
+	//in first rendering
 	
-	useEffect(() => {
-		//setFocused(poliminosData[0]);
-	}, []);
 	
 	function moveLeft() {
-		//if..
-		/*
-		if (poliminosData[0].posX > gameConfig.minX) {
-			setPoliminosData(previous => {
-				const newPoliminosData = [...previous];
-				
-				newPoliminosData[0].posX -= 10
-				
-				return newPoliminosData;
-			})
-		}
-		*/
-		//setMoving(true)
+		
 	}
 	
 	function moveRight() {
-		//if...
-		/*
-		if (poliminosData[0].posX < gameConfig.maxX) {
-			setPoliminosData(previous => {
-				const newPoliminosData = [...previous];
-				
-				newPoliminosData[0].posX += 10
-				
-				return newPoliminosData;
-			})
-			//poliminosData[0].posX += 10
+		if (poliminosData[inFocus].posX < gameConfig.maxX) {
+			const newPosition = [...poliminosData];
+			
+			newPosition[inFocus].posX += 10;
+				//if (item.type === 'dot')
+					//return <Dot key={key} posX={key === inFocus ? item.posX + 10 : item.posX} />
+	
+			setPoliminosData(newPosition);
 		}
-		*/
-		//setMoving(true)
 	}
 	
 	function cancelMove() {
-		//setMoving(false)
+		
 	}
 	
 	return (
