@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
+//import {useGame} from '../../contexts/game';
+
 import './styles.css';
 
 export default function Dot({posX, vel = 1}) {
+	//const {moving} = useGame()
 	const [posY, setY] = useState(0);
 	
 	useEffect(() => {
