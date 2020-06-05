@@ -20,17 +20,17 @@ export const GameProvider = ({children}) => {
 	
 	
 	function moveLeft() {
-		
+		if (poliminosData[inFocus].posX > gameConfig.minX) {
+			const newPosition = [...poliminosData];
+			newPosition[inFocus].posX -= 10;
+			setPoliminosData(newPosition);
+		}
 	}
 	
 	function moveRight() {
 		if (poliminosData[inFocus].posX < gameConfig.maxX) {
 			const newPosition = [...poliminosData];
-			
 			newPosition[inFocus].posX += 10;
-				//if (item.type === 'dot')
-					//return <Dot key={key} posX={key === inFocus ? item.posX + 10 : item.posX} />
-	
 			setPoliminosData(newPosition);
 		}
 	}
