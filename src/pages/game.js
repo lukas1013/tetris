@@ -6,17 +6,19 @@ import { useGame } from '../contexts/game';
 import Dot from '../components/dot';
 
 function Game() {
-	const { poliminosData, cancelMove, moveLeft, moveRight } = useGame();
+	const { poliminosData, cancelMove, moveLeft, moveRight, cancelQuickDrop, getDownFaster } = useGame();
 	const [poliminos, setPoliminos] = useState([]);
 
 	useEffect(() => {
 		const newPoliminos = poliminosData.map((item, key) => {
 			if (item.type === 'dot')
-				return <Dot key={key} posX={item.posX}/>;
+				return <Dot key={key} posX={item.posX} speed={item.speed}/>;
 		});
 		
 		setPoliminos(newPoliminos);
 	}, [poliminosData]);
+	
+	//console.log('Game')
 	
 	return (
 		<>
@@ -44,7 +46,7 @@ function Game() {
 				
 				<FiArrowLeftCircle onTouchEnd={cancelMove} onTouchStart={moveLeft} className='button' />
 				
-				<FiArrowDownCircle className='button' />
+				<FiArrowDownCircle onTouchEnd={cancelQuickDrop} onTouchStart={getDownFaster} className='button' />
 				
 				<FiArrowRightCircle onTouchEnd={cancelMove} onTouchStart={moveRight} className='button' />
 				

@@ -7,17 +7,16 @@ import
 		useContext 
 	} from 'react';
 	
-import Dot from '../components/dot';
 import gameConfig from '../config/game';
 
 const GameContext = createContext({});
 
 export const GameProvider = ({children}) => {
-	const [poliminosData, setPoliminosData] = useState([{type: 'dot', posX: 40}]);
-	const [inFocus, setInFocus] = useState(0);
+	const [gameSpeed, setSpeed] = useState(1500);
+	const [poliminosData, setPoliminosData] = useState([{type: 'dot', posX: 40, speed: gameSpeed}]);
+	const [inFocus, setInFocus] = useState(0); //first polimino
 	
-	//in first rendering
-	
+	//console.log('GameContext')
 	
 	function moveLeft() {
 		if (poliminosData[inFocus].posX > gameConfig.minX) {
@@ -39,8 +38,23 @@ export const GameProvider = ({children}) => {
 		
 	}
 	
+	//bug - delay
+	function getDownFaster() {
+		const newPoliminosData = [...poliminosData];
+		
+		newPoliminosData[inFocus].speed = 10;
+		setPoliminosData(newPoliminosData);
+	}
+	
+	function cancelQuickDrop() {
+		const newPoliminosData = [...poliminosData];
+		
+		newPoliminosData[inFocus].speed = gameSpeed;
+		setPoliminosData(newPoliminosData);
+	}
+	
 	return (
-		<GameContext.Provider value={{ poliminosData, cancelMove, moveLeft, moveRight }}>
+		<GameContext.Provider value={{ gameSpeed, poliminosData, cancelMove, moveLeft, moveRight, getDownFaster, cancelQuickDrop }}>
 			{children}
 		</GameContext.Provider>
 	);

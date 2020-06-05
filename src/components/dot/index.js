@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 
 import './styles.css';
 
-export default function Dot({posX, vel = 1}) {
+export default function Dot({posX, speed}) {
+	//const { gameSpeed } = useGame();
 	const [posY, setY] = useState(0);
 	
 	useEffect(() => {
@@ -15,8 +16,10 @@ export default function Dot({posX, vel = 1}) {
 			
 		timer = setTimeout(() => {
 			setY(posY + 10)
-		}, 1500 * vel);
+		}, speed);
 	}, [posY]);
+	
+	//console.log('Dot')
 	
 	return (
 		<rect x={posX}
