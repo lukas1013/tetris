@@ -6,7 +6,7 @@ import { useGame } from '../contexts/game';
 import Dot from '../components/dot';
 
 function Game() {
-	const { poliminosData, cancelMove, moveLeft, moveRight, cancelQuickDrop, getDownFaster } = useGame();
+	const { poliminosData, moveLeft, moveRight, cancelQuickDrop, getDownFaster } = useGame();
 	const [poliminos, setPoliminos] = useState([]);
 
 	useEffect(() => {
@@ -44,11 +44,11 @@ function Game() {
 			
 				<GiAnticlockwiseRotation className='button spin' />
 				
-				<FiArrowLeftCircle onTouchEnd={cancelMove} onTouchStart={moveLeft} className='button' />
+				<FiArrowLeftCircle onClick={moveLeft} className='button' />
 				
 				<FiArrowDownCircle onTouchEnd={cancelQuickDrop} onTouchStart={getDownFaster} className='button' />
 				
-				<FiArrowRightCircle onTouchEnd={cancelMove} onTouchStart={moveRight} className='button' />
+				<FiArrowRightCircle onClick={moveRight} className='button' />
 				
 				<GiClockwiseRotation className='button spin' />
 				
