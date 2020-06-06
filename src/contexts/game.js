@@ -16,48 +16,65 @@ const GameContext = createContext({});
 
 export const GameProvider = ({children}) => {
 	const [gameSpeed, setSpeed] = useState(1500);
-	//const [poliminosData, setPoliminosData] = useState([{type: 'dot', posX: 40, posY: 0, speed: gameSpeed}]);
 	const [xCoords, setXCoords] = useState([40]);
 	const [yCoords, setYCoords] = useState([0]);
 	const [poliminos, setPoliminos] = useState(null);
 	const [inFocus, setInFocus] = useState(0); //first polimino
 	const [poliminosData, setPoliminosData] = useState([]);
+	const [isQuickDrop, setQuickDrop] = useState(false);
 	
 	useEffect(() => {
 		setPoliminosData(previous => {
-			const newPoliminosData = !!previous[0] ? previous.concat([{type: 'dot', posY: '0', posX: '40', speed: gameSpeed}]) : [{type:'dot', posX: xCoords[0], posY: yCoords[0], speed: gameSpeed}];
+			const newPoliminosData = !!previous[0] ? previous.concat([{type: 'dot', posY: '0', posX: '40'}]) : [{type:'dot', posX: xCoords[0], posY: yCoords[0]}];
 			
 			return newPoliminosData;
 		});
 	}, []);
 	
-	
 	const renderPoliminos = useCallback(() => {
 		const newPoliminos = poliminosData.map((data, key) => {
-			return <Dot posX={xCoords[key]} posY={yCoords[key]} speed={gameSpeed} />;
+			return <Dot posX={xCoords[key]} posY={yCoords[key]} />;
 		});
 		
 		setPoliminos(newPoliminos);
-	}, [poliminosData, xCoords, yCoords, gameSpeed]);
+	}, [poliminosData, xCoords, yCoords]);
 	
 	useEffect(() => {
 		renderPoliminos();
 	}, [renderPoliminos]);
 	
-	useEffect(() => {
-		let pos = [...yCoords]
+	const fallTimer = useMemo(() => {
+		return setTimeout(() => {
+			let coords = [...yCoords];
+			
+			let newY = coords.map((coord, key) => {
+				if (coord < gameConfig.maxY) {
+					coord += 10;
+				}
+				return coord;
+			})
 		
-		pos = pos.map((p, k) => {
-			if (p < gameConfig.maxY) {
-				p += 10;
-			}
-			return p;
-		})
+			setYCoords(newY);
+		}, gameSpeed);
+	}, [gameSpeed, yCoords]);
+	
+	useEffect(() => {
+		if (isQuickDrop) {
+			clearTimeout(fallTimer);
+		}
 		
 		setTimeout(() => {
-			setYCoords(pos)
-		}, 1000);
-	}, [yCoords])
+			let coords = [...yCoords];
+			if (isQuickDrop && coords[inFocus] < gameConfig.maxY) {
+				coords[inFocus] += 10;
+				setYCoords(coords);
+			}
+		}, 20);
+	}, [isQuickDrop, fallTimer, inFocus, yCoords]);
+	
+	function addPolimino() {
+		
+	}
 
 	function moveLeft() {
 		if (xCoords[inFocus] > gameConfig.minX) {
@@ -75,25 +92,12 @@ export const GameProvider = ({children}) => {
 		}
 	}
 	
-	//bug - delay
-	const getDownFaster = useCallback(() => {
-	//function getDownFaster() {
-		const newPoliminosData = [...poliminosData];
-		
-		newPoliminosData[inFocus].speed = 20;
-		setPoliminosData(newPoliminosData);
-	//}
-	}, [inFocus, poliminosData]);
-	
-	function cancelQuickDrop() {
-		const newPoliminosData = [...poliminosData];
-		
-		newPoliminosData[inFocus].speed = gameSpeed;
-		setPoliminosData(newPoliminosData);
-	}
-	
+	const getDownFaster = () => setQuickDrop(true);
+
+	const cancelQuickDrop = () => setQuickDrop(false);
+
 	return (
-		<GameContext.Provider value={{ gameSpeed, poliminos, poliminosData, moveLeft, moveRight, getDownFaster, cancelQuickDrop }}>
+		<GameContext.Provider value={{ poliminos, moveLeft, moveRight, getDownFaster, cancelQuickDrop }}>
 			{children}
 		</GameContext.Provider>
 	);
