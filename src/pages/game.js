@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import { GiPauseButton, GiPlayButton, GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
 import { FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCircle } from 'react-icons/fi';
 
@@ -6,19 +6,7 @@ import { useGame } from '../contexts/game';
 import Dot from '../components/dot';
 
 function Game() {
-	const { poliminosData, moveLeft, moveRight, cancelQuickDrop, getDownFaster } = useGame();
-	const [poliminos, setPoliminos] = useState([]);
-
-	useEffect(() => {
-		const newPoliminos = poliminosData.map((item, key) => {
-			if (item.type === 'dot')
-				return <Dot key={key} posX={item.posX} speed={item.speed}/>;
-		});
-		
-		setPoliminos(newPoliminos);
-	}, [poliminosData]);
-	
-	//console.log('Game')
+	const { poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster } = useGame();
 	
 	return (
 		<>
