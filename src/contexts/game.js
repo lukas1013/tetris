@@ -77,7 +77,7 @@ export const GameProvider = ({children}) => {
 	}
 
 	function moveLeft() {
-		if (xCoords[inFocus] > gameConfig.minX) {
+		if (xCoords[inFocus] > gameConfig.minX && yCoords[inFocus] < gameConfig.maxY) {
 			const newX = [...xCoords];
 			newX[inFocus] -= 10;
 			setXCoords(newX);
@@ -85,7 +85,7 @@ export const GameProvider = ({children}) => {
 	}
 	
 	function moveRight() {
-		if (xCoords[inFocus] < gameConfig.maxX) {
+		if (xCoords[inFocus] < gameConfig.maxX && yCoords[inFocus] < gameConfig.maxY) {
 			const newX = [...xCoords];
 			newX[inFocus] += 10;
 			setXCoords(newX);
