@@ -34,6 +34,12 @@ export const GameProvider = ({children}) => {
 			}, 20);
 	}, [isQuickDrop]);
 	
+	const generationInterval = useMemo(() => {
+		return setInterval(() => {
+			dispatch({type: 'add'})
+		}, gameConfig.level1.generation);
+	}, [gameSpeed]);
+	
 	const initialPoliminoData = [{
 		type: 'dot',
 		posX: 40,
@@ -96,13 +102,6 @@ export const GameProvider = ({children}) => {
 
 		setPoliminos(newPoliminos);
 	}, [poliminosData]);
-	
-	//test
-	useEffect(() => {
-		setTimeout(() => {
-			dispatch({type: 'add'})
-		}, 2000);
-	}, []);
 	
 	//chage focus
 	useEffect(() => {
