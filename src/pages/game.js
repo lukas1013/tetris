@@ -7,7 +7,7 @@ import Dot from '../components/dot';
 
 function Game() {
 	const { poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster } = useGame();
-	
+
 	return (
 		<>
 		<header>
