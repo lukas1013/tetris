@@ -30,7 +30,6 @@ export const GameProvider = ({children}) => {
 	const quickFallInterval = useMemo(() => {
 		if (isQuickDrop)
 			return setInterval(() => {
-				console.log('quick drop')
 				dispatch({type: 'quick drop'})
 			}, 20);
 	}, [isQuickDrop]);
@@ -73,7 +72,6 @@ export const GameProvider = ({children}) => {
 			default:
 				//check if everyone has reached the end
 				if (state.every(item => item.posY === gameConfig.maxY)) {
-					clearInterval(fallInterval);
 					return state;
 				}
 				
