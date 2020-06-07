@@ -97,6 +97,25 @@ export const GameProvider = ({children}) => {
 		setPoliminos(newPoliminos);
 	}, [poliminosData]);
 	
+	//test
+	useEffect(() => {
+		setTimeout(() => {
+			dispatch({type: 'add'})
+		}, 2000);
+	}, []);
+	
+	//chage focus
+	useEffect(() => {
+		let newFocus = inFocus;
+		for (let item in poliminosData) {
+			if (poliminosData[item].posY < gameConfig.maxY) {
+				newFocus = item;
+				break
+			}
+		}
+		setInFocus(newFocus);
+	}, [poliminosData]);
+	
 	const moveLeft = () => dispatch({type: 'left'});
 
 	const moveRight = () => dispatch({type: 'right'});
