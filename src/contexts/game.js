@@ -37,6 +37,7 @@ export const GameProvider = ({children}) => {
 	const generationInterval = useMemo(() => {
 		return setInterval(() => {
 			dispatch({type: 'add'})
+		//}, gameConfig.level1.generation);
 		}, gameConfig.level1.generation);
 	}, [gameSpeed]);
 	
@@ -55,35 +56,41 @@ export const GameProvider = ({children}) => {
 				return newState.concat([{type, posX: 40, posY: 0}]);
 
 			case 'left':
-				if (state[inFocus].posX > gameConfig.minX && newState[inFocus].posY < gameConfig.maxY) {
+				if (state[inFocus].posX > gameConfig.minX && canMoveLeft(state, state[inFocus])) {
 					state[inFocus].posX -= 10;
 					return newState;
 				}
 				return state;
 
 			case 'right':
-				if (newState[inFocus].posX < gameConfig.maxX && newState[inFocus].posY < gameConfig.maxY) {
+				if (newState[inFocus].posX < gameConfig.maxX && canMoveRight(state, state[inFocus])) {
 					newState[inFocus].posX += 10;
 					return newState;
 				}
 				return state;
 			
 			case 'quick drop':
-				if (newState[inFocus].posY < gameConfig.maxY) {
+				if (newState[inFocus].posY < gameConfig.maxY && canFall(newState, newState[inFocus])) {
 					newState[inFocus].posY += 10;
+					//checks if the polimino arrived after having moved
+					newState[inFocus].hasArrived = (newState[inFocus].posY === gameConfig.maxY || !canFall(newState, newState[inFocus])) ? true : false;
 					return newState;
 				}
 				return state;
 				
 			default:
 				//check if everyone has reached the end
-				if (state.every(item => item.posY === gameConfig.maxY)) {
+				if (state.every(item => item.posY === gameConfig.maxY || item.hasArrived)) {
 					return state;
 				}
 				
 				newState = newState.map(item => {
-					if (item.posY < gameConfig.maxY) {
+					if (item.posY < gameConfig.maxY && canFall(newState, item)) {
 						item.posY += 10;
+						//checks if the polimino arrived after having moved
+						item.hasArrived = (item.posY === gameConfig.maxY || !canFall(newState, newState[inFocus])) ? true : false;
+					}else{
+						item.hasArrived = true;
 					}
 					return item;
 				});
@@ -106,14 +113,47 @@ export const GameProvider = ({children}) => {
 	//chage focus
 	useEffect(() => {
 		let newFocus = inFocus;
-		for (let item in poliminosData) {
-			if (poliminosData[item].posY < gameConfig.maxY) {
-				newFocus = item;
+		for (let ind in poliminosData) {
+			if (poliminosData[ind].posY < gameConfig.maxY && !poliminosData[ind].hasArrived) {
+				newFocus = ind;
 				break
 			}
 		}
 		setInFocus(newFocus);
 	}, [poliminosData]);
+	
+	function canFall(state, polimino) {
+		if (state.some(({posY, posX, hasArrived}) => {
+			return (posY === polimino.posY + 10 && posX === polimino.posX) && (posY === gameConfig.maxY || hasArrived)
+		})) {
+			return false;
+		}
+		return true;
+	}
+	
+	function canMoveLeft(state, polimino) {
+		if (polimino.hasArrived)
+			return false;
+			
+		if (state.some(({posY, posX}) => {
+			return (posX === polimino.posX - 10 && posY === polimino.posY)
+		})) {
+			return false;
+		}
+		return true;
+	}
+	
+	function canMoveRight(state, polimino) {
+		if (polimino.hasArrived)
+			return false;
+			
+		if (state.some(({posY, posX}) => {
+			return (posX === polimino.posX + 10 && posY === polimino.posY)
+		})) {
+			return false;
+		}
+		return true;
+	}
 	
 	const moveLeft = () => dispatch({type: 'left'});
 
