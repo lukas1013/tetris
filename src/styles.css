@@ -25,13 +25,23 @@ body{
 	overflow: scroll;
 }
 
-header{
-	
+header > .container{
+	display: flex;
+	padding: 2%;
 }
 
 header #title{
-	margin: 2% 1%;
 	font-size: 2.5rem;
+	flex: 1 0 auto;
+	margin: 0;
+}
+
+#play, #pause{
+	width: 9vw;
+	height: 9vw;
+	stroke-width: 0;
+	fill: #fff;
+	align-self: center;
 }
 
 #root > .container{

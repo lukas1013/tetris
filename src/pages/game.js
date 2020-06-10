@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useRef, memo } from 'react';
-import { GiPauseButton, GiPlayButton, GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
-import { FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCircle } from 'react-icons/fi';
+import { GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
+import { FiPlay, FiPause, FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCircle } from 'react-icons/fi';
 
 import { useGame } from '../contexts/game';
 import Dot from '../components/dot';
 
 function Game() {
-	const { poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster } = useGame();
+	const { play, pause, isPaused, poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster } = useGame();
 
 	return (
 		<>
 		<header>
-  			<h1 id='title'>Tetris</h1>
+			<div className='container'>
+  				<h1 id='title'>Tetris</h1>
+  				{isPaused ? <FiPlay onClick={play} id='play' /> : <FiPause onClick={pause} id='pause' />}
+  			</div>
   		</header>
   		
 		<div className='container'>

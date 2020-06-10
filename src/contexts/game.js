@@ -18,26 +18,29 @@ export const GameProvider = ({children}) => {
 	const [gameSpeed, setSpeed] = useState(1500);
 	const [poliminos, setPoliminos] = useState(null);
 	const [isQuickDrop, setQuickDrop] = useState(false);
-
+	const [isPaused, setIsPaused] = useState(false);
+	
 	//fall effect
 	const fallInterval = useMemo(() => {
+		if (!isPaused)
 		return setInterval(() => {
 			dispatch({type: 'down'})
 		}, gameSpeed);
-	}, [gameSpeed]);
+	}, [gameSpeed, isPaused]);
 	
 	const quickFallInterval = useMemo(() => {
-		if (isQuickDrop)
+		if (isQuickDrop && !isPaused)
 			return setInterval(() => {
 				dispatch({type: 'quick drop'})
 			}, 20);
-	}, [isQuickDrop]);
+	}, [isQuickDrop, isPaused]);
 	
 	const generationInterval = useMemo(() => {
+		if (!isPaused)
 		return setInterval(() => {
 			dispatch({type: 'add'})
 		}, gameConfig.level1.generation);
-	}, []);
+	}, [isPaused]);
 	
 	const canFall = useCallback((poliminos, {posY, posX, hasArrived}) => {
 		if (hasArrived || posY === gameConfig.maxY)
@@ -96,7 +99,12 @@ export const GameProvider = ({children}) => {
 	function reducer(state, action) {
 		const newState = {...state};
 		const { inFocus } = state;
+		
 		window.location.hash = inFocus
+		
+		if (isPaused)
+			return newState;
+		
 		switch (action.type) {
 			case 'add':
 				let type = 'dot';
@@ -152,6 +160,7 @@ export const GameProvider = ({children}) => {
 	
 	const [poliminosData, dispatch] = useReducer(reducer, initialPoliminoData);
 	
+	//render
 	useEffect(() => {
 		const newPoliminos = poliminosData.poliminos.map((data, key) => {
 			return <Dot key={key} posX={data.posX} posY={data.posY} />;
@@ -159,6 +168,26 @@ export const GameProvider = ({children}) => {
 		
 		setPoliminos(newPoliminos);
 	}, [poliminosData]);
+	
+	/*
+	//pause
+	useEffect(() => {
+		
+		if (isPaused) {
+			clearInterval(fallInterval)
+			clearInterval(generationInterval)
+		}
+	}, [isPaused]);
+	*/
+	
+	const play = () => setIsPaused(false)
+	
+	const pause = () => {
+		clearInterval(fallInterval)
+		clearInterval(quickFallInterval)
+		clearInterval(generationInterval)
+		setIsPaused(true)
+	}
 	
 	const moveLeft = () => dispatch({type: 'left'});
 
@@ -172,7 +201,7 @@ export const GameProvider = ({children}) => {
 	}
 
 	return (
-		<GameContext.Provider value={{ poliminos, moveLeft, moveRight, getDownFaster, cancelQuickDrop }}>
+		<GameContext.Provider value={{ play, pause, isPaused, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickDrop }}>
 			{children}
 		</GameContext.Provider>
 	);
