@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import './styles.css';
 
@@ -9,6 +9,6 @@ const Dot = ({posX, posY}) => (
 		height='10'
 		fill='white'
 		className='dot'/>
-);
+)
 
-export default Dot;
+export default memo(Dot);
