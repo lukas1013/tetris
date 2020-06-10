@@ -100,8 +100,6 @@ export const GameProvider = ({children}) => {
 		const newState = {...state};
 		const { inFocus } = state;
 		
-		window.location.hash = inFocus
-		
 		if (isPaused)
 			return newState;
 		
@@ -168,17 +166,6 @@ export const GameProvider = ({children}) => {
 		
 		setPoliminos(newPoliminos);
 	}, [poliminosData]);
-	
-	/*
-	//pause
-	useEffect(() => {
-		
-		if (isPaused) {
-			clearInterval(fallInterval)
-			clearInterval(generationInterval)
-		}
-	}, [isPaused]);
-	*/
 	
 	const play = () => setIsPaused(false)
 	

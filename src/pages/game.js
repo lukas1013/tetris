@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef, memo } from 'react';
+import React from 'react';
 import { GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
 import { FiPlay, FiPause, FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCircle } from 'react-icons/fi';
 
 import { useGame } from '../contexts/game';
-import Dot from '../components/dot';
 
 function Game() {
 	const { play, pause, isPaused, poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster } = useGame();
