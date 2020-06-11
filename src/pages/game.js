@@ -3,6 +3,7 @@ import { GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
 import { FiPlay, FiPause, FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCircle } from 'react-icons/fi';
 
 import { useGame } from '../contexts/game';
+import Dot from '../components/dot';
 
 function Game() {
 	const { play, pause, isPaused, poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster } = useGame();
@@ -27,6 +28,31 @@ function Game() {
 					poliminos
 				}
 			</svg>
+			
+			<div id='side'>
+				<h3>Score:</h3> 
+				<h4>0</h4> 
+				<h3>Next:</h3>
+				<span id='generation-time'>15s</span>
+				<svg version='1.1' width='30' height='90' viewBox='0 0 30 90' id='next-container'>
+					<Dot style={{
+						width: '30%',
+						height: '10%'
+					}} />
+					
+					<Dot style={{
+						width: '30%',
+						height: '10%'
+					}} y='20' />
+					
+					<Dot style={{
+						width: '30%',
+						height: '10%'
+					}} y='40' />
+				</svg>
+				
+			</div>
+			
 		</div>
 		
 		<footer>

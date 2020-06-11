@@ -48,12 +48,48 @@ header #title{
 	flex: 1 1 auto;
 	width: 100%;
 	height: 50%;
+	display: flex;
 }
+
 
 .block-container{
 	height: 100%;
 	width: auto;
+	flex: 0 0 auto;
 	background-color: #222;
+}
+
+#side{
+	height: 100%;
+	color: #fff;
+	flex: 1 0 auto;
+	padding: 1%;
+	width: 10%;
+	background-color: var(--black);
+}
+
+#side h3{
+	margin: 0;
+	color: var(--primary);
+}
+
+#side h4{
+	margin: 0;
+	text-indent: 1%;
+}
+
+#side h3:last-of-type{
+	margin: 10% 0;
+	display: inline-block;
+}
+
+#generation-time{
+	margin-left: 10%;
+}
+
+#next-container{
+	width: 50%;
+	height: 30%;
 }
 
 footer > .container{
