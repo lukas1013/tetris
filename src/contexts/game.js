@@ -161,7 +161,7 @@ export const GameProvider = ({children}) => {
 	//render
 	useEffect(() => {
 		const newPoliminos = poliminosData.poliminos.map((data, key) => {
-			return <Dot key={key} posX={data.posX} posY={data.posY} />;
+			return <Dot key={key} x={data.posX} y={data.posY} />;
 		});
 		
 		setPoliminos(newPoliminos);
