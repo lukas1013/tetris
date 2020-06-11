@@ -6,7 +6,7 @@ import { useGame } from '../contexts/game';
 import Dot from '../components/dot';
 
 function Game() {
-	const { play, pause, isPaused, poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster } = useGame();
+	const { play, pause, isPaused, gTimer, poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster } = useGame();
 
 	return (
 		<>
@@ -24,16 +24,14 @@ function Game() {
    			height='200'
    			viewBox='0 0 100 200'
    			className='block-container'>
-				{
-					poliminos
-				}
+				{poliminos}
 			</svg>
 			
 			<div id='side'>
 				<h3>Score:</h3> 
 				<h4>0</h4> 
 				<h3>Next:</h3>
-				<span id='generation-time'>15s</span>
+				<span id='generation-time'>{gTimer}s</span>
 				<svg version='1.1' width='30' height='90' viewBox='0 0 30 90' id='next-container'>
 					<Dot style={{
 						width: '30%',

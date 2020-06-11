@@ -19,6 +19,7 @@ export const GameProvider = ({children}) => {
 	const [poliminos, setPoliminos] = useState(null);
 	const [isQuickDrop, setQuickDrop] = useState(false);
 	const [isPaused, setIsPaused] = useState(false);
+	//const [gTimer, setGTimer] = useState(gameConfig.level1.generation / 1000 - 1);
 	
 	//fall effect
 	const fallInterval = useMemo(() => {
@@ -35,11 +36,11 @@ export const GameProvider = ({children}) => {
 			}, 20);
 	}, [isQuickDrop, isPaused]);
 	
-	const generationInterval = useMemo(() => {
+	const generationTimer = useMemo(() => {
 		if (!isPaused)
-		return setInterval(() => {
-			dispatch({type: 'add'})
-		}, gameConfig.level1.generation);
+			return setInterval(() => {
+				dispatch({type: 'generation timer'})
+			}, 1000);
 	}, [isPaused]);
 	
 	const canFall = useCallback((poliminos, {posY, posX, hasArrived}) => {
@@ -91,14 +92,15 @@ export const GameProvider = ({children}) => {
 		return state.poliminos.indexOf(newFocus)
 	}
 	
-	const initialPoliminoData = {
+	const initialGameStatus = {
 		poliminos: [{type: 'dot', posX: 40, posY: 0}],
-		inFocus: 0
+		inFocus: 0,
+		gTimer: gameConfig.level1.generation / 1000 - 1
 	}
 	
 	function reducer(state, action) {
 		const newState = {...state};
-		const { inFocus } = state;
+		const { inFocus, gTimer } = state;
 		
 		if (isPaused)
 			return newState;
@@ -138,8 +140,7 @@ export const GameProvider = ({children}) => {
 				
 				return newState
 
-			//case 'down':
-			default:
+			case 'down':
 				newState.poliminos = newState.poliminos.map(polimino => {
 					if (canFall(newState.poliminos, polimino)) {
 						polimino.posY += 10;
@@ -153,26 +154,43 @@ export const GameProvider = ({children}) => {
 				}
 				
 				return newState;
+			
+			//case generation timer 
+			default:
+				if (gTimer === 0) {
+					let type = 'dot';
+					newState.poliminos.push({
+						type,
+						posX: 40,
+						posY: 0
+					});
+					
+					newState.gTimer = gameConfig.level1.generation / 1000 - 1;
+					return newState 
+				}
+				
+				newState.gTimer -= 1;
+				return newState
 		}	
 	}
 	
-	const [poliminosData, dispatch] = useReducer(reducer, initialPoliminoData);
+	const [gameStatus, dispatch] = useReducer(reducer, initialGameStatus);
 	
 	//render
 	useEffect(() => {
-		const newPoliminos = poliminosData.poliminos.map((data, key) => {
+		const newPoliminos = gameStatus.poliminos.map((data, key) => {
 			return <Dot key={key} x={data.posX} y={data.posY} />;
 		});
 		
 		setPoliminos(newPoliminos);
-	}, [poliminosData]);
+	}, [gameStatus]);
 	
 	const play = () => setIsPaused(false)
 	
 	const pause = () => {
 		clearInterval(fallInterval)
 		clearInterval(quickFallInterval)
-		clearInterval(generationInterval)
+		clearInterval(generationTimer)
 		setIsPaused(true)
 	}
 	
@@ -188,7 +206,7 @@ export const GameProvider = ({children}) => {
 	}
 
 	return (
-		<GameContext.Provider value={{ play, pause, isPaused, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickDrop }}>
+		<GameContext.Provider value={{ play, pause, isPaused, gTimer: gameStatus.gTimer, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickDrop }}>
 			{children}
 		</GameContext.Provider>
 	);
