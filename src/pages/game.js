@@ -13,6 +13,7 @@ function Game() {
 		<header>
 			<div className='container'>
   				<h1 id='title'>Tetris</h1>
+  				<span id='level'>Level 1</span>
   				{isPaused ? <FiPlay onClick={play} id='play' /> : <FiPause onClick={pause} id='pause' />}
   			</div>
   		</header>

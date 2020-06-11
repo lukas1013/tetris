@@ -26,14 +26,21 @@ body{
 }
 
 header > .container{
-	display: flex;
+	display: grid;
+	grid-auto-columns: repeat(3, 1fr);
 	padding: 2%;
 }
 
 header #title{
 	font-size: 2.5rem;
-	flex: 1 0 auto;
 	margin: 0;
+	grid-column: 1 / span 1;
+}
+
+#level{
+	font-size: 1.6rem;
+	grid-column: 2 / span 1;
+	align-self: center;
 }
 
 #play, #pause{
@@ -41,7 +48,8 @@ header #title{
 	height: 9vw;
 	stroke-width: 0;
 	fill: #fff;
-	align-self: center;
+	justify-self: end;
+	grid-column: 3 / span 1;
 }
 
 #root > .container{

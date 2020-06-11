@@ -19,8 +19,7 @@ export const GameProvider = ({children}) => {
 	const [poliminos, setPoliminos] = useState(null);
 	const [isQuickDrop, setQuickDrop] = useState(false);
 	const [isPaused, setIsPaused] = useState(false);
-	//const [gTimer, setGTimer] = useState(gameConfig.level1.generation / 1000 - 1);
-	
+
 	//fall effect
 	const fallInterval = useMemo(() => {
 		if (!isPaused)
@@ -155,7 +154,7 @@ export const GameProvider = ({children}) => {
 				
 				return newState;
 			
-			//case generation timer 
+			//case 'generation timer':
 			default:
 				if (gTimer === 0) {
 					let type = 'dot';
