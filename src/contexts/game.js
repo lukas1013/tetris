@@ -10,7 +10,9 @@ import
 	} from 'react';
 
 import gameConfig from '../config/game';
+import { canMoveLeft, canMoveRight, canFall } from '../helpers/move';
 import Dot from '../components/dot';
+import T from '../components/t';
 
 const GameContext = createContext({});
 
@@ -42,42 +44,6 @@ export const GameProvider = ({children}) => {
 			}, 1000);
 	}, [isPaused]);
 	
-	const canMoveLeft = useCallback((poliminos, {posY, posX, hasArrived}) => {
-		if (hasArrived || posX === gameConfig.minX)
-			return false;
-			
-		if (poliminos.some(p => {
-			return p.posX === posX - 10 && p.posY === posY
-		})) {
-			return false;
-		}
-		return true;
-	}, []);
-	
-	const canMoveRight = useCallback((poliminos, {posY, posX, hasArrived}) => {
-		if (hasArrived || posX === gameConfig.maxX)
-			return false;
-			
-		if (poliminos.some(p => {
-			return p.posX === posX + 10 && p.posY === posY
-		})) {
-			return false;
-		}
-		return true;
-	}, []);
-
-	const canFall = useCallback((poliminos, {posY, posX, hasArrived}) => {
-		if (hasArrived || posY === gameConfig.maxY)
-			return false;
-		
-		if (poliminos.some(p => {
-			return p.posY === posY + 10 && p.posX === posX && (p.hasArrived || p.posY === gameConfig.maxY)
-		})) {
-			return false;
-		}
-		return true;
-	}, []);
-	
 	function getNextFocus(state) {
 		const newFocus = [...state.poliminos].reduce((pre, next) => {
 			if ((pre.posY > next.posY && !pre.hasArrived) || (!pre.hasArrived && next.hasArrived)) {
@@ -92,7 +58,7 @@ export const GameProvider = ({children}) => {
 	}
 	
 	const initialGameStatus = {
-		poliminos: [{type: 'dot', posX: 40, posY: 0}],
+		poliminos: [{type: 't', coords: [{x: 30, y: 0}, {x: 40, y: 0}, {x: 50, y: 0}, {x: 40, y: 10}], spin: 0}],
 		inFocus: 0,
 		gTimer: gameConfig.level1.generation / 1000 - 1
 	}
@@ -142,8 +108,16 @@ export const GameProvider = ({children}) => {
 			case 'down':
 				newState.poliminos = newState.poliminos.map(polimino => {
 					if (canFall(newState.poliminos, polimino)) {
-						polimino.posY += 10;
-						polimino.hasArrived = !canFall(newState.poliminos, polimino)
+						if (polimino.type === 't') {
+							const { coords } = polimino;
+							polimino.coords = coords.map(coord => {
+								coord.y += 10
+								return coord
+							})
+						}else{
+							polimino.posY += 10;
+							polimino.hasArrived = !canFall(newState.poliminos, polimino)
+						}
 					}
 					return polimino;
 				});
@@ -178,7 +152,9 @@ export const GameProvider = ({children}) => {
 	//render
 	useEffect(() => {
 		const newPoliminos = gameStatus.poliminos.map((data, key) => {
-			return <Dot key={key} x={data.posX} y={data.posY} />;
+			if (data.type === 't')
+				return <T key={key} coords={data.coords} fill='white'/>;
+			return <Dot key={key} coords={{x: data.posX, y: data.posY}} fill='white' />;
 		});
 		
 		setPoliminos(newPoliminos);
