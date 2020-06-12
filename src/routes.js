@@ -2,8 +2,8 @@ import React, { Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { GameProvider } from './contexts/game';
 
-const Home = React.lazy(() => import('./pages/home/'));
-const Game = React.lazy(() => import('./pages/game/'));
+import Home from './pages/home/';
+import Game from './pages/game/';
 
 export default function Routes() {
 	return (

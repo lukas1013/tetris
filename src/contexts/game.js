@@ -42,18 +42,6 @@ export const GameProvider = ({children}) => {
 			}, 1000);
 	}, [isPaused]);
 	
-	const canFall = useCallback((poliminos, {posY, posX, hasArrived}) => {
-		if (hasArrived || posY === gameConfig.maxY)
-			return false;
-		
-		if (poliminos.some(p => {
-			return p.posY === posY + 10 && p.posX === posX && (p.hasArrived || p.posY === gameConfig.maxY)
-		})) {
-			return false;
-		}
-		return true;
-	}, []);
-	
 	const canMoveLeft = useCallback((poliminos, {posY, posX, hasArrived}) => {
 		if (hasArrived || posX === gameConfig.minX)
 			return false;
@@ -72,6 +60,18 @@ export const GameProvider = ({children}) => {
 			
 		if (poliminos.some(p => {
 			return p.posX === posX + 10 && p.posY === posY
+		})) {
+			return false;
+		}
+		return true;
+	}, []);
+
+	const canFall = useCallback((poliminos, {posY, posX, hasArrived}) => {
+		if (hasArrived || posY === gameConfig.maxY)
+			return false;
+		
+		if (poliminos.some(p => {
+			return p.posY === posY + 10 && p.posX === posX && (p.hasArrived || p.posY === gameConfig.maxY)
 		})) {
 			return false;
 		}
@@ -157,7 +157,7 @@ export const GameProvider = ({children}) => {
 			//case 'generation timer':
 			default:
 				if (gTimer === 0) {
-					let type = 'dot';
+					const type = 'dot';
 					newState.poliminos.push({
 						type,
 						posX: 40,
@@ -184,21 +184,21 @@ export const GameProvider = ({children}) => {
 		setPoliminos(newPoliminos);
 	}, [gameStatus]);
 	
-	const play = () => setIsPaused(false)
+	const play = useCallback(() => setIsPaused(false), []);
 	
-	const pause = () => {
+	const pause = useCallback(() => {
 		clearInterval(fallInterval)
 		clearInterval(quickFallInterval)
 		clearInterval(generationTimer)
 		setIsPaused(true)
-	}
+	}, [fallInterval, generationTimer, quickFallInterval])
 	
 	const moveLeft = () => dispatch({type: 'left'});
 
 	const moveRight = () => dispatch({type: 'right'});
 
 	const getDownFaster = () => setQuickDrop(true);
-
+	
 	const cancelQuickDrop = () => {
 		clearInterval(quickFallInterval);
 		setQuickDrop(false);
