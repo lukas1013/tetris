@@ -25,16 +25,30 @@ export function canMoveRight(poliminos, polimino) {
 }
 
 export function canFall(poliminos, polimino) {
-	if (polimino.type === 't')
-			return true
-		
-	if (polimino.hasArrived || polimino.posY === gameConfig.maxY)
-		return false;
+	let points;
 	
-	if (poliminos.some(p => {
-		return p.posY === polimino.posY + 10 && p.posX === polimino.posX && (p.polimino.hasArrived || p.posY === gameConfig.maxY)
-	})) {
-		return false;
+	if (polimino.type === 't') {
+		//extracting the coords from the collision points
+		const [c0,,c2,c3] = polimino.coords;
+		points = [c0,c2,c3];
 	}
-	return true;
+	
+	const collided = points.some(point => {
+		if (point.y === gameConfig.maxY)
+			return point
+		
+		//for each polimino
+		if(poliminos.some(p => {
+			const { hasArrived, coords} = p;
+			if (coords.some(c => {
+				return c.y === point.y + 10 && c.x === point.x && (hasArrived || c.y === gameConfig.maxY)
+			})) {
+				return p
+			}
+		}))
+			return point
+	});
+	
+	//if collided, can't fall
+	return !collided;
 }
