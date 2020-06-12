@@ -2,8 +2,10 @@ import React from 'react';
 import { GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
 import { FiPlay, FiPause, FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCircle } from 'react-icons/fi';
 
-import { useGame } from '../contexts/game';
-import Dot from '../components/dot';
+import { useGame } from '../../contexts/game';
+import Dot from '../../components/dot';
+
+import './styles.css';
 
 function Game() {
 	const { play, pause, isPaused, gTimer, poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster } = useGame();
@@ -18,7 +20,7 @@ function Game() {
   			</div>
   		</header>
   		
-		<div className='container'>
+		<div id='game-content' className='content'>
 			<svg version="1.1"
    			xmlns="http://www.w3.org/2000/svg"
    			width='100'

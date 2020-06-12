@@ -37,96 +37,11 @@ header #title{
 	grid-column: 1 / span 1;
 }
 
-#level{
-	font-size: 1.6rem;
-	grid-column: 2 / span 1;
-	align-self: center;
-}
-
-#play, #pause{
-	width: 9vw;
-	height: 9vw;
-	stroke-width: 0;
-	fill: #fff;
-	justify-self: end;
-	grid-column: 3 / span 1;
-}
-
-#root > .container{
+#root > .content{
 	flex: 1 1 auto;
 	width: 100%;
 	height: 50%;
 	display: flex;
-}
-
-
-.block-container{
-	height: 100%;
-	width: auto;
-	flex: 0 0 auto;
-	background-color: #222;
-}
-
-#side{
-	height: 100%;
-	color: #fff;
-	flex: 1 0 auto;
-	padding: 1%;
-	width: 10%;
-	background-color: var(--black);
-}
-
-#side h3{
-	margin: 0;
-	color: var(--primary);
-}
-
-#side h4{
-	margin: 0;
-	text-indent: 1%;
-}
-
-#side h3:last-of-type{
-	margin: 10% 0;
-	display: inline-block;
-}
-
-#generation-time{
-	margin-left: 10%;
-}
-
-#next-container{
-	width: 50%;
-	height: 30%;
-}
-
-footer > .container{
-	width: 100%;
-	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	grid-auto-rows: 1fr;
-	grid-column-gap: 10%;
-}
-
-footer > .container .button{
-	height: auto;
-	width: 100%;
-	place-self: center;
-	stroke: var(--primary);
-}
-
-.container .button.spin{
-	fill: var(--primary);
-}
-
-.container .button:hover{
-	animation: buttonClick .8s;
-}
-
-@keyframes buttonClick{
-	from{
-		width: 90%;
-	}
 }
 
 header,
@@ -136,10 +51,4 @@ footer{
 	width: 100%;
 	box-sizing: border-box;
 	background-color: var(--black);
-}
-
-@media (max-height: 199vw) {
-	.block-container{
-		/*background-color: #444;*/
-	}
 }

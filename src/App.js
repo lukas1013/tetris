@@ -1,13 +1,8 @@
 import React from 'react';
-
-import { GameProvider } from './contexts/game'; 
-import Game from './pages/game';
+import Routes from './routes'; 
 
 import './styles.css';
 
-const App = () => 
-	(<GameProvider>
-		<Game/>
-	</GameProvider>);
+const App = () => <Routes/>
 
 export default App;
