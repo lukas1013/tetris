@@ -10,7 +10,7 @@ import
 	} from 'react';
 
 import gameConfig from '../config/game';
-import { canMoveLeft, canMoveRight, canFall } from '../helpers/move';
+import { canMoveLeft, canMoveRight, canFall } from '../helpers/motion';
 import Dot from '../components/dot';
 import T from '../components/t';
 
@@ -83,20 +83,42 @@ export const GameProvider = ({children}) => {
 
 			case 'left':
 				if (canMoveLeft(newState.poliminos, newState.poliminos[inFocus])) {
-					newState.poliminos[inFocus].posX -= 10;
+					if (newState.poliminos[inFocus].type === 't') {
+						const { coords } = newState.poliminos[inFocus];
+						newState.poliminos[inFocus].coords = coords.map(coord => {
+							coord.x -= 10
+							return coord
+						})
+					}else {
+						newState.poliminos[inFocus].posX -= 10;
+					}
 				}
 				return newState;
 
 			case 'right':
 				if (canMoveRight(newState.poliminos, newState.poliminos[inFocus])) {
-					newState.poliminos[inFocus].posX += 10;
+					if (newState.poliminos[inFocus].type === 't') {
+						const { coords } = newState.poliminos[inFocus];
+						newState.poliminos[inFocus].coords = coords.map(coord => {
+							coord.x += 10
+							return coord
+						})
+					}else {
+						newState.poliminos[inFocus].posX += 10;
+					}
 				}
 				return newState;
 
 			case 'quick drop':
-				if (canFall(newState.poliminos, newState.poliminos[inFocus])) {
-					newState.poliminos[inFocus].posY += 10;
-					newState.poliminos[inFocus].hasArrived = !canFall(newState.poliminos, newState.poliminos[inFocus]);
+				const polimino = newState.poliminos[inFocus];
+				if (canFall(newState.poliminos, polimino)) {
+					const { coords } = polimino
+					newState.poliminos[inFocus].coords = coords.map(coord => {
+						coord.y += 10;
+						return coord
+					});
+					
+					newState.poliminos[inFocus].hasArrived = !canFall(newState.poliminos, polimino);
 				}
 				
 				if (newState.poliminos[inFocus].hasArrived) {
@@ -116,8 +138,8 @@ export const GameProvider = ({children}) => {
 							})
 						}else{
 							polimino.posY += 10;
-							polimino.hasArrived = !canFall(newState.poliminos, polimino)
 						}
+						polimino.hasArrived = !canFall(newState.poliminos, polimino)
 					}
 					return polimino;
 				});
@@ -131,11 +153,15 @@ export const GameProvider = ({children}) => {
 			//case 'generation timer':
 			default:
 				if (gTimer === 0) {
-					const type = 'dot';
+					const type = 't';
 					newState.poliminos.push({
 						type,
-						posX: 40,
-						posY: 0
+						coords: [
+							{x: 30, y: 0},
+							{x: 40, y: 0},
+							{x: 50, y: 0},
+							{x: 40, y: 10}
+						]
 					});
 					
 					newState.gTimer = gameConfig.level1.generation / 1000 - 1;
