@@ -54,7 +54,7 @@ export function canMoveLeft(poliminos, polimino) {
 				//ignores the same array
 				if (coords === polimino.coords)
 					return false;
-				//alert(`${c.x === point.x - 10}: point: ${JSON.stringify(point)}\ncoord: ${JSON.stringify(c)}`)
+				
 				return c.x === point.x - 10 && c.y === point.y
 			})) {
 				return p
@@ -68,13 +68,36 @@ export function canMoveLeft(poliminos, polimino) {
 }
 
 export function canMoveRight(poliminos, polimino) {
-	if (polimino.hasArrived || polimino.posX === gameConfig.maxX)
-			return false;
-			
-	if (poliminos.some(p => {
-		return p.posX === polimino.posX + 10 && p.posY === polimino.posY
-	})) {
-		return false;
+	if (polimino.hasArrived)
+		return false
+	
+	let points;
+	
+	if (polimino.type === 't') {
+		const [,,c2,c3] = polimino.coords;
+		points = [c2,c3];
 	}
-	return true;
+	
+	const collided = points.some(point => {
+		//hit the left side
+		if (point.x === gameConfig.maxX)
+			return point
+		
+		if(poliminos.some(p => {
+			const { hasArrived, coords} = p;
+			if (coords.some(c => {
+				//ignores the same array
+				if (coords === polimino.coords)
+					return false;
+				
+				return c.x === point.x + 10 && c.y === point.y
+			})) {
+				return p
+			}
+		})) {
+			return point
+		}
+	});
+	
+	return !collided;
 }
