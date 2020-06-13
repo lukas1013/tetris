@@ -14,18 +14,18 @@ export function canFall(poliminos, polimino) {
 	
 	const collided = points.some(point => {
 		if (point.y === gameConfig.maxY)
-			return point
+			return true
 		
 		//for each polimino
 		if(poliminos.some(p => {
-			const { hasArrived, coords} = p;
-			if (coords.some(c => {
-				return c.y === point.y + 10 && c.x === point.x && (hasArrived || c.y === gameConfig.maxY)
-			})) {
-				return p
+			const { hasArrived, coords } = p;
+			if (coords.some(c => c.y === point.y + 10 && c.x === point.x && (hasArrived || c.y === gameConfig.maxY))) {
+				return true
 			}
+			return false
 		}))
-			return point
+			return true
+		return false
 	});
 	
 	//if collided, can't fall
@@ -46,10 +46,10 @@ export function canMoveLeft(poliminos, polimino) {
 	const collided = points.some(point => {
 		//hit the left side
 		if (point.x === gameConfig.minX)
-			return point
+			return true
 		
 		if(poliminos.some(p => {
-			const { hasArrived, coords} = p;
+			const { coords } = p;
 			if (coords.some(c => {
 				//ignores the same array
 				if (coords === polimino.coords)
@@ -57,11 +57,13 @@ export function canMoveLeft(poliminos, polimino) {
 				
 				return c.x === point.x - 10 && c.y === point.y
 			})) {
-				return p
+				return true
 			}
+			return false
 		})) {
-			return point
+			return true
 		}
+		return false
 	});
 	
 	return !collided;
@@ -81,10 +83,10 @@ export function canMoveRight(poliminos, polimino) {
 	const collided = points.some(point => {
 		//hit the left side
 		if (point.x === gameConfig.maxX)
-			return point
+			return true
 		
 		if(poliminos.some(p => {
-			const { hasArrived, coords} = p;
+			const { coords } = p;
 			if (coords.some(c => {
 				//ignores the same array
 				if (coords === polimino.coords)
@@ -92,11 +94,13 @@ export function canMoveRight(poliminos, polimino) {
 				
 				return c.x === point.x + 10 && c.y === point.y
 			})) {
-				return p
+				return true
 			}
+			return false
 		})) {
-			return point
+			return true
 		}
+		return false
 	});
 	
 	return !collided;

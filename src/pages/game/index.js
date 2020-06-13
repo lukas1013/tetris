@@ -4,6 +4,7 @@ import { FiPlay, FiPause, FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCirc
 
 import { useGame } from '../../contexts/game';
 import Dot from '../../components/dot';
+import T from '../../components/t';
 
 import './styles.css';
 
@@ -36,7 +37,19 @@ function Game() {
 				<h3>Next:</h3>
 				<span id='generation-time'>{gTimer}s</span>
 				<svg version='1.1' width='30' height='90' viewBox='0 0 30 90' id='next-container'>
-					<Dot style={{
+					<T fill='yellow' coords={[{
+						x: 0,
+						y: 0
+					},{
+						x: 10,
+						y: 0
+					},{
+						x: 20,
+						y: 0
+					},{
+						x: 10,
+						y: 10
+					}]} style={{
 						width: '30%',
 						height: '10%'
 					}} />
@@ -44,12 +57,12 @@ function Game() {
 					<Dot style={{
 						width: '30%',
 						height: '10%'
-					}} y='20' />
+					}} coords={{x: 10, y: '30'}} />
 					
 					<Dot style={{
 						width: '30%',
 						height: '10%'
-					}} y='40' />
+					}} coords={{x: 10, y: '50'}} />
 				</svg>
 				
 			</div>
