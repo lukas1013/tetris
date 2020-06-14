@@ -39,8 +39,8 @@ export function canMoveLeft(poliminos, polimino) {
 	let points;
 	
 	if (polimino.type === 't') {
-		const [c0,,,c3] = polimino.coords;
-		points = [c0,c3];
+		const [c0,,c2,c3] = polimino.coords;
+		points = [c0,c2,c3];
 	}
 	
 	const collided = points.some(point => {
@@ -76,8 +76,8 @@ export function canMoveRight(poliminos, polimino) {
 	let points;
 	
 	if (polimino.type === 't') {
-		const [,,c2,c3] = polimino.coords;
-		points = [c2,c3];
+		const [c0,,c2,c3] = polimino.coords;
+		points = [c0,c2,c3];
 	}
 	
 	const collided = points.some(point => {
