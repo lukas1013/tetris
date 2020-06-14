@@ -1,8 +1,12 @@
 import React, { memo } from 'react';
-import getBlockCoords from '../../helpers/coords/t';
 
-function T({ coords, angle, style }){
-	const [a,b,c,d] = getBlockCoords(coords, angle);
+function O({ coords, style }){
+	const a = {}, b = coords, c = {}, d = {};
+	
+	a.y = b.y;
+	a.x = c.x = b.x - 10;
+	d.y = c.y = b.y + 10;
+	d.x = b.x;
 	
 	return (
 		<>
@@ -10,33 +14,32 @@ function T({ coords, angle, style }){
 			{...a}
 			width='10'
 			height='10'
-			fill='yellow'
+			fill='green'
 			style={style}
 			className='dot'/>
 		
 		<rect {...b}
 			width='10'
 			height='10'
-			fill='yellow'
+			fill='green'
 			style={style}
 			className='dot'/>
 		
 		<rect {...c}
 			width='10'
 			height='10'
-			fill='yellow'
+			fill='green'
 			style={style}
 			className='dot'/>
 		
 		<rect {...d}
 			width='10'
 			height='10'
-			fill='yellow'
+			fill='green'
 			style={style}
 			className='dot'/>
 		
 		</>
 	)
 }
-
-export default memo(T);
+export default memo(O);
