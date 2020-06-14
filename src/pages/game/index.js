@@ -9,7 +9,7 @@ import T from '../../components/t';
 import './styles.css';
 
 function Game() {
-	const { play, pause, isPaused, gTimer, poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster, clockwiseRotate, antiClockwiseRotate } = useGame();
+	const { play, pause, isPaused, gTimer, score, poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster, clockwiseRotate, antiClockwiseRotate } = useGame();
 
 	return (
 		<>
@@ -33,7 +33,7 @@ function Game() {
 			
 			<div id='side'>
 				<h3>Score:</h3> 
-				<h4>0</h4> 
+				<h4>{score}</h4> 
 				<h3>Next:</h3>
 				<span id='generation-time'>{gTimer}s</span>
 				<svg version='1.1' width='30' height='90' viewBox='0 0 30 90' id='next-container'>

@@ -61,7 +61,8 @@ export const GameProvider = ({children}) => {
 	const initialGameStatus = {
 		poliminos: [{type: 't', coords: [{x: 30, y: 0}, {x: 40, y: 0}, {x: 50, y: 0}, {x: 40, y: 10}], spin: 0}],
 		inFocus: 0,
-		gTimer: gameConfig.level1.generation / 1000 - 1
+		gTimer: gameConfig.level1.generation / 1000 - 1,
+		score: 0
 	}
 	
 	function reducer(state, action) {
@@ -137,6 +138,7 @@ export const GameProvider = ({children}) => {
 							return coord
 						})
 					}
+					
 					polimino.hasArrived = !motionHelper.canFall(newState.poliminos, polimino)
 					return polimino;
 				});
@@ -166,6 +168,16 @@ export const GameProvider = ({children}) => {
 				}
 				return newState;
 			
+			case 'update score':
+				let score = newState.poliminos.reduce((acc, p) => {
+					let points = p.hasArrived ? 10 : 0;
+					points += p.removeds ? p.removeds.length * 50 : 0;
+					return acc + points
+				}, 0)
+				
+				newState.score = score
+				return newState;
+			
 			//case 'generation timer':
 			default:
 				if (gTimer === 0) {
@@ -191,6 +203,10 @@ export const GameProvider = ({children}) => {
 	}
 	
 	const [gameStatus, dispatch] = useReducer(reducer, initialGameStatus);
+	
+	useEffect(() => {
+		dispatch({type: 'update score'})
+	}, [gameStatus.poliminos])
 	
 	//render
 	useEffect(() => {
@@ -228,7 +244,7 @@ export const GameProvider = ({children}) => {
 	const clockwiseRotate = () => dispatch({type: 'rotate right'})
 	
 	return (
-		<GameContext.Provider value={{ play, pause, isPaused, gTimer: gameStatus.gTimer, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickDrop, clockwiseRotate, antiClockwiseRotate }}>
+		<GameContext.Provider value={{ play, pause, isPaused, gTimer: gameStatus.gTimer, score: gameStatus.score, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickDrop, clockwiseRotate, antiClockwiseRotate }}>
 			{children}
 		</GameContext.Provider>
 	);
