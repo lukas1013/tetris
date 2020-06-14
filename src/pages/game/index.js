@@ -9,7 +9,7 @@ import T from '../../components/t';
 import './styles.css';
 
 function Game() {
-	const { play, pause, isPaused, gTimer, poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster } = useGame();
+	const { play, pause, isPaused, gTimer, poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster, clockwiseRotate, antiClockwiseRotate } = useGame();
 
 	return (
 		<>
@@ -72,7 +72,7 @@ function Game() {
 		<footer>
 			<div className='container'>
 			
-				<GiAnticlockwiseRotation className='button spin' />
+				<GiAnticlockwiseRotation onClick={antiClockwiseRotate} className='button spin' />
 				
 				<FiArrowLeftCircle onClick={moveLeft} className='button' />
 				
@@ -80,7 +80,7 @@ function Game() {
 				
 				<FiArrowRightCircle onClick={moveRight} className='button' />
 				
-				<GiClockwiseRotation className='button spin' />
+				<GiClockwiseRotation onClick={clockwiseRotate} className='button spin' />
 				
 			</div>
 			
