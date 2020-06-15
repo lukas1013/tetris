@@ -6,6 +6,9 @@ export function canRotateLeft(poliminos, polimino) {
 	
 	if (polimino.type === 't')
 		return t.canRotate(poliminos, polimino, 'left')
+	
+	//O
+	return false
 }
 
 export function canRotateRight(poliminos, polimino) {
@@ -15,6 +18,8 @@ export function canRotateRight(poliminos, polimino) {
 	if (polimino.type === 't')
 		return t.canRotate(poliminos, polimino, 'right')
 	
+	//O
+	return false
 }
 
 export function getRotateLeft(coords, angle, type) {

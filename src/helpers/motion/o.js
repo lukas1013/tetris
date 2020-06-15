@@ -23,9 +23,7 @@ export function canFall(poliminos, { coords, angle, type}) {
 }
 
 export function canMoveLeft(poliminos, polimino) {
-	let points;
-	const [a,,c,d] = getBlockCoords(polimino.type, polimino.coords, polimino.angle)
-	points = [a,c,d];
+	const points = getBlockCoords(polimino.type, polimino.coords, polimino.angle)
 
 	const collided = points.some(point => {
 		//hit the left side
@@ -48,9 +46,7 @@ export function canMoveLeft(poliminos, polimino) {
 }
 
 export function canMoveRight(poliminos, polimino) {
-	let points;
-	const [a,,c,d] = getBlockCoords(polimino.type, polimino.coords, polimino.angle)
-	points = [a,c,d];
+	const points = getBlockCoords(polimino.type, polimino.coords, polimino.angle)
 
 	const collided = points.some(point => {
 		//hit the left side

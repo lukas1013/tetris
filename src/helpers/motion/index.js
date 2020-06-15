@@ -17,6 +17,8 @@ export function canMoveLeft(poliminos, polimino) {
 	
 	if (polimino.type === 't')
 		return t.canMoveLeft(poliminos, polimino)
+	if (polimino.type === 'o')
+		return o.canMoveLeft(poliminos, polimino)
 }
 
 export function canMoveRight(poliminos, polimino) {
@@ -25,4 +27,6 @@ export function canMoveRight(poliminos, polimino) {
 	
 	if (polimino.type === 't')
 		return t.canMoveRight(poliminos, polimino)
+	if (polimino.type === 'o')
+		return o.canMoveRight(poliminos, polimino)
 }
