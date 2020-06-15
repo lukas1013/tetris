@@ -199,6 +199,8 @@ export const GameProvider = ({children}) => {
 			
 			if (data.type === 'l')
 				return <L key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+			//tmp
+			return null
 		});
 		
 		setPoliminos(newPoliminos);
