@@ -49,7 +49,7 @@ export const GameProvider = ({children}) => {
 	
 	function getRandomPoliminoType() {
 		const types = ['t', 'o'];
-		const r = Math.round(Math.random() * types.length)
+		const r = Math.floor(Math.random() * types.length)
 		return types[r]
 	}
 	
