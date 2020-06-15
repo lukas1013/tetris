@@ -16,6 +16,7 @@ import * as rotationHelper from '../helpers/rotation/';
 import Dot from '../components/dot';
 import T from '../components/t';
 import O from '../components/o';
+import I from '../components/i';
 
 const GameContext = createContext({});
 
@@ -48,7 +49,7 @@ export const GameProvider = ({children}) => {
 	}, [isPaused]);
 	
 	function getRandomPoliminoType() {
-		const types = ['t', 'o'];
+		const types = ['t', 'o', 'i'];
 		const r = Math.floor(Math.random() * types.length)
 		return types[r]
 	}
@@ -67,7 +68,7 @@ export const GameProvider = ({children}) => {
 	}
 	
 	const initialGameStatus = {
-		poliminos: [{type: 't', coords: {x: 40, y: 0}, angle: 0}],
+		poliminos: [{type: 'i', coords: {x: 40, y: 0}, angle: 0}],
 		inFocus: 0,
 		gTimer: gameConfig.level1.generation / 1000 - 1,
 		score: 0
@@ -191,7 +192,9 @@ export const GameProvider = ({children}) => {
 			
 			if (data.type === 'o')
 				return <O key={key} coords={data.coords} fill='white'/>;
-			return <Dot key={key} coords={{x: data.posX, y: data.posY}} fill='white' />;
+			
+			if (data.type === 'i')
+				return <I key={key} coords={data.coords} angle={data.angle} fill='white'/>;
 		});
 		
 		setPoliminos(newPoliminos);

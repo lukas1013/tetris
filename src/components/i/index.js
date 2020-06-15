@@ -10,28 +10,28 @@ function I({ coords, angle, style }){
 			{...a}
 			width='10'
 			height='10'
-			fill='darkcyan'
+			fill='cyan'
 			style={style}
 			className='dot'/>
 		
 		<rect {...b}
 			width='10'
 			height='10'
-			fill='darkcyan'
+			fill='cyan'
 			style={style}
 			className='dot'/>
 		
 		<rect {...c}
 			width='10'
 			height='10'
-			fill='darkcyan'
+			fill='cyan'
 			style={style}
 			className='dot'/>
 		
 		<rect {...d}
 			width='10'
 			height='10'
-			fill='darkcyan'
+			fill='cyan'
 			style={style}
 			className='dot'/>
 		
