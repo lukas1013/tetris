@@ -47,11 +47,17 @@ export const GameProvider = ({children}) => {
 			}, 1000);
 	}, [isPaused]);
 	
+	function getRandomPoliminoType() {
+		const types = ['t', 'o'];
+		const r = Math.round(Math.random() * types.length)
+		return types[r]
+	}
+	
 	function getNextFocus(state) {
 		const newFocus = [...state.poliminos].reduce((pre, next) => {
-			if ((pre.posY > next.posY && !pre.hasArrived) || (!pre.hasArrived && next.hasArrived)) {
+			if ((pre.coords.y > next.coords.y && !pre.hasArrived) || (!pre.hasArrived && next.hasArrived)) {
 				return pre
-			}else if ((next.posY > pre.posY && !next.hasArrived) || (!next.hasArrived && pre.hasArrived)) {
+			}else if ((next.coords.y > pre.coords.y && !next.hasArrived) || (!next.hasArrived && pre.hasArrived)) {
 				return next
 			}
 			return next
@@ -156,9 +162,8 @@ export const GameProvider = ({children}) => {
 			//case 'generation timer':
 			default:
 				if (gTimer === 0) {
-					const type = 'o';
 					newState.poliminos.push({
-						type,
+						type: getRandomPoliminoType(),
 						coords: {x: 40, y: 0},
 						angle: 0
 					});
