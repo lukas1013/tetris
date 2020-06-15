@@ -3,16 +3,17 @@ import getBlockCoords from '../coords/';
 
 export function canRotate(poliminos, polimino, direction) {
 	const { angle, coords: {...b} } = polimino;
-	const points = rotate(b, angle, direction)
+	const newAngle = rotate(b, angle, direction)
+	const points = getBlockCoords('t', b, newAngle)
 	
 	const collided = poliminos.some(p => {
 		const { coords } = p;
 		if (p === polimino)
 			return false
-		
-		return coords.some(c => points.some(point => {
-			return point.x === c.x && point.y === c.y
-		}))
+
+		return points.some(point => {
+			return point.x === coords.x && point.y === coords.y
+		})
 	})
 	
 	return !collided

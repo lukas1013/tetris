@@ -9,13 +9,13 @@ export function canFall(poliminos, { coords, angle, type}) {
 			return true
 		
 		//for each polimino
-		if(poliminos.some(p => {
-			const { hasArrived, coords } = p;
-			return coords.y === point.y + 10 && coords.x === point.x && (hasArrived || coords.y === gameConfig.maxY)
-			}
-		))
-			return true
-		return false
+		return poliminos.some(p => {
+			const { hasArrived } = p;
+			const coords = getBlockCoords(p.type, p.coords, p.angle)
+			return coords.some(c => {
+				return c.y === point.y + 10 && c.x === point.x && (hasArrived || c.y === gameConfig.maxY)
+			})
+		})
 	});
 	
 	//if collided, can't fall
