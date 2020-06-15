@@ -1,6 +1,7 @@
 import getTCoords from './t';
 import getOCoords from './o';
 import getICoords from './i';
+import getLCoords from './l';
 
 export default function getBlockCoords(type, coords, angle) {
 	if (type === 't')
@@ -9,4 +10,6 @@ export default function getBlockCoords(type, coords, angle) {
 		return getOCoords(coords)
 	if (type === 'i')
 		return getICoords(coords, angle)
+	if (type === 'l')
+		return getLCoords(coords, angle)
 }
