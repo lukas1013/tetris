@@ -1,5 +1,6 @@
 import * as t from './t';
 import * as i from './i';
+import * as l from './l';
 
 export function canRotateLeft(poliminos, polimino) {
 	if (polimino.hasArrived)
@@ -9,6 +10,8 @@ export function canRotateLeft(poliminos, polimino) {
 		return t.canRotate(poliminos, polimino, 'left')
 	if (polimino.type === 'i')
 		return i.canRotate(poliminos, polimino, 'left')
+	if (polimino.type === 'l')
+		return l.canRotate(poliminos, polimino, 'left')
 	
 	//O
 	return false
@@ -22,6 +25,8 @@ export function canRotateRight(poliminos, polimino) {
 		return t.canRotate(poliminos, polimino, 'right')
 	if (polimino.type === 'i')
 		return i.canRotate(poliminos, polimino, 'right')
+	if (polimino.type === 'l')
+		return l.canRotate(poliminos, polimino, 'right')
 	
 	//O
 	return false
@@ -32,6 +37,8 @@ export function getRotateLeft(coords, angle, type) {
 		return t.rotate(coords, angle, 'left')
 	if (type === 'i')
 		return i.rotate(coords, angle, 'left')
+	if (type === 'l')
+		return l.rotate(coords, angle, 'left')
 }
 
 export function getRotateRight(coords, angle, type) {
@@ -39,4 +46,6 @@ export function getRotateRight(coords, angle, type) {
 		return t.rotate(coords, angle, 'right')
 	if (type === 'i')
 		return i.rotate(coords, angle, 'right')
+	if (type === 'l')
+		return l.rotate(coords, angle, 'right')
 }
