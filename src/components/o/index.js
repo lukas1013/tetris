@@ -1,12 +1,8 @@
 import React, { memo } from 'react';
+import getBlockCoords from '../../helpers/coords/o';
 
 function O({ coords, style }){
-	const a = {}, b = coords, c = {}, d = {};
-	
-	a.y = b.y;
-	a.x = c.x = b.x - 10;
-	d.y = c.y = b.y + 10;
-	d.x = b.x;
+	const [a,b,c,d] = getBlockCoords(coords)
 	
 	return (
 		<>

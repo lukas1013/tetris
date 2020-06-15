@@ -10,10 +10,12 @@ import
 	} from 'react';
 
 import gameConfig from '../config/game';
-import * as motionHelper from '../helpers/motion';
+import * as motionHelper from '../helpers/motion/';
 import * as rotationHelper from '../helpers/rotation/';
+
 import Dot from '../components/dot';
 import T from '../components/t';
+import O from '../components/o';
 
 const GameContext = createContext({});
 
@@ -59,7 +61,7 @@ export const GameProvider = ({children}) => {
 	}
 	
 	const initialGameStatus = {
-		poliminos: [{type: 't', coords: [{x: 30, y: 0}, {x: 40, y: 0}, {x: 50, y: 0}, {x: 40, y: 10}], spin: 0}],
+		poliminos: [{type: 't', coords: {x: 40, y: 0}, angle: 0}],
 		inFocus: 0,
 		gTimer: gameConfig.level1.generation / 1000 - 1,
 		score: 0
@@ -73,55 +75,32 @@ export const GameProvider = ({children}) => {
 			return newState;
 		
 		switch (action.type) {
-			case 'add':
-				let type = 'dot';
-				newState.poliminos.push({
-					type,
-					posX: 40,
-					posY: 0
-				});
-				
-				return newState;
-
 			case 'left':
 				if (motionHelper.canMoveLeft(newState.poliminos, newState.poliminos[inFocus])) {
-					if (newState.poliminos[inFocus].type === 't') {
-						const { coords } = newState.poliminos[inFocus];
-						newState.poliminos[inFocus].coords = coords.map(coord => {
-							coord.x -= 10
-							return coord
-						})
-					}else {
-						newState.poliminos[inFocus].posX -= 10;
-					}
+					const polimino = newState.poliminos[inFocus]
+					const coords = {x: polimino.coords.x - 10, y: polimino.coords.y}
+					newState.poliminos[inFocus].coords = coords
 				}
 				return newState;
 
 			case 'right':
 				if (motionHelper.canMoveRight(newState.poliminos, newState.poliminos[inFocus])) {
-					if (newState.poliminos[inFocus].type === 't') {
-						const { coords } = newState.poliminos[inFocus];
-						newState.poliminos[inFocus].coords = coords.map(coord => {
-							coord.x += 10
-							return coord
-						})
-					}else {
-						newState.poliminos[inFocus].posX += 10;
-					}
+					const polimino = newState.poliminos[inFocus]
+					const coords = {x: polimino.coords.x + 10, y: polimino.coords.y}
+					newState.poliminos[inFocus].coords = coords
 				}
 				return newState;
 
 			case 'quick drop':
 				if (motionHelper.canFall(newState.poliminos, newState.poliminos[inFocus])) {
 					const polimino = newState.poliminos[inFocus];
-					const { coords } = polimino
-					newState.poliminos[inFocus].coords = coords.map(coord => {
-						coord.y += 10;
-						return coord
-					});
-					
-					newState.poliminos[inFocus].hasArrived = !motionHelper.canFall(newState.poliminos, polimino);
+					const coords = {
+						x: polimino.coords.x,
+						y: polimino.coords.y + 10
+					}
+					polimino.coords = coords
 				}
+					newState.poliminos[inFocus].hasArrived = !motionHelper.canFall(newState.poliminos, newState.poliminos[inFocus]);
 				
 				if (newState.poliminos[inFocus].hasArrived) {
 					newState.inFocus = getNextFocus(newState)
@@ -132,13 +111,12 @@ export const GameProvider = ({children}) => {
 			case 'down':
 				newState.poliminos = newState.poliminos.map(polimino => {
 					if (motionHelper.canFall(newState.poliminos, polimino)) {
-						const { coords } = polimino;
-						polimino.coords = coords.map(coord => {
-							coord.y += 10
-							return coord
-						})
+						const coords = {
+							x: polimino.coords.x,
+							y: polimino.coords.y + 10
+						}
+						polimino.coords = coords
 					}
-					
 					polimino.hasArrived = !motionHelper.canFall(newState.poliminos, polimino)
 					return polimino;
 				});
@@ -152,19 +130,16 @@ export const GameProvider = ({children}) => {
 			case 'rotate left':
 				if (rotationHelper.canRotateLeft(newState.poliminos, newState.poliminos[inFocus])) {
 					const polimino = newState.poliminos[inFocus];
-					const { coords, spin, type } = polimino;
-					newState.poliminos[inFocus].coords = rotationHelper.getRotateLeft(coords, spin, type);
-					newState.poliminos[inFocus].spin = (spin > 0) ? spin - 1 : 3;
+					const { coords, angle, type } = polimino;
+					polimino.angle = rotationHelper.getRotateLeft(coords, angle, type)
 				}
 				return newState;
 				
 			case 'rotate right':
 				if (rotationHelper.canRotateRight(newState.poliminos, newState.poliminos[inFocus])) {
 					const polimino = newState.poliminos[inFocus];
-					const { coords, spin, type } = polimino;
-					newState.poliminos[inFocus].coords = rotationHelper.getRotateRight(coords, spin, type);
-					//alert(JSON.stringify(newState.poliminos[inFocus].coords))
-					newState.poliminos[inFocus].spin = (spin < 3) ? spin + 1 : 0;
+					const { coords, angle, type } = polimino;
+					polimino.angle = rotationHelper.getRotateRight(coords, angle, type)
 				}
 				return newState;
 			
@@ -181,16 +156,11 @@ export const GameProvider = ({children}) => {
 			//case 'generation timer':
 			default:
 				if (gTimer === 0) {
-					const type = 't';
+					const type = 'o';
 					newState.poliminos.push({
 						type,
-						coords: [
-							{x: 30, y: 0},
-							{x: 40, y: 0},
-							{x: 50, y: 0},
-							{x: 40, y: 10}
-						],
-						spin: 0
+						coords: {x: 40, y: 0},
+						angle: 0
 					});
 					
 					newState.gTimer = gameConfig.level1.generation / 1000 - 1;
@@ -207,12 +177,15 @@ export const GameProvider = ({children}) => {
 	useEffect(() => {
 		dispatch({type: 'update score'})
 	}, [gameStatus.poliminos])
-	
+
 	//render
 	useEffect(() => {
 		const newPoliminos = gameStatus.poliminos.map((data, key) => {
 			if (data.type === 't')
-				return <T key={key} coords={data.coords} fill='white'/>;
+				return <T key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+			
+			if (data.type === 'o')
+				return <O key={key} coords={data.coords} fill='white'/>;
 			return <Dot key={key} coords={{x: data.posX, y: data.posY}} fill='white' />;
 		});
 		

@@ -1,8 +1,9 @@
 import gameConfig from '../../config/game'
+import getBlockCoords from '../coords/';
 
-export function canRotate(poliminos, polimino, to) {
-	const { spin, coords: [{...a},{...b},{...c},{...d}] } = polimino;
-	const points = rotate([a,b,c,d], spin, to)
+export function canRotate(poliminos, polimino, direction) {
+	const { angle, coords: {...b} } = polimino;
+	const points = rotate(b, angle, direction)
 	
 	const collided = poliminos.some(p => {
 		const { coords } = p;
@@ -17,60 +18,29 @@ export function canRotate(poliminos, polimino, to) {
 	return !collided
 }
 
-export function rotate(coords, from, to) {
-	const [{...a},{...b},{...c},{...d}] = coords;
-	let spin;
+export function rotate(coords, from, direction) {
+	let angle;
 	
-	if (to === 'right') {
-		spin = from < 3 ? from + 1 : 0;
+	if (direction === 'right') {
+		angle = from < 270 ? from + 90 : 0;
 	}else {
-		spin = from > 0 ? from - 1 : 3;
+		angle = from > 0 ? from - 90 : 270;
 	}
 	
 	//if overtaking, push
-	if (b.x === gameConfig.maxX) {
-		b.x -= 10;
+	if (coords.x === gameConfig.maxX) {
+		coords.x -= 10;
 	}
 	
-	if (b.x === gameConfig.minX) {
-		b.x += 10;
+	if (coords.x === gameConfig.minX) {
+		coords.x += 10;
 	}
 	
-	if (b.y === gameConfig.minY) {
-		b.y += 10;
+	if (coords.y === gameConfig.minY) {
+		coords.y += 10;
 	}
 
-	if (spin === 0) {
-		a.x = b.x - 10;
-		c.x = b.x + 10;
-		d.y = b.y + 10;
-		a.y = c.y = b.y;
-		d.x = b.x;
-	}
+	const [,b,,] = getBlockCoords('t' ,coords, angle)
 	
-	if (spin === 1) {
-		a.y = b.y - 10;
-		c.y = b.y + 10;
-		d.x = b.x - 10;
-		a.x = c.x = b.x;
-		d.y = b.y;
-	}
-	
-	if (spin === 2) {
-		a.x = b.x + 10;
-		c.x = b.x - 10;
-		d.y = b.y - 10;
-		a.y = c.y = b.y;
-		d.x = b.x;
-	}
-	
-	if (spin === 3) {
-		a.y = b.y + 10;
-		c.y = b.y - 10;
-		d.x = b.x + 10;
-		a.x = c.x = b.x;
-		d.y = b.y;
-	}
-	
-	return [a,b,c,d]
+	return angle
 }

@@ -1,4 +1,3 @@
-import gameConfig from '../../config/game';
 import * as t from './t';
 
 export function canRotateLeft(poliminos, polimino) {
@@ -18,12 +17,12 @@ export function canRotateRight(poliminos, polimino) {
 	
 }
 
-export function getRotateLeft(coords, spin, type) {
+export function getRotateLeft(coords, angle, type) {
 	if (type === 't')
-		return t.rotate(coords, spin, 'left')
+		return t.rotate(coords, angle, 'left')
 }
 
-export function getRotateRight(coords, spin, type) {
+export function getRotateRight(coords, angle, type) {
 	if (type === 't')
-		return t.rotate(coords, spin, 'right')
+		return t.rotate(coords, angle, 'right')
 }
