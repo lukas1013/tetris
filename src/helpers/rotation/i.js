@@ -1,20 +1,11 @@
 import gameConfig from '../../config/game'
-import getBlockCoords from '../coords/';
+import { isCollided } from '../coords/';
 
 export function canRotate(poliminos, polimino, direction) {
-	const { angle, coords: {...b} } = polimino;
-	const newAngle = rotate(b, angle, direction)
-	const points = getBlockCoords('i', b, newAngle)
-	
-	const collided = poliminos.some(p => {
-		const { coords } = p;
-		if (p === polimino)
-			return false
+	const pol = {...polimino}
+	pol.angle = rotate({...pol.coords}, pol.angle, direction)
 
-		return points.some(point => {
-			return point.x === coords.x && point.y === coords.y
-		})
-	})
+	const collided = poliminos.some(p => p !== polimino ? isCollided(pol, p) : false)
 	
 	return !collided
 }
@@ -41,7 +32,5 @@ export function rotate(coords, from, direction) {
 		coords.y = angle === 270 ? coords.y + 20 : coords.y + 10
 	}
 
-	const [,b,,] = getBlockCoords('i' ,coords, angle)
-	
 	return angle
 }
