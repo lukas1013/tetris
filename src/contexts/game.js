@@ -25,7 +25,8 @@ export const GameProvider = ({children}) => {
 	const [poliminos, setPoliminos] = useState(null);
 	const [isQuickDrop, setQuickDrop] = useState(false);
 	const [isPaused, setIsPaused] = useState(false);
-
+	const [nextBlocks, setNextBlocks] = useState([]);
+	
 	//fall effect
 	const fallInterval = useMemo(() => {
 		if (!isPaused)
@@ -67,12 +68,27 @@ export const GameProvider = ({children}) => {
 		return state.poliminos.indexOf(newFocus)
 	}
 	
-	const initialGameStatus = {
+	const initialGameStatus = useMemo(() => ({
 		poliminos: [{type: 'l', coords: {x: 40, y: 0}, angle: 0}],
 		inFocus: 0,
 		gTimer: gameConfig.level1.generation / 1000 - 1,
-		score: 0
-	}
+		score: 0,
+		nextBlocks: (() => {
+			const blocks = []
+			
+			for (let i = 0; i < 3; i++) {
+				const type = getRandomPoliminoType()
+				let x = 10, y = 120 / 3 * i + 10;
+				
+				if (type === 'l') x = 5
+				if (type === 'o') x = 15
+				
+				blocks.push({type, angle: 0, coords: {x, y}})
+			}
+
+			return blocks
+		})()
+	}), [])
 	
 	function reducer(state, action) {
 		const newState = {...state};
@@ -163,12 +179,31 @@ export const GameProvider = ({children}) => {
 			//case 'generation timer':
 			default:
 				if (gTimer === 0) {
-					newState.poliminos.push({
-						type: getRandomPoliminoType(),
-						coords: {x: 40, y: 0},
-						angle: 0
-					});
+					const blocks = [...newState.nextBlocks]
+					const next = {...blocks.shift()}
+					next.coords = {x: 40, y: 0}
+					newState.poliminos.push(next);
 					
+					const type = getRandomPoliminoType()
+					const third = {
+						type,
+						angle: 0,
+						coords: {
+							x: (() => {
+								if (type === 'l') return 5
+								if (type === 'o') return 15
+								return 10
+							})()
+						}
+					}
+					
+					blocks.push(third)
+					for (let i = 0; i < 3; i++) {
+						blocks[i].coords.y = 120 / 3 * i + 10
+					}
+					
+					newState.nextBlocks = blocks
+
 					newState.gTimer = gameConfig.level1.generation / 1000 - 1;
 					return newState 
 				}
@@ -205,6 +240,26 @@ export const GameProvider = ({children}) => {
 		setPoliminos(newPoliminos);
 	}, [gameStatus]);
 	
+	useEffect(() => {
+		const newBlocks = gameStatus.nextBlocks.map((data, key) => {
+			if (data.type === 't')
+				return <T key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+			
+			if (data.type === 'o')
+				return <O key={key} coords={data.coords} fill='white'/>;
+			
+			if (data.type === 'i')
+				return <I key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+			
+			if (data.type === 'l')
+				return <L key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+			//tmp
+			return null
+		});
+		
+		setNextBlocks(newBlocks);
+	}, [gameStatus.nextBlocks]);
+	
 	const play = useCallback(() => setIsPaused(false), []);
 	
 	const pause = useCallback(() => {
@@ -230,7 +285,7 @@ export const GameProvider = ({children}) => {
 	const clockwiseRotate = () => dispatch({type: 'rotate right'})
 	
 	return (
-		<GameContext.Provider value={{ play, pause, isPaused, gTimer: gameStatus.gTimer, score: gameStatus.score, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickDrop, clockwiseRotate, antiClockwiseRotate }}>
+		<GameContext.Provider value={{ play, pause, isPaused, gTimer: gameStatus.gTimer, score: gameStatus.score, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickDrop, clockwiseRotate, antiClockwiseRotate, nextBlocks }}>
 			{children}
 		</GameContext.Provider>
 	);

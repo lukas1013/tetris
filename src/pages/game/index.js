@@ -3,14 +3,11 @@ import { GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
 import { FiPlay, FiPause, FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCircle } from 'react-icons/fi';
 
 import { useGame } from '../../contexts/game';
-import T from '../../components/t';
-import O from '../../components/o';
-import L from '../../components/l';
 
 import './styles.css';
 
 function Game() {
-	const { play, pause, isPaused, gTimer, score, poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster, clockwiseRotate, antiClockwiseRotate } = useGame();
+	const { play, pause, isPaused, gTimer, score, poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster, clockwiseRotate, antiClockwiseRotate, nextBlocks } = useGame();
 
 	return (
 		<>
@@ -37,32 +34,8 @@ function Game() {
 				<h4>{score}</h4> 
 				<h3>Next:</h3>
 				<span id='generation-timer'>{gTimer}s</span>
-				<svg version='1.1' width='30' height='90' viewBox='0 0 30 90' id='next' className='container'>
-					
-					<T style={{
-							width: '30%',
-							height: '10%'
-						}}
-						fill='yellow' 
-						angle={0}
-						coords={{x: 10,y: 0}} />
-						
-					<O style={{
-							width: '30%',
-							height: '10%'
-						}}
-						fill='yellow' 
-						angle={0}
-						coords={{x: 15,y: 30}} />
-						
-					<L style={{
-							width: '30%',
-							height: '10%'
-						}}
-						fill='yellow' 
-						angle={0}
-						coords={{x: 5,y: 70}} />
-					
+				<svg version='1.1' width='30' height='120' viewBox='0 0 30 120' id='next' className='container'>
+					{nextBlocks}
 				</svg>
 				
 			</aside>
