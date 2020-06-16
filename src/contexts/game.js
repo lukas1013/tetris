@@ -10,8 +10,8 @@ import
 	} from 'react';
 
 import gameConfig from '../config/game';
-import * as motionHelper from '../helpers/motion/';
-import * as rotationHelper from '../helpers/rotation/';
+import * as motionHelper from '../helpers/motion';
+import * as rotationHelper from '../helpers/rotation';
 
 import Dot from '../components/dot';
 import T from '../components/t';
@@ -139,7 +139,7 @@ export const GameProvider = ({children}) => {
 				if (rotationHelper.canRotateLeft(newState.poliminos, newState.poliminos[inFocus])) {
 					const polimino = newState.poliminos[inFocus];
 					const { coords, angle, type } = polimino;
-					polimino.angle = rotationHelper.getRotateLeft(coords, angle, type)
+					polimino.angle = rotationHelper.getRotate(coords, angle, type, 'left')
 				}
 				return newState;
 				
@@ -147,7 +147,7 @@ export const GameProvider = ({children}) => {
 				if (rotationHelper.canRotateRight(newState.poliminos, newState.poliminos[inFocus])) {
 					const polimino = newState.poliminos[inFocus];
 					const { coords, angle, type } = polimino;
-					polimino.angle = rotationHelper.getRotateRight(coords, angle, type)
+					polimino.angle = rotationHelper.getRotate(coords, angle, type, 'right')
 				}
 				return newState;
 			
