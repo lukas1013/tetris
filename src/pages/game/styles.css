@@ -25,6 +25,10 @@
 	background-color: #222;
 }
 
+.dot{
+	stroke-width: 1px;
+}
+
 #side{
 	height: 100%;
 	color: #fff;
@@ -49,13 +53,13 @@
 	display: inline-block;
 }
 
-#generation-time{
+#generation-timer{
 	margin-left: 10%;
 }
 
-#next-container{
+#next.container{
 	width: 50%;
-	height: 30%;
+	height: auto;
 }
 
 footer > .container{

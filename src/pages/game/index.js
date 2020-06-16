@@ -3,8 +3,9 @@ import { GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
 import { FiPlay, FiPause, FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCircle } from 'react-icons/fi';
 
 import { useGame } from '../../contexts/game';
-import Dot from '../../components/dot';
 import T from '../../components/t';
+import O from '../../components/o';
+import L from '../../components/l';
 
 import './styles.css';
 
@@ -31,41 +32,40 @@ function Game() {
 				{poliminos}
 			</svg>
 			
-			<div id='side'>
+			<aside id='side'>
 				<h3>Score:</h3> 
 				<h4>{score}</h4> 
 				<h3>Next:</h3>
-				<span id='generation-time'>{gTimer}s</span>
-				<svg version='1.1' width='30' height='90' viewBox='0 0 30 90' id='next-container'>
-					<T fill='yellow' coords={[{
-						x: 0,
-						y: 0
-					},{
-						x: 10,
-						y: 0
-					},{
-						x: 20,
-						y: 0
-					},{
-						x: 10,
-						y: 10
-					}]} style={{
-						width: '30%',
-						height: '10%'
-					}} />
+				<span id='generation-timer'>{gTimer}s</span>
+				<svg version='1.1' width='30' height='90' viewBox='0 0 30 90' id='next' className='container'>
 					
-					<Dot style={{
-						width: '30%',
-						height: '10%'
-					}} coords={{x: 10, y: '30'}} />
+					<T style={{
+							width: '30%',
+							height: '10%'
+						}}
+						fill='yellow' 
+						angle={0}
+						coords={{x: 10,y: 0}} />
+						
+					<O style={{
+							width: '30%',
+							height: '10%'
+						}}
+						fill='yellow' 
+						angle={0}
+						coords={{x: 15,y: 30}} />
+						
+					<L style={{
+							width: '30%',
+							height: '10%'
+						}}
+						fill='yellow' 
+						angle={0}
+						coords={{x: 5,y: 70}} />
 					
-					<Dot style={{
-						width: '30%',
-						height: '10%'
-					}} coords={{x: 10, y: '50'}} />
 				</svg>
 				
-			</div>
+			</aside>
 			
 		</div>
 		

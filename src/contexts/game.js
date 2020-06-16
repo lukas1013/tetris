@@ -13,7 +13,6 @@ import gameConfig from '../config/game';
 import * as motionHelper from '../helpers/motion';
 import * as rotationHelper from '../helpers/rotation';
 
-import Dot from '../components/dot';
 import T from '../components/t';
 import O from '../components/o';
 import I from '../components/i';
