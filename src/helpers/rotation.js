@@ -1,31 +1,23 @@
-import getBlockCoords, { isCollided } from './coords/';
+import getBlockCoords, { isCollided, traceRoute } from './coords/';
 
-export function canRotateLeft(poliminos, polimino) {
+export function canRotate(poliminos, polimino, direction) {
 	if (polimino.type === 'o')
 		return false
 	
 	if (polimino.hasArrived)
 		return false
+	
+	//check if there are any blocks in the path
+	const route = traceRoute(polimino.type, polimino.coords, polimino.angle, direction)
+	const collided = poliminos.some(p => {
+		if (p === polimino)
+			return false
 		
-	const pol = {...polimino}
-	pol.angle = pol.angle > 0 ? pol.angle - 90 : 270
-	
-	const collided = poliminos.some(p => p !== polimino ? isCollided(pol, p) : false)
-	
-	return !collided
-}
-
-export function canRotateRight(poliminos, polimino) {
-	if (polimino.type === 'o')
-		return false
-	
-	if (polimino.hasArrived)
-		return false
-		
-	const pol = {...polimino}
-	pol.angle = pol.angle < 270 ? pol.angle + 90 : 0
-	
-	const collided = poliminos.some(p => p !== polimino ? isCollided(pol, p) : false)
+		const coords = getBlockCoords(p.type, p.coords, p.angle)
+		return coords.some(c => route.some(r => {
+			return c.x === r.x && c.y === r.y
+		}))
+	})
 	
 	return !collided
 }

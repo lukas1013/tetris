@@ -41,3 +41,116 @@ export default function getBlockCoords(b, angle) {
 	
 	return [a,b,c,d]
 }
+
+export function traceRoute(b, angle, direction) {
+	const coords = [], [a,c,d] = getBlockCoords(b, angle)
+	let route;
+	
+	if (angle === 0 && direction === 'left') {
+		route = 315
+	}else {
+		route = direction === 'right' ? angle + 90 / 2 : angle - 90 / 2
+	}
+	
+	if (route === 45) {
+		coords.push({
+			x: b.x - 10,
+			y: b.y - 10
+		}, {
+			x: b.x,
+			y: b.y - 10
+		}, {
+			x: b.x - 10,
+			y: b.y
+		}, {
+			x: b.x - 10,
+			y: b.y + 10
+		}, {
+			x: b.x,
+			y: b.y + 10
+		}, {
+			x: b.x + 10,
+			y: b.y + 10
+		}, {
+			x: b.x + 10,
+			y: b.y
+		})
+	}
+	
+	if (route === 135) {
+		coords.push({
+			x: b.x,
+			y: b.y - 10
+		},{
+			x: b.x + 10,
+			y: b.y - 10
+		}, {
+			x: b.x + 10,
+			y: b.y
+		}, {
+			x: b.x - 10,
+			y: b.y + 10
+		}, {
+			x: b.x - 10,
+			y: b.y
+		}, {
+			x: b.x - 10,
+			y: b.y - 10
+		}, {
+			x: b.x,
+			y: b.y - 10
+		})
+	}
+	
+	if (route === 225) {
+		coords.push({
+			x: b.x - 10,
+			y: b.y
+		}, {
+			x: b.x - 10,
+			y: b.y - 10
+		}, {
+			x: b.x,
+			y: b.y - 10
+		}, {
+			x: b.x + 10,
+			y: b.y - 10
+		}, {
+			x: b.x + 10,
+			y: b.y
+		}, {
+			x: b.x + 10,
+			y: b.y + 10
+		}, {
+			x: b.x,
+			y: b.y + 10
+		})
+	}
+	
+	if (route === 315) {
+		coords.push({
+			x: b.x,
+			y: b.y + 10
+		}, {
+			x: b.x - 10,
+			y: b.y + 10
+		}, {
+			x: b.x - 10,
+			y: b.y
+		}, {
+			x: b.x,
+			y: b.y - 10
+		}, {
+			x: b.x + 10,
+			y: b.y - 10
+		}, {
+			x: b.x + 10,
+			y: b.y
+		}, {
+			x: b.x + 10,
+			y: b.y + 10
+		})
+	}
+	
+	return coords
+}

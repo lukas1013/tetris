@@ -122,9 +122,11 @@ export const GameProvider = ({children}) => {
 						y: polimino.coords.y + 10
 					}
 					polimino.coords = coords
+					if (coords.y === gameConfig.maxY) polimino.hasArrived = true
+				}else {
+					newState.poliminos[inFocus].hasArrived = true
 				}
-					newState.poliminos[inFocus].hasArrived = !motionHelper.canFall(newState.poliminos, newState.poliminos[inFocus]);
-				
+
 				if (newState.poliminos[inFocus].hasArrived) {
 					newState.inFocus = getNextFocus(newState)
 				}
@@ -139,8 +141,10 @@ export const GameProvider = ({children}) => {
 							y: polimino.coords.y + 10
 						}
 						polimino.coords = coords
+						if (coords.y === gameConfig.maxY) polimino.hasArrived = true
+					}else {
+						polimino.hasArrived = true
 					}
-					polimino.hasArrived = !motionHelper.canFall(newState.poliminos, polimino)
 					return polimino;
 				});
 				
@@ -151,7 +155,7 @@ export const GameProvider = ({children}) => {
 				return newState;
 			
 			case 'rotate left':
-				if (rotationHelper.canRotateLeft(newState.poliminos, newState.poliminos[inFocus])) {
+				if (rotationHelper.canRotate(newState.poliminos, newState.poliminos[inFocus], 'left')) {
 					const polimino = newState.poliminos[inFocus];
 					const { coords, angle, type } = polimino;
 					polimino.angle = rotationHelper.getRotate(coords, angle, type, 'left')
@@ -159,7 +163,7 @@ export const GameProvider = ({children}) => {
 				return newState;
 				
 			case 'rotate right':
-				if (rotationHelper.canRotateRight(newState.poliminos, newState.poliminos[inFocus])) {
+				if (rotationHelper.canRotate(newState.poliminos, newState.poliminos[inFocus], 'right')) {
 					const polimino = newState.poliminos[inFocus];
 					const { coords, angle, type } = polimino;
 					polimino.angle = rotationHelper.getRotate(coords, angle, type, 'right')
