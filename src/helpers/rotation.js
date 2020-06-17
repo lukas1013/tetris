@@ -1,4 +1,4 @@
-import getBlockCoords, { isCollided, traceRoute } from './coords/';
+import getBlockCoords, { traceRoute } from './coords/';
 
 export function canRotate(poliminos, polimino, direction) {
 	if (polimino.type === 'o')

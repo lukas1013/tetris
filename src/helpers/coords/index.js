@@ -1,5 +1,5 @@
 import getTCoords, * as t  from './t';
-import getOCoords, * as o from './o';
+import getOCoords from './o';
 import getICoords, * as i  from './i';
 import getLCoords, * as l  from './l';
 

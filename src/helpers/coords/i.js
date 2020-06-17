@@ -39,7 +39,7 @@ export default function getBlockCoords(b, angle) {
 }
 
 export function traceRoute(b, angle, direction) {
-	const coords = [], [a,c,d] = getBlockCoords(b, angle)
+	const coords = [];
 	let route;
 	
 	if (angle === 0 && direction === 'left') {
