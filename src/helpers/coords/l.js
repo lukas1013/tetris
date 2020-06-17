@@ -1,3 +1,5 @@
+import gameConfig from '../../config/game';
+
 export default function getBlockCoords(b, angle) {
 	const a = {}, c = {}, d = {};
 	
@@ -9,6 +11,8 @@ export default function getBlockCoords(b, angle) {
 	}
 	
 	if (angle === 90) {
+		if (b.x === gameConfig.minX) b.x = 10;
+		if (b.x === gameConfig.maxX) b.x -= 10;
 		a.y = c.y = b.y;
  		d.y = b.y + 10;
  		a.x = b.x + 10;
@@ -17,6 +21,7 @@ export default function getBlockCoords(b, angle) {
 	}
 	
 	if (angle === 180) {
+		if (b.x === gameConfig.minX) b.x = 10;
 		a.x = c.x = b.x;
 		d.x = b.x - 10;
 		a.y = b.y + 10;
@@ -24,6 +29,8 @@ export default function getBlockCoords(b, angle) {
 	}
 	
 	if (angle === 270) {
+		if (b.x === gameConfig.minX) b.x = 10;
+		if (b.x === gameConfig.maxX) b.x -= 10;
 		a.y = c.y = b.y;
 		d.y = b.y - 10;
 		a.x = b.x - 10;

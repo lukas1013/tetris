@@ -1,4 +1,3 @@
-import gameConfig from '../config/game';
 import getBlockCoords, { isCollided } from './coords/';
 
 export function canRotateLeft(poliminos, polimino) {
@@ -43,23 +42,6 @@ export function getRotate(b, angle, type, direction) {
 	}
 	
 	const coords = getBlockCoords(type, b, newAngle)
-	
-	for (let c of coords) {
-		if (c.x < gameConfig.minX) {
-			coords[1].x += c.x * -1
-			break
-		}
-		
-		if (c.x > gameConfig.maxX) {
-			coords[1].x -= c.x - gameConfig.maxX
-			break
-		}
-		
-		if (c.y < gameConfig.minY) {
-			coords[1].y += c.y * -1
-			break
-		}
-	}
 	
 	b = {...coords[1]}
 	
