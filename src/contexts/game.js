@@ -69,7 +69,7 @@ export const GameProvider = ({children}) => {
 	}
 	
 	const initialGameStatus = useMemo(() => ({
-		poliminos: [{type: 'l', coords: {x: 40, y: 0}, angle: 0}],
+		poliminos: [{type: getRandomPoliminoType(), coords: {x: 40, y: 0}, angle: 0}],
 		inFocus: 0,
 		gTimer: gameConfig.level1.generation / 1000 - 1,
 		score: 0,
