@@ -34,7 +34,7 @@ function Game() {
 				<h4>{score}</h4> 
 				<h3>Next:</h3>
 				<span id='generation-timer'>{gTimer}s</span>
-				<svg version='1.1' width='30' height='120' viewBox='0 0 30 120' id='next' className='container'>
+				<svg version='1.1' width='40' height='120' viewBox='0 0 40 120' id='next' className='container'>
 					{nextBlocks}
 				</svg>
 				
