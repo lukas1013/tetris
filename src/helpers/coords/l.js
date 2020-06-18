@@ -21,7 +21,6 @@ export default function getBlockCoords(b, angle) {
 	}
 	
 	if (angle === 180) {
-		if (b.x === gameConfig.minX) b.x = 10;
 		a.x = c.x = b.x;
 		d.x = b.x - 10;
 		a.y = b.y + 10;
