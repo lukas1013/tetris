@@ -1,7 +1,8 @@
-import getTCoords, * as t  from './t';
+import getTCoords, * as t from './t';
 import getOCoords from './o';
-import getICoords, * as i  from './i';
-import getLCoords, * as l  from './l';
+import getICoords, * as i from './i';
+import getLCoords, * as l from './l';
+import getJCoords, * as j from './j';
 
 export default function getBlockCoords(type, coords, angle) {
 	if (type === 't')
@@ -12,6 +13,8 @@ export default function getBlockCoords(type, coords, angle) {
 		return getICoords(coords, angle)
 	if (type === 'l')
 		return getLCoords(coords, angle)
+	if (type === 'j')
+		return getJCoords(coords, angle)
 }
 
 export function isCollided(p1, p2) {
@@ -31,4 +34,6 @@ export function traceRoute(type, b, angle, direction) {
 		return i.traceRoute(b, angle, direction)
 	if (type === 'l')
 		return l.traceRoute(b, angle, direction)
+	if (type === 'j')
+		return j.traceRoute(b, angle, direction)
 }
