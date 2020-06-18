@@ -58,6 +58,12 @@ export const GameProvider = ({children}) => {
 		return types[r]
 	}
 	
+	function getRandomColor() {
+		const colors = ['red', 'yellow', 'darkviolet', 'limegreen', 'turquoise']
+		const ind = Math.floor(Math.random() * colors.length)
+		return colors[ind]
+	}
+	
 	function getNextFocus(state) {
 		const newFocus = [...state.poliminos].reduce((pre, next) => {
 			if ((pre.coords.y > next.coords.y && !pre.hasArrived) || (!pre.hasArrived && next.hasArrived)) {
@@ -72,7 +78,7 @@ export const GameProvider = ({children}) => {
 	}
 	
 	const initialGameStatus = useMemo(() => ({
-		poliminos: [{type: getRandomPoliminoType(), coords: {x: 40, y: 0}, angle: 0}],
+		poliminos: [{type: getRandomPoliminoType(), coords: {x: 40, y: 0}, angle: 0, color: getRandomColor()}],
 		inFocus: 0,
 		gTimer: gameConfig.level1.generation / 1000 - 1,
 		score: 0,
@@ -86,7 +92,7 @@ export const GameProvider = ({children}) => {
 				if (type === 'l') x = 5
 				if (type === 'o') x = 15
 				
-				blocks.push({type, angle: 0, coords: {x, y}})
+				blocks.push({type, angle: 0, coords: {x, y}, color: getRandomColor()})
 			}
 
 			return blocks
@@ -201,7 +207,8 @@ export const GameProvider = ({children}) => {
 								if (type === 'o') return 15
 								return 10
 							})()
-						}
+						},
+						color: getRandomColor()
 					}
 					
 					blocks.push(third)
@@ -230,25 +237,25 @@ export const GameProvider = ({children}) => {
 	useEffect(() => {
 		const newPoliminos = gameStatus.poliminos.map((data, key) => {
 			if (data.type === 't')
-				return <T key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+				return <T key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
 			
 			if (data.type === 'o')
-				return <O key={key} coords={data.coords} fill='white'/>;
+				return <O key={key} coords={data.coords} color={data.color}/>;
 			
 			if (data.type === 'i')
-				return <I key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+				return <I key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
 			
 			if (data.type === 'l')
-				return <L key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+				return <L key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
 			
 			if (data.type === 'j')
-				return <J key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+				return <J key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
 			
 			if (data.type === 's')
-				return <S key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+				return <S key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
 			
 			if (data.type === 'z')
-				return <Z key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+				return <Z key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
 			//tmp
 			return null
 		});
@@ -259,25 +266,25 @@ export const GameProvider = ({children}) => {
 	useEffect(() => {
 		const newBlocks = gameStatus.nextBlocks.map((data, key) => {
 			if (data.type === 't')
-				return <T key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+				return <T key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
 			
 			if (data.type === 'o')
-				return <O key={key} coords={data.coords} fill='white'/>;
+				return <O key={key} coords={data.coords} color={data.color}/>;
 			
 			if (data.type === 'i')
-				return <I key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+				return <I key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
 			
 			if (data.type === 'l')
-				return <L key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+				return <L key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
 			
 			if (data.type === 'j')
-				return <J key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+				return <J key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
 			
 			if (data.type === 's')
-				return <S key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+				return <S key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
 			
 			if (data.type === 'z')
-				return <Z key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+				return <Z key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
 			//tmp
 			return null
 		});
