@@ -18,6 +18,7 @@ import O from '../components/o';
 import I from '../components/i';
 import L from '../components/l';
 import J from '../components/j';
+import S from '../components/s';
 
 const GameContext = createContext({});
 
@@ -51,7 +52,7 @@ export const GameProvider = ({children}) => {
 	}, [isPaused]);
 	
 	function getRandomPoliminoType() {
-		const types = ['t', 'o', 'i', 'l', 'j'];
+		const types = ['t', 'o', 'i', 'l', 'j', 's'];
 		const r = Math.floor(Math.random() * types.length)
 		return types[r]
 	}
@@ -70,7 +71,7 @@ export const GameProvider = ({children}) => {
 	}
 	
 	const initialGameStatus = useMemo(() => ({
-		poliminos: [{type: 'j', coords: {x: 40, y: 0}, angle: 0}],
+		poliminos: [{type: getRandomPoliminoType(), coords: {x: 40, y: 0}, angle: 0}],
 		inFocus: 0,
 		gTimer: gameConfig.level1.generation / 1000 - 1,
 		score: 0,
@@ -241,6 +242,9 @@ export const GameProvider = ({children}) => {
 			
 			if (data.type === 'j')
 				return <J key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+			
+			if (data.type === 's')
+				return <S key={key} coords={data.coords} angle={data.angle} fill='white'/>;
 			//tmp
 			return null
 		});
@@ -264,6 +268,9 @@ export const GameProvider = ({children}) => {
 			
 			if (data.type === 'j')
 				return <J key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+			
+			if (data.type === 's')
+				return <S key={key} coords={data.coords} angle={data.angle} fill='white'/>;
 			//tmp
 			return null
 		});
