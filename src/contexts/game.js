@@ -19,6 +19,7 @@ import I from '../components/i';
 import L from '../components/l';
 import J from '../components/j';
 import S from '../components/s';
+import Z from '../components/z';
 
 const GameContext = createContext({});
 
@@ -52,7 +53,7 @@ export const GameProvider = ({children}) => {
 	}, [isPaused]);
 	
 	function getRandomPoliminoType() {
-		const types = ['t', 'o', 'i', 'l', 'j', 's'];
+		const types = ['t', 'o', 'i', 'l', 'j', 's', 'z'];
 		const r = Math.floor(Math.random() * types.length)
 		return types[r]
 	}
@@ -245,6 +246,9 @@ export const GameProvider = ({children}) => {
 			
 			if (data.type === 's')
 				return <S key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+			
+			if (data.type === 'z')
+				return <Z key={key} coords={data.coords} angle={data.angle} fill='white'/>;
 			//tmp
 			return null
 		});
@@ -271,6 +275,9 @@ export const GameProvider = ({children}) => {
 			
 			if (data.type === 's')
 				return <S key={key} coords={data.coords} angle={data.angle} fill='white'/>;
+			
+			if (data.type === 'z')
+				return <Z key={key} coords={data.coords} angle={data.angle} fill='white'/>;
 			//tmp
 			return null
 		});

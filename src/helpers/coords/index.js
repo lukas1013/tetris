@@ -4,6 +4,7 @@ import getICoords, * as i from './i';
 import getLCoords, * as l from './l';
 import getJCoords, * as j from './j';
 import getSCoords, * as s from './s';
+import getZCoords, * as z from './z';
 
 export default function getBlockCoords(type, coords, angle) {
 	if (type === 't')
@@ -18,6 +19,8 @@ export default function getBlockCoords(type, coords, angle) {
 		return getJCoords(coords, angle)
 	if (type === 's')
 		return getSCoords(coords, angle)
+	if (type === 'z')
+		return getZCoords(coords, angle)
 }
 
 export function isCollided(p1, p2) {
@@ -41,4 +44,6 @@ export function traceRoute(type, b, angle, direction) {
 		return j.traceRoute(b, angle, direction)
 	if (type === 's')
 		return s.traceRoute(b, angle, direction)
+	if (type === 'z')
+		return z.traceRoute(b, angle, direction)
 }
