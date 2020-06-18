@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import getBlockCoords from '../helpers/coords/o';
 
-function O({ coords, style }){
+function O({ coords, color, style }){
 	const [a,b,c,d] = getBlockCoords(coords)
 	
 	return (
@@ -10,28 +10,28 @@ function O({ coords, style }){
 			{...a}
 			width='10'
 			height='10'
-			fill='green'
+			fill={color}
 			style={style}
 			className='dot'/>
 		
 		<rect {...b}
 			width='10'
 			height='10'
-			fill='green'
+			fill={color}
 			style={style}
 			className='dot'/>
 		
 		<rect {...c}
 			width='10'
 			height='10'
-			fill='green'
+			fill={color}
 			style={style}
 			className='dot'/>
 		
 		<rect {...d}
 			width='10'
 			height='10'
-			fill='green'
+			fill={color}
 			style={style}
 			className='dot'/>
 		
