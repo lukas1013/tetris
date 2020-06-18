@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import getBlockCoords from '../../helpers/coords/t';
+import getBlockCoords from '../helpers/coords/t';
 
 function T({ coords, angle, style }){
 	const [a,b,c,d] = getBlockCoords(coords, angle);
