@@ -25,9 +25,10 @@ export default function getBlockCoords(type, coords, angle) {
 
 export function isCollided(p1, p2) {
 	const points = getBlockCoords(p1.type, p1.coords, p1.angle)
-	const coords = getBlockCoords(p2.type, p2.coords, p2.angle)
+	const r = p2.removeds || [];
+	const coords = r.length ? p2.coords : getBlockCoords(p2.type, p2.coords, p2.angle)
 	
-	return points.some(p => coords.some(c => c.x === p.x && c.y === p.y));
+	return points.some(p => coords.some((c, i) => c.x === p.x && c.y === p.y && !r.includes(i)));
 }
 
 //returns the blocks needed to rotate the block
