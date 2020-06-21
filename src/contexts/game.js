@@ -12,6 +12,7 @@ import
 import gameConfig from '../config/game';
 import * as motionHelper from '../helpers/motion';
 import * as rotationHelper from '../helpers/rotation';
+import * as lineHelper from '../helpers/line';
 
 import T from '../components/t';
 import O from '../components/o';
@@ -96,7 +97,9 @@ export const GameProvider = ({children}) => {
 			}
 
 			return blocks
-		})()
+		})(),
+		theyArrived: [],
+		deletedLines: 0
 	}), [])
 	
 	function reducer(state, action) {
@@ -125,13 +128,7 @@ export const GameProvider = ({children}) => {
 
 			case 'quick drop':
 				if (motionHelper.canFall(newState.poliminos, newState.poliminos[inFocus])) {
-					const polimino = newState.poliminos[inFocus];
-					const coords = {
-						x: polimino.coords.x,
-						y: polimino.coords.y + 10
-					}
-					polimino.coords = coords
-					if (coords.y === gameConfig.maxY) polimino.hasArrived = true
+					motionHelper.moveDown(newState.poliminos, newState.poliminos[inFocus])
 				}else {
 					newState.poliminos[inFocus].hasArrived = true
 				}
@@ -144,20 +141,19 @@ export const GameProvider = ({children}) => {
 			
 			case 'down':
 				newState.poliminos = newState.poliminos.map(polimino => {
+					if (newState.theyArrived.includes(polimino))
+						return polimino
+					
 					if (motionHelper.canFall(newState.poliminos, polimino)) {
-						const coords = {
-							x: polimino.coords.x,
-							y: polimino.coords.y + 10
-						}
-						polimino.coords = coords
-						if (coords.y === gameConfig.maxY) polimino.hasArrived = true
+						motionHelper.moveDown(newState.poliminos, polimino)
 					}else {
 						polimino.hasArrived = true
+						newState.theyArrived = newState.theyArrived.concat([polimino])
 					}
 					return polimino;
 				});
 				
-				if (newState.poliminos[inFocus].hasArrived) {
+				if (!newState.poliminos[inFocus] || newState.poliminos[inFocus].hasArrived) {
 					newState.inFocus = getNextFocus(newState)
 				}
 				
@@ -180,17 +176,15 @@ export const GameProvider = ({children}) => {
 				return newState;
 			
 			case 'update score':
-				let score = newState.poliminos.reduce((acc, p) => {
-					let points = p.hasArrived ? 10 : 0;
-					points += p.removeds ? p.removeds.length * 50 : 0;
-					return acc + points
+				let score = newState.theyArrived.reduce((acc, p) => {
+					return acc + 10
 				}, 0)
 				
+				score += newState.deletedLines * 1000
 				newState.score = score
 				return newState;
 			
-			//case 'generation timer':
-			default:
+			case 'generation timer':
 				if (gTimer === 0) {
 					const blocks = [...newState.nextBlocks]
 					const next = {...blocks.shift()}
@@ -224,6 +218,21 @@ export const GameProvider = ({children}) => {
 				
 				newState.gTimer -= 1;
 				return newState
+				
+			//case 'remove filled lines:'
+			default:
+				const lines = lineHelper.getFilledLines(newState.theyArrived)
+				if (Object.keys(lines).length) {
+					lineHelper.removeFilledLines(newState.theyArrived, lines)
+					//if all blocks have been removed, remove from the game
+					newState.poliminos = newState.poliminos.filter(p => {
+						const r = p.removeds || [];
+						return r.length < 4
+					})
+					newState.deletedLines += Object.keys(lines).length
+				}
+				
+				return newState
 		}	
 	}
 	
@@ -233,29 +242,33 @@ export const GameProvider = ({children}) => {
 		dispatch({type: 'update score'})
 	}, [gameStatus.poliminos])
 
+	useEffect(() => {
+		dispatch({type: 'remove filled lines'})
+	}, [gameStatus.theyArrived]);
+
 	//render
 	useEffect(() => {
 		const newPoliminos = gameStatus.poliminos.map((data, key) => {
 			if (data.type === 't')
-				return <T key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
+				return <T key={key} coords={data.coords} angle={data.angle} removeds={data.removeds} color={data.color}/>;
 			
 			if (data.type === 'o')
-				return <O key={key} coords={data.coords} color={data.color}/>;
+				return <O key={key} coords={data.coords} removeds={data.removeds} color={data.color}/>;
 			
 			if (data.type === 'i')
-				return <I key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
+				return <I key={key} coords={data.coords} angle={data.angle} removeds={data.removeds} color={data.color}/>;
 			
 			if (data.type === 'l')
-				return <L key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
+				return <L key={key} coords={data.coords} angle={data.angle} removeds={data.removeds} color={data.color}/>;
 			
 			if (data.type === 'j')
-				return <J key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
+				return <J key={key} coords={data.coords} angle={data.angle} removeds={data.removeds} color={data.color}/>;
 			
 			if (data.type === 's')
-				return <S key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
+				return <S key={key} coords={data.coords} angle={data.angle} removeds={data.removeds} color={data.color}/>;
 			
 			if (data.type === 'z')
-				return <Z key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
+				return <Z key={key} coords={data.coords} angle={data.angle} removeds={data.removeds} color={data.color}/>;
 			//tmp
 			return null
 		});

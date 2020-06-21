@@ -1,39 +1,45 @@
 import React, { memo } from 'react';
 import getBlockCoords from '../helpers/coords/s';
 
-function S({ coords, angle, color, style }){
-	const [a,b,c,d] = getBlockCoords(coords, angle);
-	
+function S({ coords, angle, color, removeds, style }){
+	const r = removeds || [];
+	const [a,b,c,d] = r.length ? coords : getBlockCoords(coords, angle);
+		
 	return (
 		<>
-		<rect
+		
+		{!r.includes(0) && <rect
 			{...a}
 			width='10'
 			height='10'
 			fill={color}
 			style={style}
 			className='dot'/>
+		}
 		
-		<rect {...b}
+		{!r.includes(1) && <rect {...b}
 			width='10'
 			height='10'
 			fill={color}
 			style={style}
 			className='dot'/>
+		}
 		
-		<rect {...c}
+		{!r.includes(2) && <rect {...c}
 			width='10'
 			height='10'
 			fill={color}
 			style={style}
 			className='dot'/>
+		}
 		
-		<rect {...d}
+		{!r.includes(3) && <rect {...d}
 			width='10'
 			height='10'
 			fill={color}
 			style={style}
 			className='dot'/>
+		}
 		
 		</>
 	)
