@@ -7,7 +7,7 @@ import { useGame } from '../../contexts/game';
 import './styles.css';
 
 function Game() {
-	const { play, pause, isPaused, gTimer, score, poliminos, moveLeft, moveRight, cancelQuickDrop, getDownFaster, clockwiseRotate, antiClockwiseRotate, nextBlocks } = useGame();
+	const { play, pause, isPaused, gTimer, score, poliminos, moveLeft, moveRight, cancelQuickFall, getDownFaster, clockwiseRotate, antiClockwiseRotate, nextBlocks } = useGame();
 
 	return (
 		<>
@@ -49,7 +49,7 @@ function Game() {
 				
 				<FiArrowLeftCircle onClick={moveLeft} className='button' />
 				
-				<FiArrowDownCircle onTouchEnd={cancelQuickDrop} onTouchStart={getDownFaster} className='button' />
+				<FiArrowDownCircle onTouchEnd={cancelQuickFall} onTouchStart={getDownFaster} className='button' />
 				
 				<FiArrowRightCircle onClick={moveRight} className='button' />
 				
