@@ -159,17 +159,13 @@ export const GameProvider = ({children}) => {
 			
 			case 'rotate left':
 				if (rotationHelper.canRotate(newState.poliminos, newState.poliminos[inFocus], 'left')) {
-					const polimino = newState.poliminos[inFocus];
-					const { coords, angle, type } = polimino;
-					polimino.angle = rotationHelper.getRotate(coords, angle, type, 'left')
+					rotationHelper.rotate(newState.poliminos[inFocus], 'left')
 				}
 				return newState;
 				
 			case 'rotate right':
 				if (rotationHelper.canRotate(newState.poliminos, newState.poliminos[inFocus], 'right')) {
-					const polimino = newState.poliminos[inFocus];
-					const { coords, angle, type } = polimino;
-					polimino.angle = rotationHelper.getRotate(coords, angle, type, 'right')
+					rotationHelper.rotate(newState.poliminos[inFocus], 'right')
 				}
 				return newState;
 			
