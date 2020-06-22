@@ -170,11 +170,8 @@ export const GameProvider = ({children}) => {
 				return newState;
 			
 			case 'update score':
-				let score = newState.theyArrived.reduce((acc, p) => {
-					return acc + 10
-				}, 0)
-				
-				score += newState.deletedLines * 1000
+				let score = newState.theyArrived.length * 10
+				score += newState.deletedLines * 100
 				newState.score = score
 				return newState;
 			
@@ -223,7 +220,7 @@ export const GameProvider = ({children}) => {
 						const r = p.removeds || [];
 						return r.length < 4
 					})
-					newState.deletedLines += Object.keys(lines).length
+					newState.deletedLines += lines.length
 				}
 				
 				return newState
