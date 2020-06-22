@@ -1,4 +1,3 @@
-import gameConfig from '../config/game';
 import getBlockCoords from './coords/';
 
 export function getFilledLines(poliminos) {

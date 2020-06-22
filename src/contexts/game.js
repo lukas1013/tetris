@@ -85,8 +85,9 @@ export const GameProvider = ({children}) => {
 				const type = getRandomPoliminoType()
 				let x = 10, y = 120 / 3 * i + 10;
 				
-				if (type === 'l') x = 5
-				if (type === 'o') x = 15
+				//if (['l', 'i'].includes(type)) x = 10
+				if (['t', 's', 'z'].includes(type)) x = 15
+				if (['o', 'j'].includes(type)) x = 20
 				
 				blocks.push({type, angle: 0, coords: {x, y}, color: getRandomColor()})
 			}
@@ -188,9 +189,10 @@ export const GameProvider = ({children}) => {
 						angle: 0,
 						coords: {
 							x: (() => {
-								if (type === 'l') return 5
-								if (type === 'o') return 15
-								return 10
+								if (['t', 's', 'z'].includes(type)) return 15;
+								if (['o', 'j'].includes(type)) return 20;
+								//if (['l', 'i'].includes(type))
+								return 10;
 							})()
 						},
 						color: getRandomColor()
@@ -244,7 +246,7 @@ export const GameProvider = ({children}) => {
 		setPoliminos(newPoliminos);
 	}, [gameState]);
 	
-	//renders the preview of the next blocks
+	//renders preview blocks
 	useEffect(() => {
 		const newBlocks = gameState.nextBlocks.map((data, key) => <Polimino key={key} {...data} /> );
 		

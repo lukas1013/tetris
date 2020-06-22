@@ -13,11 +13,6 @@
 	grid-column: 3 / span 1;
 }
 
-#game-content{
-	
-}
-
-
 .block-container{
 	height: 100%;
 	width: auto;
@@ -89,11 +84,5 @@ footer > .container .button{
 @keyframes buttonClick{
 	from{
 		width: 90%;
-	}
-}
-
-@media (max-height: 199vw) {
-	.block-container{
-		/*background-color: #444;*/
 	}
 }
