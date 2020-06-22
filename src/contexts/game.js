@@ -107,17 +107,13 @@ export const GameProvider = ({children}) => {
 		switch (action.type) {
 			case 'left':
 				if (motionHelper.canMoveLeft(newState.poliminos, newState.poliminos[inFocus])) {
-					const polimino = newState.poliminos[inFocus]
-					const coords = {x: polimino.coords.x - 10, y: polimino.coords.y}
-					newState.poliminos[inFocus].coords = coords
+					motionHelper.move(newState.poliminos[inFocus], 'left')
 				}
 				return newState;
 
 			case 'right':
 				if (motionHelper.canMoveRight(newState.poliminos, newState.poliminos[inFocus])) {
-					const polimino = newState.poliminos[inFocus]
-					const coords = {x: polimino.coords.x + 10, y: polimino.coords.y}
-					newState.poliminos[inFocus].coords = coords
+					motionHelper.move(newState.poliminos[inFocus], 'right')
 				}
 				return newState;
 
