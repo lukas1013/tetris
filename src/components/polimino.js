@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
-import getBlockCoords from '../helpers/coords/l';
+import getBlockCoords from '../helpers/coords/';
 
-function L({ coords, angle, color, removeds, style }){
+function Polimino({ type, coords, angle, color, removeds, style }){
 	const r = removeds || [];
-	const [a,b,c,d] = r.length ? coords : getBlockCoords(coords, angle);
-		
+	const [a,b,c,d] = r.length ? coords : getBlockCoords(type, coords, angle);
+	
 	return (
 		<>
 		
@@ -45,4 +45,4 @@ function L({ coords, angle, color, removeds, style }){
 	)
 }
 
-export default memo(L);
+export default memo(Polimino);

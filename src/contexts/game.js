@@ -1,26 +1,19 @@
-import
-	React, { 
-		useEffect,
-		useState,
-		useReducer,
-		useCallback,
-		useMemo,
-		createContext,
-		useContext 
-	} from 'react';
+import React, { 
+	useEffect,
+	useState,
+	useReducer,
+	useCallback,
+	useMemo,
+	createContext,
+	useContext 
+} from 'react';
 
 import gameConfig from '../config/game';
 import * as motionHelper from '../helpers/motion';
 import * as rotationHelper from '../helpers/rotation';
 import * as lineHelper from '../helpers/line';
 
-import T from '../components/t';
-import O from '../components/o';
-import I from '../components/i';
-import L from '../components/l';
-import J from '../components/j';
-import S from '../components/s';
-import Z from '../components/z';
+import Polimino from '../components/polimino';
 
 const GameContext = createContext({});
 
@@ -257,59 +250,14 @@ export const GameProvider = ({children}) => {
 
 	//render
 	useEffect(() => {
-		const newPoliminos = gameState.poliminos.map((data, key) => {
-			if (data.type === 't')
-				return <T key={key} coords={data.coords} angle={data.angle} removeds={data.removeds} color={data.color}/>;
-			
-			if (data.type === 'o')
-				return <O key={key} coords={data.coords} removeds={data.removeds} color={data.color}/>;
-			
-			if (data.type === 'i')
-				return <I key={key} coords={data.coords} angle={data.angle} removeds={data.removeds} color={data.color}/>;
-			
-			if (data.type === 'l')
-				return <L key={key} coords={data.coords} angle={data.angle} removeds={data.removeds} color={data.color}/>;
-			
-			if (data.type === 'j')
-				return <J key={key} coords={data.coords} angle={data.angle} removeds={data.removeds} color={data.color}/>;
-			
-			if (data.type === 's')
-				return <S key={key} coords={data.coords} angle={data.angle} removeds={data.removeds} color={data.color}/>;
-			
-			if (data.type === 'z')
-				return <Z key={key} coords={data.coords} angle={data.angle} removeds={data.removeds} color={data.color}/>;
-			//tmp
-			return null
-		});
+		const newPoliminos = gameState.poliminos.map((data, key) => <Polimino key={key} {...data} /> );
 		
 		setPoliminos(newPoliminos);
 	}, [gameState]);
 	
+	//renders the preview of the next blocks
 	useEffect(() => {
-		const newBlocks = gameState.nextBlocks.map((data, key) => {
-			if (data.type === 't')
-				return <T key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
-			
-			if (data.type === 'o')
-				return <O key={key} coords={data.coords} color={data.color}/>;
-			
-			if (data.type === 'i')
-				return <I key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
-			
-			if (data.type === 'l')
-				return <L key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
-			
-			if (data.type === 'j')
-				return <J key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
-			
-			if (data.type === 's')
-				return <S key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
-			
-			if (data.type === 'z')
-				return <Z key={key} coords={data.coords} angle={data.angle} color={data.color}/>;
-			//tmp
-			return null
-		});
+		const newBlocks = gameState.nextBlocks.map((data, key) => <Polimino key={key} {...data} /> );
 		
 		setNextBlocks(newBlocks);
 	}, [gameState.nextBlocks]);
