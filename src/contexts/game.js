@@ -116,22 +116,23 @@ export const GameProvider = ({children}) => {
 				return newState
 			
 			case 'down':
+				if (!newState.poliminos[inFocus] || newState.poliminos[inFocus].hasArrived) {
+					newState.inFocus = getNextFocus(newState)
+				}
+				
 				newState.poliminos = newState.poliminos.map(polimino => {
 					if (newState.theyArrived.includes(polimino))
 						return polimino
 					
 					if (motionHelper.canFall(newState.poliminos, polimino)) {
 						motionHelper.moveDown(newState.poliminos, polimino)
-					}else {
-						polimino.hasArrived = true
-						newState.theyArrived = newState.theyArrived.concat([polimino])
+						return polimino
 					}
+
+					polimino.hasArrived = true
+					newState.theyArrived = newState.theyArrived.concat([polimino])
 					return polimino;
 				});
-				
-				if (!newState.poliminos[inFocus] || newState.poliminos[inFocus].hasArrived) {
-					newState.inFocus = getNextFocus(newState)
-				}
 				
 				return newState;
 			
