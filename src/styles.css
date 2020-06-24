@@ -1,7 +1,8 @@
 :root{
-	--black: #141314;
-	--dGray: #3F3E49;
-	--primary: #DA0061;
+	--smokyBlack: #141314;
+	--darkLiver: #3F3E49;
+	--dogwoodRose: #DA0061;
+	--frenchViolet: #7100D9;
 }
 
 html,
@@ -13,7 +14,7 @@ body{
 	font-size: 62.5%;
 	overflow: scroll;
 	user-select: none;
-	background-color: var(--dGray);
+	background-color: var(--darkLiver);
 }
 
 #root{
@@ -50,5 +51,5 @@ footer{
 	padding: 1%;
 	width: 100%;
 	box-sizing: border-box;
-	background-color: var(--black);
+	background-color: var(--smokyBlack);
 }

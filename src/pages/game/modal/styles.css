@@ -1,0 +1,86 @@
+#modal{
+	width: 90%;
+	height: 70%;
+	border-radius: 7px;
+	top: 15%;
+	left: 5%;
+	z-index: 8001;
+	position: absolute;
+	flex-direction: column;
+	overflow: hidden;
+	box-shadow: 0 0 5px rgba(200,200,200,.2);
+	background-color: #FFF;
+}
+
+#modal header{
+	width: 100%;
+	box-sizing: border-box;
+}
+
+#modal header #title{
+	flex: 1 0 auto;
+	text-align: center;
+}
+
+#close{
+	flex: 0 0 auto;
+	font-size: 1.8rem;
+	font-weight: bold;
+	align-self: center;
+}
+
+#modal > .content{
+	flex: 1 0 auto;
+	margin: 0;
+	padding: 1px;
+	box-sizing: border-box;
+	overflow-y: scroll;
+}
+
+#modal > .content li{
+	list-style: none;
+	padding: 2%;
+}
+
+#modal li:nth-child(odd){
+	color: #fff;
+	font-weight: bold;
+	background-color: var(--dogwoodRose);
+}
+
+#modal li:nth-child(even){
+	color: var(--smokyBlack);
+}
+
+#modal footer{
+	box-sizing: border-box;
+}
+
+#modal button{
+	width: 49%;
+	border: none;
+	margin: 1%;
+	padding: 2%;
+	box-sizing: border-box;
+	border-radius: 4px;
+	outline: none;
+	font-weight: bold;
+	color: #fff;
+	transition: all .3s;
+	background-color: var(--dogwoodRose);
+}
+
+#modal button:hover{
+	color: var(--dogwoodRose);
+	background-color: #FFF;
+}
+
+#modal button > svg{
+	width: 5vw;
+	height: 5vw;
+	vertical-align: bottom;
+}
+
+#modal .container{
+	display: flex;
+}

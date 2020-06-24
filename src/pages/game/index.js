@@ -1,14 +1,21 @@
 import React from 'react';
 import { GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
 import { FiPlay, FiPause, FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCircle } from 'react-icons/fi';
+import { addSeconds, format } from 'date-fns';
 
 import { useGame } from '../../contexts/game';
 
 import './styles.css';
 
-function Game() {
-	const { play, pause, isPaused, gTimer, score, poliminos, moveLeft, moveRight, cancelQuickFall, getDownFaster, clockwiseRotate, antiClockwiseRotate, nextBlocks } = useGame();
+const GameOverModal = React.lazy(() => import('./modal/GameOver'));
 
+function Game() {
+	const { play, pause, isPaused, ended, playingTime, deletedLines, gTimer, score, poliminos, moveLeft, moveRight, cancelQuickFall, getDownFaster, clockwiseRotate, antiClockwiseRotate, nextBlocks } = useGame();
+	
+	function timer() {
+		return format(addSeconds(new Date(0), playingTime), 'mm:ss')
+	}
+	
 	return (
 		<>
 		<header>
@@ -18,6 +25,8 @@ function Game() {
   				{isPaused ? <FiPlay onClick={play} id='play' /> : <FiPause onClick={pause} id='pause' />}
   			</div>
   		</header>
+  		
+  		<GameOverModal show={ended} playingTime={timer()} deletedLines={deletedLines}/>
   		
 		<div id='game-content' className='content'>
 			<svg version="1.1"
@@ -30,10 +39,12 @@ function Game() {
 			</svg>
 			
 			<aside id='side'>
+				<h3>Playing Time:</h3> 
+				<h4>{timer()}</h4> 
 				<h3>Score:</h3> 
 				<h4>{score}</h4> 
 				<h3>Next:</h3>
-				<span id='generation-timer'>{gTimer}s</span>
+				<span>{gTimer}s</span>
 				<svg version='1.1' width='40' height='120' viewBox='0 0 40 120' id='next' className='container'>
 					{nextBlocks}
 				</svg>

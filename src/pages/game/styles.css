@@ -30,32 +30,37 @@
 	flex: 1 0 auto;
 	padding: 1%;
 	width: 10%;
-	background-color: var(--black);
+	background-color: var(--smokyBlack);
 }
 
 #side h3{
-	margin: 0;
-	color: var(--primary);
+	margin: 1%;
 }
 
-#side h4{
-	margin: 0;
-	text-indent: 1%;
+/*playing time*/
+#side h3:first-of-type{
+	font-size: 1.4rem;
 }
 
+#side h3{
+	color: var(--dogwoodRose);
+}
+
+/*next*/
 #side h3:last-of-type{
-	margin: 10% 0;
 	display: inline-block;
+	margin-right: 10%;
 }
 
-#generation-timer{
-	margin-left: 10%;
+#side h4, #side span{
+	margin: 1% 1% 10%;
 }
 
 #next.container{
 	width: 40%;
 	height: auto;
 	display: block;
+	margin-top: 10%;
 }
 
 footer > .container{
@@ -70,11 +75,11 @@ footer > .container .button{
 	height: auto;
 	width: 100%;
 	place-self: center;
-	stroke: var(--primary);
+	stroke: var(--dogwoodRose);
 }
 
 .container .button.spin{
-	fill: var(--primary);
+	fill: var(--dogwoodRose);
 }
 
 .container .button:hover{

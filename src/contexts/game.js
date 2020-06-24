@@ -12,6 +12,7 @@ import gameConfig from '../config/game';
 import * as motionHelper from '../helpers/motion';
 import * as rotationHelper from '../helpers/rotation';
 import * as lineHelper from '../helpers/line';
+import * as gameHelper from '../helpers/game';
 
 import Polimino from '../components/polimino';
 
@@ -23,32 +24,7 @@ export const GameProvider = ({children}) => {
 	const [quickFall, setQuickFall] = useState(false);
 	const [isPaused, setIsPaused] = useState(false);
 	const [nextBlocks, setNextBlocks] = useState([]);
-	
-	//fall effect
-	const fallInterval = useMemo(() => {
-		if (!isPaused) {
-			return setInterval(() => {
-				dispatch({type: 'down'})
-			}, gameSpeed);
-		}
-	}, [gameSpeed, isPaused]);
-	
-	const quickFallInterval = useMemo(() => {
-		if (quickFall && !isPaused) {
-			return setInterval(() => {
-				dispatch({type: 'quick fall'})
-			}, 50);
-		}
-	}, [quickFall, isPaused]);
-	
-	const generationTimer = useMemo(() => {
-		if (!isPaused) {
-			return setInterval(() => {
-				dispatch({type: 'generation timer'})
-			}, 1000);
-		}
-	}, [isPaused]);
-	
+
 	function getRandomPoliminoType() {
 		const types = ['t', 'o', 'i', 'l', 'j', 's', 'z'];
 		const r = Math.floor(Math.random() * types.length)
@@ -71,7 +47,6 @@ export const GameProvider = ({children}) => {
 		
 		return state.poliminos.indexOf(newFocus)
 	}
-	
 
 	const initialGameState = useMemo(() => ({
 		poliminos: [{type: getRandomPoliminoType(), coords: {x: 40, y: 0}, angle: 0, color: getRandomColor()}],
@@ -95,14 +70,16 @@ export const GameProvider = ({children}) => {
 			return blocks
 		})(),
 		theyArrived: [],
-		deletedLines: 0
+		deletedLines: 0,
+		ended: false,
+		playingTime: 0
 	}), [])
 	
 	function reducer(state, action) {
 		const newState = {...state};
-		const { inFocus, gTimer } = state;
+		const { inFocus, gTimer, ended } = state;
 		
-		if (isPaused)
+		if (ended || isPaused)
 			return newState;
 		
 		switch (action.type) {
@@ -183,6 +160,10 @@ export const GameProvider = ({children}) => {
 					next.coords = {x: 40, y: 0}
 					newState.poliminos.push(next);
 					
+					if (gameHelper.gameOver(newState.theyArrived, next)) {
+						newState.ended = true
+					}
+					
 					const type = getRandomPoliminoType()
 					const third = {
 						type,
@@ -212,8 +193,7 @@ export const GameProvider = ({children}) => {
 				newState.gTimer -= 1;
 				return newState
 				
-			//case 'remove filled lines:'
-			default:
+			case 'remove filled lines':
 				const lines = lineHelper.getFilledLines(newState.theyArrived)
 				if (lines.length) {
 					lineHelper.removeFilledLines(newState.theyArrived, lines)
@@ -226,10 +206,48 @@ export const GameProvider = ({children}) => {
 				}
 				
 				return newState
+			
+			//case 'update playing time':	
+			default:
+				newState.playingTime = newState.playingTime + 1
+				return newState
 		}	
 	}
 	
 	const [gameState, dispatch] = useReducer(reducer, initialGameState);
+	
+	//fall effect
+	const fallInterval = useMemo(() => {
+		if (!gameState.ended && !isPaused) {
+			return setInterval(() => {
+				dispatch({type: 'down'})
+			}, gameSpeed);
+		}
+	}, [gameSpeed, isPaused, gameState.ended]);
+	
+	const quickFallInterval = useMemo(() => {
+		if (!gameState.ended && quickFall && !isPaused) {
+			return setInterval(() => {
+				dispatch({type: 'quick fall'})
+			}, 50);
+		}
+	}, [gameState.ended, quickFall, isPaused]);
+	
+	const generationTimer = useMemo(() => {
+		if (!gameState.ended && !isPaused) {
+			return setInterval(() => {
+				dispatch({type: 'generation timer'})
+			}, 1000);
+		}
+	}, [gameState.ended, isPaused]);
+	
+	const playingTimeInterval = useMemo(() => {
+		if (!gameState.ended && !isPaused) {
+			return setInterval(() => {
+				dispatch({type: 'update playing time'})
+			}, 1000)
+		}
+	}, [gameState.ended, isPaused]);
 	
 	useEffect(() => {
 		dispatch({type: 'update score'})
@@ -238,7 +256,7 @@ export const GameProvider = ({children}) => {
 	useEffect(() => {
 		dispatch({type: 'remove filled lines'})
 	}, [gameState.theyArrived]);
-
+	
 	//render
 	useEffect(() => {
 		const newPoliminos = gameState.poliminos.map((data, key) => <Polimino key={key} {...data} /> );
@@ -259,8 +277,9 @@ export const GameProvider = ({children}) => {
 		clearInterval(fallInterval)
 		clearInterval(quickFallInterval)
 		clearInterval(generationTimer)
+		clearInterval(playingTimeInterval)
 		setIsPaused(true)
-	}, [fallInterval, generationTimer, quickFallInterval])
+	}, [fallInterval, generationTimer, quickFallInterval, playingTimeInterval])
 	
 	const moveLeft = () => dispatch({type: 'left'});
 
@@ -278,7 +297,7 @@ export const GameProvider = ({children}) => {
 	const clockwiseRotate = () => dispatch({type: 'rotate right'})
 	
 	return (
-		<GameContext.Provider value={{ play, pause, isPaused, gTimer: gameState.gTimer, score: gameState.score, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickFall, clockwiseRotate, antiClockwiseRotate, nextBlocks }}>
+		<GameContext.Provider value={{ play, pause, isPaused, ended: gameState.ended, playingTime: gameState.playingTime, deletedLines: gameState.deletedLines, gTimer: gameState.gTimer, score: gameState.score, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickFall, clockwiseRotate, antiClockwiseRotate, nextBlocks }}>
 			{children}
 		</GameContext.Provider>
 	);
