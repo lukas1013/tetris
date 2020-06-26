@@ -62,13 +62,13 @@ export const GameProvider = ({children}) => {
 		switch (action.type) {
 			case 'left':
 				if (motionHelper.canMoveLeft(newState.poliminos, newState.poliminos[inFocus])) {
-					motionHelper.move(newState.poliminos[inFocus], 'left')
+					motionHelper.move(newState.poliminos[inFocus], 'left');
 				}
 				return newState;
 
 			case 'right':
 				if (motionHelper.canMoveRight(newState.poliminos, newState.poliminos[inFocus])) {
-					motionHelper.move(newState.poliminos[inFocus], 'right')
+					motionHelper.move(newState.poliminos[inFocus], 'right');
 				}
 				return newState;
 
@@ -83,9 +83,6 @@ export const GameProvider = ({children}) => {
 					if (!newState.theyArrived.includes(newState.poliminos[inFocus])) {
 						newState.theyArrived = newState.theyArrived.concat([newState.poliminos[inFocus]])
 					}
-				}
-				
-				if (newState.poliminos[inFocus].hasArrived) {
 					newState.inFocus = gameHelper.getNextFocus(newState)
 					setQuickFall(false)
 				}
