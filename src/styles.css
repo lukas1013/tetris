@@ -1,8 +1,11 @@
 :root{
 	--smokyBlack: #141314;
+	--raisinBlack: #262426;
 	--darkLiver: #3F3E49;
 	--dogwoodRose: #DA0061;
 	--frenchViolet: #7100D9;
+	--sheenGreen: #6ADB00;
+	--malachite: #00DB71;
 }
 
 html,
@@ -14,7 +17,7 @@ body{
 	font-size: 62.5%;
 	overflow: scroll;
 	user-select: none;
-	background-color: var(--darkLiver);
+	background-color: var(--raisinBlack);
 }
 
 #root{
@@ -26,9 +29,14 @@ body{
 	overflow: scroll;
 }
 
+header{
+	background-color: var(--frenchViolet);
+	box-shadow: 0 1px 3px rgba(0,0,0,.8);
+}
+
 header > .container{
 	display: grid;
-	grid-auto-columns: repeat(3, 1fr);
+	grid-auto-columns: repeat(2, 1fr);
 	padding: 2%;
 }
 
@@ -47,9 +55,12 @@ header #title{
 
 header,
 footer{
-	color: #f4f4f4;
+	color: #fff;
 	padding: 1%;
 	width: 100%;
 	box-sizing: border-box;
+}
+
+footer{
 	background-color: var(--smokyBlack);
 }

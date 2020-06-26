@@ -14,7 +14,7 @@ import * as rotationHelper from '../helpers/rotation';
 import * as lineHelper from '../helpers/line';
 import * as gameHelper from '../helpers/game';
 
-import Polimino from '../components/polimino';
+import Polimino from '../components/polimino/';
 
 const GameContext = createContext({});
 
@@ -32,7 +32,7 @@ export const GameProvider = ({children}) => {
 	}
 	
 	function getRandomColor() {
-		const colors = ['red', 'yellow', 'darkviolet', 'limegreen', 'turquoise']
+		const colors = ['#D9003D', '#DB006A', '#B3DB00', '#00DB71', '#006FD9']
 		const ind = Math.floor(Math.random() * colors.length)
 		return colors[ind]
 	}
@@ -260,7 +260,7 @@ export const GameProvider = ({children}) => {
 	
 	//render
 	useEffect(() => {
-		const newPoliminos = gameState.poliminos.map((data, key) => <Polimino key={key} {...data} /> );
+		const newPoliminos = gameState.poliminos.map((data, key) => <Polimino focus={gameState.inFocus === key} key={key} {...data} /> );
 		
 		setPoliminos(newPoliminos);
 	}, [gameState]);
