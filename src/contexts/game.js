@@ -25,31 +25,8 @@ export const GameProvider = ({children}) => {
 	const [isPaused, setIsPaused] = useState(false);
 	const [nextBlocks, setNextBlocks] = useState([]);
 
-	function getRandomPoliminoType() {
-		const types = ['t', 'o', 'i', 'l', 'j', 's', 'z'];
-		const r = Math.floor(Math.random() * types.length)
-		return types[r]
-	}
-	
-	function getRandomColor() {
-		const colors = ['#D9003D', '#DB006A', '#B3DB00', '#00DB71', '#006FD9']
-		const ind = Math.floor(Math.random() * colors.length)
-		return colors[ind]
-	}
-	
-	function getNextFocus(state) {
-		const newFocus = [...state.poliminos].reduce((pre, next) => {
-			if ((pre.coords.y > next.coords.y && !pre.hasArrived) || (!pre.hasArrived && next.hasArrived)) {
-				return pre
-			}
-			return next
-		});
-		
-		return state.poliminos.indexOf(newFocus)
-	}
-
 	const initialGameState = useMemo(() => ({
-		poliminos: [{type: getRandomPoliminoType(), coords: {x: 40, y: 0}, angle: 0, color: getRandomColor()}],
+		poliminos: [{type: gameHelper.getRandomPoliminoType(), coords: {x: 40, y: 0}, angle: 0, color: gameHelper.getRandomColor()}],
 		inFocus: 0,
 		gTimer: gameConfig.level1.generation / 1000 - 1,
 		score: 0,
@@ -57,14 +34,14 @@ export const GameProvider = ({children}) => {
 			const blocks = []
 			
 			for (let i = 0; i < 3; i++) {
-				const type = getRandomPoliminoType()
+				const type = gameHelper.getRandomPoliminoType()
 				let x = 10, y = 120 / 3 * i + 10;
 				
 				//if (['l', 'i'].includes(type)) x = 10
 				if (['t', 's', 'z'].includes(type)) x = 15
 				if (['o', 'j'].includes(type)) x = 20
 				
-				blocks.push({type, angle: 0, coords: {x, y}, color: getRandomColor()})
+				blocks.push({type, angle: 0, coords: {x, y}, color: gameHelper.getRandomColor()})
 			}
 
 			return blocks
@@ -109,7 +86,7 @@ export const GameProvider = ({children}) => {
 				}
 				
 				if (newState.poliminos[inFocus].hasArrived) {
-					newState.inFocus = getNextFocus(newState)
+					newState.inFocus = gameHelper.getNextFocus(newState)
 					setQuickFall(false)
 				}
 				
@@ -117,7 +94,7 @@ export const GameProvider = ({children}) => {
 			
 			case 'down':
 				if (!newState.poliminos[inFocus] || newState.poliminos[inFocus].hasArrived) {
-					newState.inFocus = getNextFocus(newState)
+					newState.inFocus = gameHelper.getNextFocus(newState)
 				}
 				
 				newState.poliminos = newState.poliminos.map(polimino => {
@@ -156,37 +133,7 @@ export const GameProvider = ({children}) => {
 			
 			case 'generation timer':
 				if (gTimer === 0) {
-					const blocks = [...newState.nextBlocks]
-					const next = {...blocks.shift()}
-					next.coords = {x: 40, y: 0}
-					newState.poliminos.push(next);
-					
-					if (gameHelper.gameOver(newState.theyArrived, next)) {
-						newState.ended = true
-					}
-					
-					const type = getRandomPoliminoType()
-					const third = {
-						type,
-						angle: 0,
-						coords: {
-							x: (() => {
-								if (['t', 's', 'z'].includes(type)) return 15;
-								if (['o', 'j'].includes(type)) return 20;
-								//if (['l', 'i'].includes(type))
-								return 10;
-							})()
-						},
-						color: getRandomColor()
-					}
-					
-					blocks.push(third)
-					for (let i = 0; i < 3; i++) {
-						blocks[i].coords.y = 120 / 3 * i + 10
-					}
-					
-					newState.nextBlocks = blocks
-
+					gameHelper.nextPolimino(newState)
 					newState.gTimer = gameConfig.level1.generation / 1000 - 1;
 					return newState 
 				}
@@ -260,7 +207,7 @@ export const GameProvider = ({children}) => {
 	
 	//render
 	useEffect(() => {
-		const newPoliminos = gameState.poliminos.map((data, key) => <Polimino focus={gameState.inFocus === key} key={key} {...data} /> );
+		const newPoliminos = gameState.poliminos.map((data, key) => <Polimino focus={gameState.inFocus === key && !gameState.theyArrived.includes(gameState.poliminos[key])} key={key} {...data} /> );
 		
 		setPoliminos(newPoliminos);
 	}, [gameState]);

@@ -31,7 +31,7 @@ export function isCollided(p1, p2) {
 	return points.some(p => coords.some((c, i) => c.x === p.x && c.y === p.y && !r.includes(i)));
 }
 
-//returns the blocks needed to rotate the block
+//returns the coords needed to rotate
 export function traceRoute(type, b, angle, direction) {
 	if (type === 't')
 		return t.traceRoute(b, angle, direction)
