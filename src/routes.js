@@ -10,9 +10,11 @@ export default function Routes() {
 		<Suspense fallback={() => <div>Loading...</div>}>
 			<Switch>
 				<Route path='/' exact component={Home} />
-				<GameProvider>
-					<Route path='/game' component={Game} />
-				</GameProvider>
+				<Route path='/game'>
+					<GameProvider>
+						<Game/>
+					</GameProvider>
+				</Route>
 			</Switch>
 		</Suspense>
 	);
