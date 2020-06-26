@@ -1,11 +1,11 @@
 {
   "name": "tetris",
-  "version": "0.34.0",
+  "version": "0.34.1",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.10.1",
-    "@testing-library/react": "^10.4.1",
-    "@testing-library/user-event": "^12.0.7",
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.3",
+    "@testing-library/user-event": "^12.0.11",
     "date-fns": "^2.14.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
