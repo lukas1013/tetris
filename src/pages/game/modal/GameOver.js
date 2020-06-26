@@ -12,34 +12,36 @@ export default function GameOver(props) {
 	
 	return (
 		<div id='modal' style={{display: closed ? 'none' : 'flex'}}>
-			<header>
-				<div className='container'>
-					<h2 id='title'>Game Over</h2>
-					<span onClick={() => setClosed(true)} id='close'>X</span>
-				</div>
-			</header>
-			
-			<ul className='content'>
-				<li>Playing time:</li>
-				<li>{props.playingTime}</li>
-				<li>Removed lines:</li>
-				<li>{props.deletedLines}</li>
-			</ul>
-			
-			<footer>
-				<div className='container'>
-					{/*temporary*/}
-					<button onClick={() => window.location.reload()}>
-						<MdRefresh/>
-						Restart
-					</button>
-					
-					<button onClick={() => history.push('/')}>
-						<MdHome/>
-						Home
-					</button>
-				</div>
-			</footer>
+			<div className='container'>
+				<header>
+					<div className='container'>
+						<h2 id='title'>Game Over</h2>
+						<span onClick={() => setClosed(true)} id='close'>X</span>
+					</div>
+				</header>
+				
+				<ul className='content'>
+					<li>Playing time:</li>
+					<li>{props.playingTime}</li>
+					<li>Removed lines:</li>
+					<li>{props.deletedLines}</li>
+				</ul>
+				
+				<footer>
+					<div className='container'>
+						{/*temporary*/}
+						<button onClick={() => window.location.reload()}>
+							<MdRefresh/>
+							Restart
+						</button>
+						
+						<button onClick={() => history.push('/')}>
+							<MdHome/>
+							Home
+						</button>
+					</div>
+				</footer>
+			</div>
 		</div>
 	);
 }

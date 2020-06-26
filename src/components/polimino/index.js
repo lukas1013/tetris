@@ -1,12 +1,16 @@
 import React, { memo } from 'react';
-import getBlockCoords from '../helpers/coords/';
+import getBlockCoords from '../../helpers/coords/';
 
-function Polimino({ type, coords, angle, color, removeds, style }){
+import Polyline from './Polyline';
+
+function Polimino({ type, coords, angle, color, removeds, style, focus }){
 	const r = removeds || [];
-	const [a,b,c,d] = r.length ? coords : getBlockCoords(type, coords, angle);
+	const [a,b,c,d] = r.length ? coords : getBlockCoords(type, coords, angle)
 	
 	return (
 		<>
+		
+		{focus && <Polyline type={type} coords={b} angle={angle} stroke='#A544FF'/>}
 		
 		{!r.includes(0) && <rect
 			{...a}

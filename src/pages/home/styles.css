@@ -15,12 +15,12 @@
 	outline: none;
 	font-weight: bold;
 	box-shadow: 0 0 4px rgba(0,0,0,.4);
-	background-color: var(--dogwoodRose);
+	background-color: var(--frenchViolet);
 }
 
 #home-content .button.large:hover{
 	background-color: #fff;
-	color: var(--dogwoodRose);
+	color: var(--frenchViolet);
 }
 
 .adsbygoogle{

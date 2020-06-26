@@ -1,27 +1,22 @@
-#level{
-	font-size: 1.6rem;
-	grid-column: 2 / span 1;
-	align-self: center;
-}
-
 #play, #pause{
 	width: 9vw;
 	height: 9vw;
 	stroke-width: 0;
 	fill: #fff;
 	justify-self: end;
-	grid-column: 3 / span 1;
+	grid-column: 2 / span 1;
 }
 
 .block-container{
 	height: 100%;
 	width: auto;
 	flex: 0 0 auto;
-	background-color: #222;
 }
 
 .dot{
-	stroke-width: 1px;
+	stroke-width: .5px;
+	stroke: rgba(0,0,0,.3);
+	box-sizing: border-box;
 }
 
 #side{
@@ -35,15 +30,12 @@
 
 #side h3{
 	margin: 1%;
+	color: var(--malachite);
 }
 
 /*playing time*/
 #side h3:first-of-type{
 	font-size: 1.4rem;
-}
-
-#side h3{
-	color: var(--dogwoodRose);
 }
 
 /*next*/
@@ -75,11 +67,11 @@ footer > .container .button{
 	height: auto;
 	width: 100%;
 	place-self: center;
-	stroke: var(--dogwoodRose);
+	stroke: var(--malachite);
 }
 
 .container .button.spin{
-	fill: var(--dogwoodRose);
+	fill: var(--malachite);
 }
 
 .container .button:hover{

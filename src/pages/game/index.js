@@ -21,7 +21,6 @@ function Game() {
 		<header>
 			<div className='container'>
   				<h1 id='title'>Tetris</h1>
-  				<span id='level'>Level 1</span>
   				{isPaused ? <FiPlay onClick={play} id='play' /> : <FiPause onClick={pause} id='pause' />}
   			</div>
   		</header>
@@ -41,6 +40,8 @@ function Game() {
 			<aside id='side'>
 				<h3>Playing Time:</h3> 
 				<h4>{timer()}</h4> 
+  				<h3 id='level'>Level:</h3>
+  				<h4>1</h4>
 				<h3>Score:</h3> 
 				<h4>{score}</h4> 
 				<h3>Next:</h3>
