@@ -18,6 +18,8 @@ export default function Score(props) {
 			</header>
 			
 			<main id='score-content' className='content'>
+				<span className={!scores.length ? 'on' : 'off'} id='no-content'>There are no scores to show</span>
+				
 				{scores.map((score, key) => (
 					<article className='score' key={key}>
 						<header>

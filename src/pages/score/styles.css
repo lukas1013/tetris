@@ -52,6 +52,17 @@
 	height: 7vw;
 }
 
+#no-content, #no-content.off{
+	color: transparent;
+	place-self: center;
+	display: none;
+}
+
+#no-content.on{
+	color: var(--dogwoodRose);
+	display: inline;
+}
+
 .score > .content{
 	display: flex;
 	padding: 2%;
