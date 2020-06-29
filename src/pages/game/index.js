@@ -1,9 +1,9 @@
 import React from 'react';
 import { GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
 import { FiPlay, FiPause, FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCircle } from 'react-icons/fi';
-import { addSeconds, format } from 'date-fns';
 
 import { useGame } from '../../contexts/game';
+import parseTime from '../../utils/time';
 
 import './styles.css';
 
@@ -11,10 +11,6 @@ const GameOverModal = React.lazy(() => import('./modal/GameOver'));
 
 function Game() {
 	const { play, pause, isPaused, ended, playingTime, deletedLines, gTimer, score, poliminos, moveLeft, moveRight, cancelQuickFall, getDownFaster, clockwiseRotate, antiClockwiseRotate, nextBlocks } = useGame();
-	
-	function timer() {
-		return format(addSeconds(new Date(0), playingTime), 'mm:ss')
-	}
 	
 	return (
 		<>
@@ -25,7 +21,7 @@ function Game() {
   			</div>
   		</header>
   		
-  		<GameOverModal show={ended} playingTime={timer()} deletedLines={deletedLines}/>
+  		<GameOverModal show={ended} playingTime={parseTime(playingTime)} score={score} deletedLines={deletedLines}/>
   		
 		<div id='game-content' className='content'>
 			<svg version="1.1"
@@ -39,7 +35,7 @@ function Game() {
 			
 			<aside id='side'>
 				<h3>Playing Time:</h3> 
-				<h4>{timer()}</h4> 
+				<h4>{parseTime(playingTime)}</h4> 
   				<h3 id='level'>Level:</h3>
   				<h4>1</h4>
 				<h3>Score:</h3> 

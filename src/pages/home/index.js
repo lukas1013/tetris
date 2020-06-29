@@ -16,12 +16,13 @@ export default function Home() {
 				</div>
 			</header>
 			
-			<div id='home-content' className='content'>
+			<main id='home-content' className='content'>
 				<button onClick={() => history.push('/game')} className='button large'>Play</button>
+				<button onClick={() => history.push('/scores')} className='button large'>Scores</button>
 				<button onClick={() => history.push('')} className='button large'>About</button>
 				<button onClick={() => history.push('/settings')} className='button large'>Settings</button>
 				<Ads/>
-			</div>
+			</main>
 		</>
 	);
 }

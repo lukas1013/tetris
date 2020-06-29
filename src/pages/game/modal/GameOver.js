@@ -23,6 +23,8 @@ export default function GameOver(props) {
 				<ul className='content'>
 					<li>Playing time:</li>
 					<li>{props.playingTime}</li>
+					<li>Score:</li>
+					<li>{props.score}</li>
 					<li>Removed lines:</li>
 					<li>{props.deletedLines}</li>
 				</ul>

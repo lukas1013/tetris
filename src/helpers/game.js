@@ -1,5 +1,6 @@
 import gameConfig from '../config/game';
 import getBlockCoords, { isCollided } from './coords/';
+import * as db from '../db';
 
 export function getRandomPoliminoType() {
 	const types = ['t', 'o', 'i', 'l', 'j', 's', 'z'];
@@ -33,6 +34,7 @@ export function nextPolimino(state) {
 	
 	if (gameOver(state.theyArrived, next)) {
 		state.ended = true
+		db.saveScore(state.playingTime, state.score, state.deletedLines)
 		return state
 	}
 
