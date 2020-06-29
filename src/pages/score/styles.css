@@ -1,0 +1,77 @@
+#score-content{
+	overflow-y: scroll;
+	flex: 1 0 auto;
+	padding: 3% 1%;
+	width: 100%;
+	box-sizing: border-box;
+	justify-content: center;
+}
+
+.score{
+	width: 96%;
+	box-sizing: border-box;
+	color: var(--smokyBlack);
+	border-radius: 4px;
+	transition: all .2s;
+	overflow: hidden;
+	margin: 2% 0;
+	align-self: flex-start;
+	background-color: #fff;
+	box-shadow: 0 1px 5px rgba(0,0,0,.9);
+}
+
+.score > header{
+	background-color: var(--frenchViolet);
+	box-shadow: 0 0 4px rgba(0,0,0,.3);
+}
+
+.score > header > .container{
+	grid-template-columns: 10% 10% 1fr;
+}
+
+.score .icon{
+	align-self: end;
+}
+
+.icon.place{
+	margin: 0;
+	grid-column: span 1 / span 1;
+}
+
+.icon.crown{
+	grid-column: 1 / span 1;
+	width: 7vw;
+	height: 8vw;
+	fill: yellow;
+}
+
+.icon.delete{
+	grid-column: 3 / span 1;
+	justify-self: end;
+	width: 7vw;
+	height: 7vw;
+}
+
+.score > .content{
+	display: flex;
+	padding: 2%;
+	flex-wrap: wrap;
+}
+
+.score > .content h3{
+	color: var(--frenchViolet);
+	font-size: 1.3rem;
+	width: 90%;
+	flex: 1 0 auto;
+	margin: 0 0 2%;
+}
+
+.score > .content span{
+	font-size: 1.2rem;
+	flex: 1 0 auto;
+	width: 90%;
+}
+
+.score h3:not(:first-of-type){
+	margin-top: 10%;
+}
