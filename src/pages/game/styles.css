@@ -25,7 +25,7 @@
 	flex: 1 0 auto;
 	padding: 1%;
 	width: 10%;
-	background-color: var(--smokyBlack);
+	background-color: var(--xiketic);
 }
 
 #side h3{
@@ -55,6 +55,10 @@
 	margin-top: 10%;
 }
 
+footer{
+	background-color: var(--blackCoffee);
+}
+
 footer > .container{
 	width: 100%;
 	display: grid;
@@ -67,11 +71,12 @@ footer > .container .button{
 	height: auto;
 	width: 100%;
 	place-self: center;
-	stroke: var(--malachite);
+	stroke: var(--lavenderWeb);
+	border-radius: 50%;
 }
 
 .container .button.spin{
-	fill: var(--malachite);
+	fill: var(--lavenderWeb);
 }
 
 .container .button:hover{

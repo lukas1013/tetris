@@ -4,27 +4,25 @@
 	height: 100%;
 	place-content: center;
 	place-items: center;
-	background-color: rgba(26,24,26,.7);
+	background-color: rgba(14,13,14,.8);
 }
 
 #modal > .container{
 	width: 90%;
-	height: 70%;
 	border-radius: 7px;
 	z-index: 8001;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
-	box-shadow: 0 0 2rem rgba(49,45,49,.8);
-	color: #fff;
-	background-color: var(--smokyBlack);
+	box-shadow: 0 0 2rem rgba(0,0,0,.8);
+	background-color: var(--xiketic);
 }
 
 #modal > .container header{
 	width: 100%;
 	box-sizing: border-box;
 	z-index: 90;
-	background-color: var(--frenchViolet);
+	background: var(--frenchViolet) linear-gradient(90deg, rgba(0,0,0,.3), transparent, rgba(0,0,0,.3));
 	box-shadow: 0 1px 3px rgba(0,0,0,.5);
 }
 
@@ -55,11 +53,12 @@
 }
 
 #modal > .container li:nth-child(odd){
-	color: var(--malachite);
+	color: var(--lavenderWeb);
 	font-weight: bold;
 }
 
 #modal > .container li:nth-child(even){
+	color: var(--malachite);
 }
 
 #modal > .container footer{
@@ -82,7 +81,7 @@
 }
 
 #modal > .container button:hover{
-	background-color: #fff;
+	background-color: var(--lavenderWeb);
 	color: var(--frenchViolet);
 }
 

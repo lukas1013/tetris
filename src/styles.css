@@ -1,11 +1,11 @@
 :root{
-	--smokyBlack: #141314;
-	--raisinBlack: #262426;
-	--darkLiver: #3F3E49;
-	--dogwoodRose: #DA0061;
-	--frenchViolet: #7100D9;
-	--sheenGreen: #6ADB00;
+	--xiketic: #0d0207;
+	--blackCoffee: #383438;
 	--malachite: #00DB71;
+	--frenchViolet: #7100D9;
+	--dogwoodRose: #DA0061;
+	--lavenderWeb: #E1DEF9;
+	--smokyBlack: #141314;
 }
 
 html,
@@ -17,7 +17,7 @@ body{
 	font-size: 62.5%;
 	overflow: scroll;
 	user-select: none;
-	background-color: var(--raisinBlack);
+	background-color: var(--smokyBlack);
 }
 
 #root{
@@ -29,9 +29,11 @@ body{
 	overflow: scroll;
 }
 
-header{
-	background-color: var(--frenchViolet);
-	box-shadow: 0 1px 3px rgba(0,0,0,.8);
+#root > header{
+	z-index: 90;
+	background-color: var(--xiketic);
+	/*background-image: linear-gradient(135deg, var(--dogwoodRose), var(--frenchViolet));
+	*/
 }
 
 header > .container{
@@ -41,8 +43,9 @@ header > .container{
 }
 
 header #title{
-	font-size: 2.5rem;
+	font-size: 2.2rem;
 	margin: 0;
+	align-self: center;
 	grid-column: 1 / span 1;
 }
 
@@ -51,16 +54,16 @@ header #title{
 	width: 100%;
 	height: 50%;
 	display: flex;
+	flex-wrap: wrap;
 }
 
 header,
 footer{
-	color: #fff;
-	padding: 1%;
+	color: var(--lavenderWeb);
 	width: 100%;
 	box-sizing: border-box;
 }
 
-footer{
-	background-color: var(--smokyBlack);
+#root > footer{
+	padding: 1%;
 }
