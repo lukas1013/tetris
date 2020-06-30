@@ -2,7 +2,6 @@ import React, {
 	useEffect,
 	useState,
 	useReducer,
-	useCallback,
 	useMemo,
 	createContext,
 	useContext 
@@ -19,16 +18,16 @@ import Polimino from '../components/polimino/';
 const GameContext = createContext({});
 
 export const GameProvider = ({children}) => {
-	const [gameSpeed, setSpeed] = useState(1500);
 	const [poliminos, setPoliminos] = useState(null);
 	const [quickFall, setQuickFall] = useState(false);
 	const [isPaused, setIsPaused] = useState(false);
 	const [nextBlocks, setNextBlocks] = useState([]);
+	const [level, setLevel] = useState('level1');
 
 	const initialGameState = useMemo(() => ({
-		poliminos: [{type: gameHelper.getRandomPoliminoType(), coords: {x: 40, y: 0}, angle: 0, color: gameHelper.getRandomColor()}],
+		poliminos: [{type: gameHelper.getRandomPoliminoType(), coords: {x: 50, y: 0}, angle: 0, color: gameHelper.getRandomColor()}],
 		inFocus: 0,
-		gTimer: gameConfig.level1.generation / 1000 - 1,
+		gTimer: gameConfig[level].generation / 1000 - 1,
 		score: 0,
 		nextBlocks: (() => {
 			const blocks = []
@@ -50,7 +49,7 @@ export const GameProvider = ({children}) => {
 		deletedLines: 0,
 		ended: false,
 		playingTime: 0
-	}), [])
+	}), [level])
 	
 	function reducer(state, action) {
 		const newState = {...state};
@@ -131,7 +130,7 @@ export const GameProvider = ({children}) => {
 			case 'generation timer':
 				if (gTimer === 0) {
 					gameHelper.nextPolimino(newState)
-					newState.gTimer = gameConfig.level1.generation / 1000 - 1;
+					newState.gTimer = gameConfig[level].generation / 1000 - 1;
 					return newState 
 				}
 				
@@ -162,35 +161,44 @@ export const GameProvider = ({children}) => {
 	const [gameState, dispatch] = useReducer(reducer, initialGameState);
 	
 	//fall effect
-	const fallInterval = useMemo(() => {
+	useEffect(() => {
 		if (!gameState.ended && !isPaused) {
-			return setInterval(() => {
+			const fallInterval = setInterval(() => {
 				dispatch({type: 'down'})
-			}, gameSpeed);
+			}, gameConfig[level].speed)
+			
+			//clearing the interval in "componentWillUnmount"
+			return () => clearInterval(fallInterval)
 		}
-	}, [gameSpeed, isPaused, gameState.ended]);
+	}, [gameState.ended, isPaused, level]);
 	
-	const quickFallInterval = useMemo(() => {
+	useEffect(() => {
 		if (!gameState.ended && quickFall && !isPaused) {
-			return setInterval(() => {
-				dispatch({type: 'quick fall'})
+			const quickFallInterval = setInterval(() => {
+					dispatch({type: 'quick fall'})
 			}, 50);
+			
+			return () => clearInterval(quickFallInterval)
 		}
 	}, [gameState.ended, quickFall, isPaused]);
 	
-	const generationTimer = useMemo(() => {
+	useEffect(() => {
 		if (!gameState.ended && !isPaused) {
-			return setInterval(() => {
-				dispatch({type: 'generation timer'})
+			const generationTimer = setInterval(() => {
+					dispatch({type: 'generation timer'})
 			}, 1000);
+			
+			return () => clearInterval(generationTimer)
 		}
 	}, [gameState.ended, isPaused]);
 	
-	const playingTimeInterval = useMemo(() => {
+	useEffect(() => {
 		if (!gameState.ended && !isPaused) {
-			return setInterval(() => {
-				dispatch({type: 'update playing time'})
+			const playingTimeInterval = setInterval(() => {
+					dispatch({type: 'update playing time'})
 			}, 1000)
+			
+			return () => clearInterval(playingTimeInterval)
 		}
 	}, [gameState.ended, isPaused]);
 	
@@ -201,6 +209,20 @@ export const GameProvider = ({children}) => {
 	useEffect(() => {
 		dispatch({type: 'remove filled lines'})
 	}, [gameState.theyArrived]);
+	
+	//increases the difficulty
+	useEffect(() => {
+		const times = {
+			2: 120, 4: 240, 6: 360, 7: 420, 8: 480, 9: 540, 10: 600, 11: 660, 12: 720
+		}
+		
+		for (let i in times) {
+			if (times[i] === gameState.playingTime) {
+				setLevel(`level${Object.keys(times).indexOf(i) + 2}`)
+				break
+			}
+		}
+	}, [gameState.playingTime, level]);
 	
 	//render
 	useEffect(() => {
@@ -216,15 +238,9 @@ export const GameProvider = ({children}) => {
 		setNextBlocks(newBlocks);
 	}, [gameState.nextBlocks]);
 	
-	const play = useCallback(() => setIsPaused(false), []);
+	const play = () => setIsPaused(false);
 	
-	const pause = useCallback(() => {
-		clearInterval(fallInterval)
-		clearInterval(quickFallInterval)
-		clearInterval(generationTimer)
-		clearInterval(playingTimeInterval)
-		setIsPaused(true)
-	}, [fallInterval, generationTimer, quickFallInterval, playingTimeInterval])
+	const pause = () => setIsPaused(true);
 	
 	const moveLeft = () => dispatch({type: 'left'});
 
@@ -232,17 +248,14 @@ export const GameProvider = ({children}) => {
 
 	const getDownFaster = () => setQuickFall(true);
 	
-	const cancelQuickFall = () => {
-		clearInterval(quickFallInterval);
-		setQuickFall(false);
-	}
+	const cancelQuickFall = () => setQuickFall(false);
 	
 	const antiClockwiseRotate = () => dispatch({type: 'rotate left'})
 	
 	const clockwiseRotate = () => dispatch({type: 'rotate right'})
 	
 	return (
-		<GameContext.Provider value={{ play, pause, isPaused, ended: gameState.ended, playingTime: gameState.playingTime, deletedLines: gameState.deletedLines, gTimer: gameState.gTimer, score: gameState.score, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickFall, clockwiseRotate, antiClockwiseRotate, nextBlocks }}>
+		<GameContext.Provider value={{ level: level.slice(5), play, pause, isPaused, ended: gameState.ended, playingTime: gameState.playingTime, deletedLines: gameState.deletedLines, gTimer: gameState.gTimer, score: gameState.score, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickFall, clockwiseRotate, antiClockwiseRotate, nextBlocks }}>
 			{children}
 		</GameContext.Provider>
 	);

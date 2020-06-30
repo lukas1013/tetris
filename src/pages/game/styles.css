@@ -55,11 +55,11 @@
 	margin-top: 10%;
 }
 
-footer{
+#root > footer{
 	background-color: var(--blackCoffee);
 }
 
-footer > .container{
+#root > footer > .container{
 	width: 100%;
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
