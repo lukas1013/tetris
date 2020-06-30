@@ -213,12 +213,12 @@ export const GameProvider = ({children}) => {
 	//increases the difficulty
 	useEffect(() => {
 		const times = {
-			2: 120, 4: 240, 6: 360, 7: 420, 8: 480, 9: 540, 10: 600, 11: 660, 12: 720
+			2: 120, 3: 240, 4: 360, 5: 420, 6: 480, 7: 540, 8: 600, 9: 660, 10: 720
 		}
 		
 		for (let i in times) {
 			if (times[i] === gameState.playingTime) {
-				setLevel(`level${Object.keys(times).indexOf(i) + 2}`)
+				setLevel(`level${i}`)
 				break
 			}
 		}
