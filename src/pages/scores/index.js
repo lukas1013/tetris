@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { MdDelete } from 'react-icons/md';
 import { FaCrown } from 'react-icons/fa';
 
@@ -6,7 +6,7 @@ import { useScore } from '../../contexts/score';
 
 import './styles.css';
 
-export default function Score(props) {
+function Scores(props) {
 	const { scores, deleteScore } = useScore();
 
 	return (
@@ -44,3 +44,5 @@ export default function Score(props) {
 		</>
 	);
 }
+
+export default memo(Scores);

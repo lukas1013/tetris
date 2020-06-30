@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
 import { FiPlay, FiPause, FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCircle } from 'react-icons/fi';
 
@@ -70,4 +70,4 @@ function Game() {
 	);
 }
 
-export default Game;
+export default memo(Game);

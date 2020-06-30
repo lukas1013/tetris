@@ -5,7 +5,7 @@ import { ScoreProvider } from './contexts/score';
 
 import Home from './pages/home/';
 import Game from './pages/game/';
-const Score = React.lazy(() => import('./pages/score/'));
+const Score = React.lazy(() => import('./pages/scores/'));
 
 export default function Routes() {
 	return (
