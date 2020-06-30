@@ -10,7 +10,7 @@ import './styles.css';
 const GameOverModal = React.lazy(() => import('./modal/GameOver'));
 
 function Game() {
-	const { play, pause, isPaused, ended, playingTime, deletedLines, gTimer, score, poliminos, moveLeft, moveRight, cancelQuickFall, getDownFaster, clockwiseRotate, antiClockwiseRotate, nextBlocks } = useGame();
+	const { level, play, pause, isPaused, ended, playingTime, deletedLines, gTimer, score, poliminos, moveLeft, moveRight, cancelQuickFall, getDownFaster, clockwiseRotate, antiClockwiseRotate, nextBlocks } = useGame();
 	
 	return (
 		<>
@@ -37,7 +37,7 @@ function Game() {
 				<h3>Playing Time:</h3> 
 				<h4>{parseTime(playingTime)}</h4> 
   				<h3 id='level'>Level:</h3>
-  				<h4>1</h4>
+  				<h4>{level}</h4>
 				<h3>Score:</h3> 
 				<h4>{score}</h4> 
 				<h3>Next:</h3>

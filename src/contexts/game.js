@@ -210,6 +210,19 @@ export const GameProvider = ({children}) => {
 		dispatch({type: 'remove filled lines'})
 	}, [gameState.theyArrived]);
 	
+	useEffect(() => { 
+		const times = {
+			2: 120, 4: 240, 6: 360, 7: 420, 8: 480, 9: 540, 10: 600, 11: 660, 12: 720
+		}
+		
+		for (let i in times) {
+			if (times[i] === gameState.playingTime) {
+				setLevel(`level${Object.keys(times).indexOf(i) + 2}`)
+				break
+			}
+		}
+	}, [gameState.playingTime, level]);
+	
 	//render
 	useEffect(() => {
 		const newPoliminos = gameState.poliminos.map((data, key) => <Polimino focus={gameState.inFocus === key && !gameState.theyArrived.includes(gameState.poliminos[key])} key={key} {...data} /> );
@@ -234,17 +247,14 @@ export const GameProvider = ({children}) => {
 
 	const getDownFaster = () => setQuickFall(true);
 	
-	const cancelQuickFall = () => {
-		clearInterval(quickFallInterval);
-		setQuickFall(false);
-	}
+	const cancelQuickFall = () => setQuickFall(false);
 	
 	const antiClockwiseRotate = () => dispatch({type: 'rotate left'})
 	
 	const clockwiseRotate = () => dispatch({type: 'rotate right'})
 	
 	return (
-		<GameContext.Provider value={{ play, pause, isPaused, ended: gameState.ended, playingTime: gameState.playingTime, deletedLines: gameState.deletedLines, gTimer: gameState.gTimer, score: gameState.score, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickFall, clockwiseRotate, antiClockwiseRotate, nextBlocks }}>
+		<GameContext.Provider value={{ level: level.slice(5), play, pause, isPaused, ended: gameState.ended, playingTime: gameState.playingTime, deletedLines: gameState.deletedLines, gTimer: gameState.gTimer, score: gameState.score, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickFall, clockwiseRotate, antiClockwiseRotate, nextBlocks }}>
 			{children}
 		</GameContext.Provider>
 	);
