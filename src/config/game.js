@@ -4,7 +4,7 @@ const config = {
 	minY: 0,
 	maxY: 190,
 	level1: {
-		gameSpeed: 1500,
+		speed: 1500,
 		generation: 18000
 	}
 }

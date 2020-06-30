@@ -32,8 +32,6 @@ body{
 #root > header{
 	z-index: 90;
 	background-color: var(--xiketic);
-	/*background-image: linear-gradient(135deg, var(--dogwoodRose), var(--frenchViolet));
-	*/
 }
 
 header > .container{

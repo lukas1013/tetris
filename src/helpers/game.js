@@ -29,7 +29,7 @@ export function getNextFocus(state) {
 export function nextPolimino(state) {
 	const blocks = [...state.nextBlocks], { inFocus } = state;
 	const next = {...blocks.shift()}
-	next.coords = {x: 40, y: 0}
+	next.coords = {x: 50, y: 0}
 	state.poliminos.push(next);
 	
 	if (gameOver(state.theyArrived, next)) {
@@ -68,12 +68,14 @@ export function nextPolimino(state) {
 
 export function gameOver(poliminos, polimino) {
 	const points = getBlockCoords(polimino.type, polimino.coords, polimino.angle)
-	
+
 	if (polimino.hasArrived && points.some(p => p.y < gameConfig.minY)) {
 		return true
 	}
+
+	const pol = {...polimino}
+	pol.coords = {...polimino.coords}
+	pol.coords.y += 10
 	
-	return poliminos.some(p => {
-		return isCollided(polimino, p)
-	})
+	return poliminos.some(p => isCollided(pol, p));
 }
