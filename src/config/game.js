@@ -5,30 +5,30 @@ const config = {
 	maxY: 190,
 	level1: {
 		speed: 1500,
-		generation: 18000
+		generation: 16000
 	},
 	level2: {
 		speed: 1200,
 		generation: 15000
 	},
 	level3: {
-		speed: 1000,
+		speed: 900,
 		generation: 13000
 	},
 	level4: {
 		speed: 700,
-		generation: 13000
+		generation: 12000
 	},
 	level5: {
 		speed: 600,
-		generation: 10000
+		generation: 11000
 	},
 	level6: {
 		speed: 500,
-		generation: 10000
+		generation: 9000
 	},
 	level7: {
-		speed: 500,
+		speed: 450,
 		generation: 8000
 	},
 	level8: {

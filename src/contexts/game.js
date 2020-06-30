@@ -210,7 +210,8 @@ export const GameProvider = ({children}) => {
 		dispatch({type: 'remove filled lines'})
 	}, [gameState.theyArrived]);
 	
-	useEffect(() => { 
+	//increases the difficulty
+	useEffect(() => {
 		const times = {
 			2: 120, 4: 240, 6: 360, 7: 420, 8: 480, 9: 540, 10: 600, 11: 660, 12: 720
 		}
