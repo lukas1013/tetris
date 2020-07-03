@@ -39,6 +39,7 @@ body{
 header > .container{
 	display: flex;
 	padding: 2%;
+	box-sizing: border-box;
 }
 
 header #title{

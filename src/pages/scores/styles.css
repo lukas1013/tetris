@@ -1,16 +1,9 @@
 #score-content{
-	overflow-y: scroll;
 	padding: 3% 1%;
-	flex: 1 0 auto;
-	width: 100%;
-	height: 50%;
 	box-sizing: border-box;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-auto-rows: 1fr;
-	grid-gap: 2vw;
-	align-items: start;
 	position: relative;
+	justify-content: space-between;
+	align-content: flex-start;
 }
 
 .score{
@@ -21,6 +14,8 @@
 	background-color: #fff;
 	grid-column: span 1;
 	grid-row: span 1;
+	width: 49%;
+	margin-bottom: 2%;
 	box-shadow: 0 1px 1.3vw rgba(0,0,0,.9);
 }
 
@@ -31,31 +26,24 @@
 	box-shadow: 0 0 1.1vw rgba(0,0,0,.3);
 }
 
-.score > header > .container{
-	display: grid;
-	grid-template-columns: 20% 20% 1fr;
-}
-
 .score .icon{
-	align-self: end;
+	align-self: flex-end;
 }
 
 .icon.crown{
-	grid-column: 1 / span 1;
 	width: 7vw;
 	height: 7vw;
 	fill: yellow;
+	margin-right: 2%;
 }
 
 .icon.place{
 	margin: 0;
+	flex: 1 0 auto;
 	font-size: 1.2em;
-	grid-column: span 1 / span 1;
 }
 
 .icon.delete{
-	grid-column: 3 / span 1;
-	justify-self: end;
 	width: 7vw;
 	height: 7vw;
 }
@@ -99,14 +87,6 @@
 }
 
 @media only screen and (orientation: landscape) {
-	#score-content{
-		grid-gap: 2vh;
-	}
-	
-	.score > header > .container{
-		grid-template-columns: 10% 10% 1fr;
-	}
-	
 	.icon.crown, .icon.delete{
 		height: 7vh;
 		width: 7vh;

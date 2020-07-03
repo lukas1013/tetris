@@ -17,7 +17,7 @@ function Scores(props) {
 				</div>
 			</header>
 			
-			<main id='score-content'>
+			<main id='score-content' className='content'>
 				<span className={!scores.length ? 'on' : 'off'} id='no-content'>There are no scores to show</span>
 				
 				{scores.map((score, key) => (
