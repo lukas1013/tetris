@@ -34,18 +34,19 @@ function Game() {
 			</svg>
 			
 			<aside id='side'>
-				<h3>Playing Time:</h3> 
-				<h4>{parseTime(playingTime)}</h4> 
-  				<h3 id='level'>Level:</h3>
-  				<h4>{level}</h4>
-				<h3>Score:</h3> 
-				<h4>{score}</h4> 
-				<h3>Next:</h3>
-				<span>{gTimer}s</span>
-				<svg version='1.1' width='40' height='120' viewBox='0 0 40 120' id='next' className='container'>
-					{nextBlocks}
-				</svg>
-				
+				<div className='container'>
+					<h3>Playing Time:</h3> 
+					<h4>{parseTime(playingTime)}</h4> 
+	  				<h3 id='level'>Level:</h3>
+	  				<h4>{level}</h4>
+					<h3>Score:</h3> 
+					<h4>{score}</h4> 
+					<h3>Next:</h3>
+					<span>{gTimer}s</span>
+					<svg version='1.1' width='40' height='120' viewBox='0 0 40 120' id='next' className='container'>
+						{nextBlocks}
+					</svg>
+				</div>
 			</aside>
 			
 		</div>

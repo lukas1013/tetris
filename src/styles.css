@@ -17,6 +17,7 @@ body{
 	font-size: 62.5%;
 	overflow: scroll;
 	user-select: none;
+	font-family: 'Roboto Condensed', Sans-Serif;
 	background-color: var(--smokyBlack);
 }
 
@@ -24,9 +25,10 @@ body{
 	display: flex;
 	height: 100%;
 	width: 100%;
-	font-size: 1.4rem;
 	flex-flow: column;
 	overflow: scroll;
+	font-size: 4vw;
+	box-sizing: border-box;
 }
 
 #root > header{
@@ -35,16 +37,15 @@ body{
 }
 
 header > .container{
-	display: grid;
-	grid-auto-columns: repeat(2, 1fr);
+	display: flex;
 	padding: 2%;
 }
 
 header #title{
-	font-size: 2.2rem;
 	margin: 0;
+	flex: 1 0 auto;
 	align-self: center;
-	grid-column: 1 / span 1;
+	font-size: 1.4em;
 }
 
 #root > .content{
@@ -53,6 +54,7 @@ header #title{
 	height: 50%;
 	display: flex;
 	flex-wrap: wrap;
+	overflow: scroll;
 }
 
 header,
@@ -64,4 +66,30 @@ footer{
 
 #root > footer{
 	padding: 1%;
+}
+
+header #title, h2, h3, h4, button{
+	font-family: 'Noto Serif', Sans-Serif;
+}
+
+h3{
+	font-size: 1em;
+}
+
+h4, span{
+	font-size: .9em;
+}
+
+button{
+	font-size: .9em;
+}
+
+@media only screen and (orientation: landscape) {
+	#root{
+		font-size: calc(4 * 100vh / 100);
+	}
+	
+	header > .container{
+		padding: calc(2 * 100vh / 100);
+	}
 }

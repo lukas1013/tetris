@@ -9,7 +9,7 @@
 
 #modal > .container{
 	width: 90%;
-	border-radius: 7px;
+	border-radius: 1.3vw;
 	z-index: 8001;
 	overflow: hidden;
 	display: flex;
@@ -27,38 +27,41 @@
 }
 
 #modal > .container header #title{
-	flex: 1 0 auto;
 	text-align: center;
-	font-size: 2rem;
+	font-size: 1.2em;
 }
 
 #close{
-	flex: 0 0 auto;
-	font-size: 1.8rem;
 	font-weight: bold;
 	align-self: center;
+	font-size: 1.4em;
 }
 
 #modal > .container > .content{
 	flex: 1 0 auto;
 	margin: 0;
-	padding: 1px;
+	padding: 3% 2%;
 	box-sizing: border-box;
 	overflow-y: scroll;
 }
 
 #modal > .container > .content li{
 	list-style: none;
-	padding: 2%;
 }
 
 #modal > .container li:nth-child(odd){
 	color: var(--lavenderWeb);
 	font-weight: bold;
+	margin-bottom: 1%;
 }
 
 #modal > .container li:nth-child(even){
 	color: var(--malachite);
+	margin-bottom: 5%;
+}
+
+#modal > .container li:last-of-type{
+	margin-bottom: 0;
 }
 
 #modal > .container footer{
@@ -75,7 +78,7 @@
 	font-weight: bold;
 	transition: all .2s;
 	margin: 1%;
-	border-radius: 5px;
+	border-radius: 1.1vw;
 	color: #fff;
 	background-color: var(--frenchViolet);
 }
@@ -93,4 +96,23 @@
 
 #modal > .container .container{
 	display: flex;
+}
+
+@media only screen and (orientation: landscape) {
+	#modal > .container{
+		width: 70%;
+	}
+	
+	#modal > .container > .content{
+		padding: 2% 1%;
+	}
+	
+	#modal > .container li:nth-child(even) {
+		margin-bottom: calc(5 * 100vh / 100);
+	}
+	
+	#modal > .container button > svg{
+		width: 5vh;
+		height: 5vh;
+	}
 }
