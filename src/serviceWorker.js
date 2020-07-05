@@ -1,12 +1,10 @@
-
-export function registerWorker() {
-	if ('serviceWorker' in window) {
+export default function registerWorker() {
+	if ('serviceWorker' in navigator) {
 		window.onload = function() {
-			navigator.serviceWorker.register('/sw.js').then(registration => {
-				alert(JSON.stringify(registration))
-			}).catch(err => {
-				alert(JSON.stringify(err))
-			})
+			navigator.serviceWorker.register('/service-worker.js')
+				.catch(err => {
+					console.log(err.message)
+				})
 		}
 	}
 }
