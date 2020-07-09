@@ -13,8 +13,7 @@
 	font-weight: bold;
 	box-shadow: 0 0 1.1vw rgba(0,0,0,.4);
 	transition: all .3s;
-	color: var(--lavenderWeb);
-	background: var(--dogwoodRose) linear-gradient(90deg, rgba(0,0,0,.3), transparent, rgba(0,0,0,.3));
+	background: var(--buttonColor) linear-gradient(90deg, rgba(0,0,0,.3), transparent, rgba(0,0,0,.3));
 }
 
 #home-content .button.large:hover{
