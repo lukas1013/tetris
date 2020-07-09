@@ -6,6 +6,7 @@ import { ScoreProvider } from './contexts/score';
 import Home from './pages/home/';
 import Game from './pages/game/';
 const Score = React.lazy(() => import('./pages/scores/'));
+const Settings = React.lazy(() => import('./pages/settings/'));
 
 export default function Routes() {
 	return (
@@ -24,6 +25,8 @@ export default function Routes() {
 						<Score/>
 					</ScoreProvider>
 				</Route>
+				
+				<Route path='/settings' component={Settings} />
 			</Switch>
 		</Suspense>
 	);

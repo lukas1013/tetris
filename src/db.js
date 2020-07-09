@@ -15,8 +15,8 @@ function getDoc(id) {
 						'_id': id
 					})
 					
-					reject();
 				}
+				reject();
 			})
 	})
 }
@@ -57,4 +57,23 @@ function getScores() {
 	})
 }
 
-export { saveScore, deleteScore, getScores }
+function getSettings() {
+	return new Promise((resolve, reject) => {
+		getDoc('Settings')
+			.then(doc => resolve(doc.settings))
+			.catch(err => reject({}));
+	})
+}
+
+async function saveSettings(newSettings) {
+	await getDoc('Settings').then(doc => {
+		doc.settings = newSettings;
+		db.put(doc);
+	});
+}
+
+async function deleteSettings() {
+	await getDoc('Settings').then(doc => db.remove(doc._id, doc._rev));
+}
+
+export { saveScore, deleteScore, getScores, getSettings, saveSettings, deleteSettings }
