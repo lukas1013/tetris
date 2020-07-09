@@ -1,5 +1,5 @@
 :root{
-	--xiketic: #0d0207;
+	--xiketic: #0D0207;
 	--blackCoffee: #383438;
 	--malachite: #00DB71;
 	--frenchViolet: #7100D9;
@@ -46,7 +46,7 @@ header #title{
 	margin: 0;
 	flex: 1 0 auto;
 	align-self: center;
-	font-size: 1.4em;
+	font-size: 1.45em;
 }
 
 #root > .content{
@@ -82,6 +82,7 @@ h4, span{
 }
 
 button{
+	color: var(--colorPrimary);
 	font-size: .9em;
 }
 

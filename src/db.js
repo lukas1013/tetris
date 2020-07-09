@@ -15,8 +15,8 @@ function getDoc(id) {
 						'_id': id
 					})
 					
-					reject();
 				}
+				reject();
 			})
 	})
 }
