@@ -1,14 +1,14 @@
 :root{
 	/*--xiketic: #0D0207;
-	--blackCoffee: #383438;
 	*/
+	--blackCoffee: #383438;
 	--malachite: #00DB71;
 	--frenchViolet: #7100D9;
 	--dogwoodRose: #DA0061;
 	--lavenderWeb: #E1DEF9;
 	--smokyBlack: #141314;
 	
-	--fontSize: calc(4 * 100vw / 100);
+	--fontSize: 4vw;
 	--colorPrimary: #E1DEF9;
 	--colorSecondary: #00DB71;
 	--windowColor: #141314;

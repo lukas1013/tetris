@@ -18,6 +18,7 @@
 
 #home-content .button.large:hover{
 	background: transparent none;
+	box-shadow: none;
 }
 
 
