@@ -1,6 +1,5 @@
 :root{
-	/*--xiketic: #0D0207;
-	*/
+	--xiketic: #0D0207;
 	--blackCoffee: #383438;
 	--malachite: #00DB71;
 	--frenchViolet: #7100D9;
@@ -38,7 +37,7 @@ body{
 	height: 100%;
 	width: 100%;
 	flex-flow: column;
-	overflow: scroll;
+	overflow-y: scroll;
 	font-size: var(--fontSize);
 	box-sizing: border-box;
 }
@@ -67,7 +66,7 @@ header #title{
 	height: 50%;
 	display: flex;
 	flex-wrap: wrap;
-	overflow: scroll;
+	overflow-y: scroll;
 }
 
 header,
