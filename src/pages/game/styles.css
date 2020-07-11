@@ -1,6 +1,7 @@
-#play, #pause{
+#home, #play, #pause{
 	width: 9vw;
 	height: 9vw;
+	margin-left: 2%;
 	stroke-width: 0;
 	fill: var(--colorPrimary);
 }
@@ -26,15 +27,14 @@
 	box-sizing: border-box;
 }
 
+:fullscreen #side{
+	font-size: .7em;
+	overflow: scroll;
+}
+
 #side h3{
 	margin: 1%;
 	color: var(--colorSecondary);
-}
-
-/*next*/
-#side h3:last-of-type{
-	display: inline-block;
-	margin-right: 10%;
 }
 
 #side h4, #side span{
@@ -47,6 +47,10 @@
 	display: block;
 	margin: 10% 0 0 1%;
 	box-sizing: border-box;
+}
+
+:fullscreen #next.container{
+	width: 100%;
 }
 
 #root > footer{

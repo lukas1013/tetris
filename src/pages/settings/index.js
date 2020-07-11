@@ -108,7 +108,7 @@ function Settings(props) {
 				<section className='setting'>
 					<h2>Game</h2>
 					<div id='check-container'>
-						<input disabled={true} onChange={() => setPreference('fullscreen', !preferences.fullscreen)} checked={preferences.fullscreen} id='fullscreen' type='checkbox' />
+						<input onChange={() => setPreference('fullscreen', !preferences.fullscreen)} checked={preferences.fullscreen} id='fullscreen' type='checkbox' />
 						<h4><label htmlFor='fullscreen'>Fullscreen</label></h4>
 							
 						<input disabled={true} onChange={() => setPreference('sound', !preferences.sound)} checked={preferences.sound} id='sound' type='checkbox' />

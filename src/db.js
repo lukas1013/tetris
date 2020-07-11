@@ -60,7 +60,7 @@ function getScores() {
 function getSettings() {
 	return new Promise((resolve, reject) => {
 		getDoc('Settings')
-			.then(doc => resolve(doc.settings))
+			.then(doc => resolve(doc.settings || {}))
 			.catch(err => reject({}));
 	})
 }
