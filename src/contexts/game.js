@@ -7,6 +7,7 @@ import React, {
 	useContext 
 } from 'react';
 
+import { useSettings } from './settings';
 import gameConfig from '../config/game';
 import * as motionHelper from '../helpers/motion';
 import * as rotationHelper from '../helpers/rotation';
@@ -18,6 +19,7 @@ import Polimino from '../components/polimino/';
 const GameContext = createContext({});
 
 export const GameProvider = ({children}) => {
+	const { settings } = useSettings();
 	const [poliminos, setPoliminos] = useState(null);
 	const [quickFall, setQuickFall] = useState(false);
 	const [isPaused, setIsPaused] = useState(false);
@@ -51,6 +53,12 @@ export const GameProvider = ({children}) => {
 		playingTime: 0
 	}), [level])
 	
+	function vibrate() {
+		if ('vibrate' in navigator && settings.vibrate) {
+			navigator.vibrate(30);
+		}
+	}
+	
 	function reducer(state, action) {
 		const newState = {...state};
 		const { inFocus, gTimer, ended } = state;
@@ -62,12 +70,16 @@ export const GameProvider = ({children}) => {
 			case 'left':
 				if (motionHelper.canMoveLeft(newState.poliminos, newState.poliminos[inFocus])) {
 					motionHelper.move(newState.poliminos[inFocus], 'left');
+				}else{
+					vibrate();
 				}
 				return newState;
 
 			case 'right':
 				if (motionHelper.canMoveRight(newState.poliminos, newState.poliminos[inFocus])) {
 					motionHelper.move(newState.poliminos[inFocus], 'right');
+				}else{
+					vibrate();
 				}
 				return newState;
 
@@ -78,6 +90,7 @@ export const GameProvider = ({children}) => {
 				if (motionHelper.canFall(newState.poliminos, newState.poliminos[inFocus])) {
 					motionHelper.moveDown(newState.poliminos, newState.poliminos[inFocus])
 				}else {
+					vibrate();
 					newState.poliminos[inFocus].hasArrived = true
 					if (!newState.theyArrived.includes(newState.poliminos[inFocus])) {
 						newState.theyArrived = newState.theyArrived.concat([newState.poliminos[inFocus]])
@@ -101,7 +114,8 @@ export const GameProvider = ({children}) => {
 						motionHelper.moveDown(newState.poliminos, polimino)
 						return polimino
 					}
-
+					
+					vibrate();
 					polimino.hasArrived = true
 					newState.theyArrived = newState.theyArrived.concat([polimino])
 					return polimino;

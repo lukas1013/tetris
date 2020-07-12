@@ -114,7 +114,7 @@ function Settings(props) {
 						<input disabled={true} onChange={() => setPreference('sound', !preferences.sound)} checked={preferences.sound} id='sound' type='checkbox' />
 						<h4><label htmlFor='sound'>Sound</label></h4>
 							
-						<input disabled={true} onChange={() => setPreference('vibrate', !preferences.vibrate)} checked={preferences.vibrate} id='vibrate' type='checkbox' />
+						<input onChange={() => setPreference('vibrate', !preferences.vibrate)} checked={preferences.vibrate} id='vibrate' type='checkbox' />
 						<h4><label htmlFor='vibrate'>Vibrate</label></h4>
 					</div>
 					
