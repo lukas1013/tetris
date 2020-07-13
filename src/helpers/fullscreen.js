@@ -1,5 +1,5 @@
 export function requestFullscreen() {
-	const enabled = localStorage.getItem('fullscreen');
+	const enabled = JSON.parse(localStorage.getItem('fullscreen'));
 	const html = document.documentElement;
 	html.requestFullscreen = html.requestFullscreen || html.mozRequestFullScreen || html.webkitRequestFullscreen || html.msRequestFullscreen || html.oRequestFullscreen;
 	

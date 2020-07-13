@@ -38,7 +38,11 @@ export const SettingsProvider = ({ children }) => {
 	const savePreferences = async preferences => {
 		await saveSettings(preferences);
 		//quick access to firefox
-		localStorage.setItem('fullscreen', preferences.fullscreen);
+		try{
+			localStorage.setItem('fullscreen', JSON.stringify(preferences.fullscreen));
+		}catch(e){
+			console.log(e.message)
+		}
 		setSettings(preferences);
 	}
 	
