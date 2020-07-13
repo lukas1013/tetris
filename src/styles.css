@@ -1,11 +1,21 @@
 :root{
-	--xiketic: #0d0207;
+	--xiketic: #0D0207;
 	--blackCoffee: #383438;
 	--malachite: #00DB71;
 	--frenchViolet: #7100D9;
 	--dogwoodRose: #DA0061;
 	--lavenderWeb: #E1DEF9;
 	--smokyBlack: #141314;
+	
+	--fontSize: 4vw;
+	--colorPrimary: #E1DEF9;
+	--colorSecondary: #00DB71;
+	--windowColor: #141314;
+	--headerColor: #0D0207;
+	--buttonColor: #DA0061;
+	--footerColor: #383438;
+	--sidebarColor: #0D0207;
+	--gameButtonColor: #E1DEF9;
 }
 
 html,
@@ -18,7 +28,8 @@ body{
 	overflow: scroll;
 	user-select: none;
 	font-family: 'Roboto Condensed', Sans-Serif;
-	background-color: var(--smokyBlack);
+	color: var(--colorPrimary);
+	background-color: var(--windowColor);
 }
 
 #root{
@@ -26,14 +37,14 @@ body{
 	height: 100%;
 	width: 100%;
 	flex-flow: column;
-	overflow: scroll;
-	font-size: 4vw;
+	overflow-y: scroll;
+	font-size: var(--fontSize);
 	box-sizing: border-box;
 }
 
 #root > header{
 	z-index: 90;
-	background-color: var(--xiketic);
+	background-color: var(--headerColor);
 }
 
 header > .container{
@@ -46,7 +57,7 @@ header #title{
 	margin: 0;
 	flex: 1 0 auto;
 	align-self: center;
-	font-size: 1.4em;
+	font-size: 1.45em;
 }
 
 #root > .content{
@@ -55,7 +66,7 @@ header #title{
 	height: 50%;
 	display: flex;
 	flex-wrap: wrap;
-	overflow: scroll;
+	overflow-y: scroll;
 }
 
 header,
@@ -82,6 +93,7 @@ h4, span{
 }
 
 button{
+	color: var(--colorPrimary);
 	font-size: .9em;
 }
 

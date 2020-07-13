@@ -50,13 +50,13 @@
 }
 
 #modal > .container li:nth-child(odd){
-	color: var(--lavenderWeb);
+	color: var(--colorPrimary);
 	font-weight: bold;
 	margin-bottom: 1%;
 }
 
 #modal > .container li:nth-child(even){
-	color: var(--malachite);
+	color: var(--colorSecondary);
 	margin-bottom: 5%;
 }
 

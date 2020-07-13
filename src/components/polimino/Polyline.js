@@ -84,5 +84,5 @@ export default function Polyline({ type, coords, angle, stroke }) {
 			break
 	}
 	
-	return <polyline stroke={stroke} stroke-width='1px' stroke-opacity='.8' points={points}/>
+	return <polyline stroke={stroke} strokeWidth='1px' strokeOpacity='.8' points={points}/>
 }

@@ -1,8 +1,9 @@
-#play, #pause{
+#home, #play, #pause{
 	width: 9vw;
 	height: 9vw;
+	margin-left: 2%;
 	stroke-width: 0;
-	fill: var(--lavenderWeb);
+	fill: var(--colorPrimary);
 }
 
 .block-container{
@@ -19,23 +20,21 @@
 
 #side{
 	height: 100%;
-	color: var(--lavenderWeb);
 	flex: 1 0 auto;
 	padding: 1%;
 	width: 10%;
-	background-color: var(--xiketic);
+	background-color: var(--sidebarColor);
 	box-sizing: border-box;
+}
+
+:fullscreen #side{
+	font-size: .7em;
+	overflow: scroll;
 }
 
 #side h3{
 	margin: 1%;
-	color: var(--malachite);
-}
-
-/*next*/
-#side h3:last-of-type{
-	display: inline-block;
-	margin-right: 10%;
+	color: var(--colorSecondary);
 }
 
 #side h4, #side span{
@@ -50,8 +49,12 @@
 	box-sizing: border-box;
 }
 
+:fullscreen #next.container{
+	width: 100%;
+}
+
 #root > footer{
-	background-color: var(--blackCoffee);
+	background-color: var(--footerColor);
 }
 
 #root > footer > .container{
@@ -66,12 +69,12 @@ footer > .container .button{
 	height: auto;
 	width: 100%;
 	place-self: center;
-	stroke: var(--lavenderWeb);
+	stroke: var(--gameButtonColor);
 	border-radius: 50%;
 }
 
 .container .button.spin{
-	fill: var(--lavenderWeb);
+	fill: var(--gameButtonColor);
 }
 
 .container .button:hover{
@@ -111,7 +114,7 @@ footer > .container .button{
 		width: auto;
 		justify-self: end;
 		padding: 1vh;
-		border: 1vh groove var(--lavenderWeb);
+		border: 1vh groove var(--colorPrimary);
 		border-right: none;
 		border-bottom: none;
 	}

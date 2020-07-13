@@ -1,8 +1,10 @@
 import React, { memo } from 'react';
 import { GiAnticlockwiseRotation, GiClockwiseRotation } from 'react-icons/gi';
 import { FiPlay, FiPause, FiArrowLeftCircle, FiArrowDownCircle, FiArrowRightCircle } from 'react-icons/fi';
-
+import { MdHome } from 'react-icons/md';
 import { useGame } from '../../contexts/game';
+import { useHistory } from 'react-router-dom';
+import { exitFullscreen } from '../../helpers/fullscreen';
 import parseTime from '../../utils/time';
 
 import './styles.css';
@@ -11,12 +13,14 @@ const GameOverModal = React.lazy(() => import('./modal/GameOver'));
 
 function Game() {
 	const { level, play, pause, isPaused, ended, playingTime, deletedLines, gTimer, score, poliminos, moveLeft, moveRight, cancelQuickFall, getDownFaster, clockwiseRotate, antiClockwiseRotate, nextBlocks } = useGame();
-	
+	const history = useHistory();
+
 	return (
 		<>
 		<header>
 			<div className='container'>
   				<h1 id='title'>Tetris</h1>
+  				<MdHome onClick={() => {exitFullscreen();history.push('/')}} id='home'/>
   				{isPaused ? <FiPlay onClick={play} id='play' /> : <FiPause onClick={pause} id='pause' />}
   			</div>
   		</header>
