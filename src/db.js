@@ -73,7 +73,10 @@ async function saveSettings(newSettings) {
 }
 
 async function deleteSettings() {
-	await getDoc('Settings').then(doc => db.remove(doc._id, doc._rev));
+	await getDoc('Settings').then(doc => {
+		doc.settings = {}
+		db.put(doc)
+	})
 }
 
 export { saveScore, deleteScore, getScores, getSettings, saveSettings, deleteSettings }
