@@ -10,7 +10,7 @@ const Settings = React.lazy(() => import('./pages/settings/'));
 
 export default function Routes() {
 	return (
-		<Suspense fallback={() => <div>Loading...</div>}>
+		<Suspense fallback={<div>Loading...</div>}>
 			<Switch>
 				<Route path='/' exact component={Home} />
 				

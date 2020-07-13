@@ -5,8 +5,7 @@ import './styles.css';
 
 function Settings(props) {
 	const { settings, savePreferences, resetDefault } = useSettings();
-	const [preferences, setPreferences] = useState({...settings});
-	
+	const [preferences, setPreferences] = useState(settings);
 	const fSizeRef = useRef(null);
 	const { width } = document.body.getBoundingClientRect();
 	
@@ -142,7 +141,7 @@ function Settings(props) {
 				</section>
 				
 				<button id='save' onClick={() => savePreferences(preferences)}>Save</button>
-				<button id='reset' onClick={() => resetDefault()}>Reset default</button>
+				<button id='reset' onClick={resetDefault}>Reset default</button>
 				<button id='cancel' onClick={() => setPreferences(settings)}>Cancel</button>
 			</main>
 		</>
