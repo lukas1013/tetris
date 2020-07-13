@@ -11,7 +11,7 @@ export default function Home() {
 	return (
 		<>
 			<header>
-				<div class="container">
+				<div className="container">
 					<h1 id='title'>Tetris</h1>
 				</div>
 			</header>

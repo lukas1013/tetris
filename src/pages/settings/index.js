@@ -51,18 +51,18 @@ function Settings(props) {
 					<div className='container'>
 						<h4 className='label'>Primary</h4>
 						<div className='color-container'>
-							<button style={{"background-color": "#E1DEF9"}} disabled={preferences.colorPrimary === '#E1DEF9'} onClick={() => setPreference('colorPrimary','#E1DEF9')} className='color'></button>
-							<button style={{"background-color": "#DA0061"}} disabled={preferences.colorPrimary === '#DA0061'} onClick={() => setPreference('colorPrimary','#DA0061')} className='color'></button>
-							<button style={{"background-color": "#7100D9"}} disabled={preferences.colorPrimary === '#7100D9'} onClick={() => setPreference('colorPrimary','#7100D9')} className='color'></button>
-							<button style={{"background-color": "#00DB71"}} disabled={preferences.colorPrimary === '#00DB71'} onClick={() => setPreference('colorPrimary','#00DB71')} className='color'></button>
+							<button style={{backgroundColor: "#E1DEF9"}} disabled={preferences.colorPrimary === '#E1DEF9'} onClick={() => setPreference('colorPrimary','#E1DEF9')} className='color'></button>
+							<button style={{backgroundColor: "#DA0061"}} disabled={preferences.colorPrimary === '#DA0061'} onClick={() => setPreference('colorPrimary','#DA0061')} className='color'></button>
+							<button style={{backgroundColor: "#7100D9"}} disabled={preferences.colorPrimary === '#7100D9'} onClick={() => setPreference('colorPrimary','#7100D9')} className='color'></button>
+							<button style={{backgroundColor: "#00DB71"}} disabled={preferences.colorPrimary === '#00DB71'} onClick={() => setPreference('colorPrimary','#00DB71')} className='color'></button>
 						</div>
 						
 						<h4 className='label'>Secondary</h4>
 						<div className='color-container'>
-							<button style={{"background-color": "#E1DEF9"}} disabled={preferences.colorSecondary === '#E1DEF9'} onClick={() => setPreference('colorSecondary','#E1DEF9')} className='color'></button>
-							<button style={{"background-color": "#DA0061"}} disabled={preferences.colorSecondary === '#DA0061'} onClick={() => setPreference('colorSecondary','#DA0061')} className='color'></button>
-							<button style={{"background-color": "#7100D9"}} disabled={preferences.colorSecondary === '#7100D9'} onClick={() => setPreference('colorSecondary','#7100D9')} className='color'></button>
-							<button style={{"background-color": "#00DB71"}} disabled={preferences.colorSecondary === '#00DB71'} onClick={() => setPreference('colorSecondary','#00DB71')} className='color'></button>
+							<button style={{backgroundColor: "#E1DEF9"}} disabled={preferences.colorSecondary === '#E1DEF9'} onClick={() => setPreference('colorSecondary','#E1DEF9')} className='color'></button>
+							<button style={{backgroundColor: "#DA0061"}} disabled={preferences.colorSecondary === '#DA0061'} onClick={() => setPreference('colorSecondary','#DA0061')} className='color'></button>
+							<button style={{backgroundColor: "#7100D9"}} disabled={preferences.colorSecondary === '#7100D9'} onClick={() => setPreference('colorSecondary','#7100D9')} className='color'></button>
+							<button style={{backgroundColor: "#00DB71"}} disabled={preferences.colorSecondary === '#00DB71'} onClick={() => setPreference('colorSecondary','#00DB71')} className='color'></button>
 						</div>
 					</div>
 				</section>
@@ -73,34 +73,34 @@ function Settings(props) {
 					<div className='container'>
 						<h4 className='label'>Window</h4>
 						<div className='color-container'>
-							<button style={{"background-color": "#E1DEF9"}} disabled={preferences.windowColor === '#E1DEF9'} onClick={() => setPreference('windowColor','#E1DEF9')} className='color'></button>
-							<button style={{"background-color": "#383438"}} disabled={preferences.windowColor === '#383438'} onClick={() => setPreference('windowColor','#383438')} className='color dark'></button>
-							<button style={{"background-color": "#141314"}} disabled={preferences.windowColor === '#141314'} onClick={() => setPreference('windowColor','#141314')} className='color dark'></button>
-							<button style={{"background-color": "#0D0207"}} disabled={preferences.windowColor === '#0D0207'} onClick={() => setPreference('windowColor','#0D0207')} className='color dark'></button>
+							<button style={{backgroundColor: "#E1DEF9"}} disabled={preferences.windowColor === '#E1DEF9'} onClick={() => setPreference('windowColor','#E1DEF9')} className='color'></button>
+							<button style={{backgroundColor: "#383438"}} disabled={preferences.windowColor === '#383438'} onClick={() => setPreference('windowColor','#383438')} className='color dark'></button>
+							<button style={{backgroundColor: "#141314"}} disabled={preferences.windowColor === '#141314'} onClick={() => setPreference('windowColor','#141314')} className='color dark'></button>
+							<button style={{backgroundColor: "#0D0207"}} disabled={preferences.windowColor === '#0D0207'} onClick={() => setPreference('windowColor','#0D0207')} className='color dark'></button>
 						</div>
 						
 						<h4 className='label'>Header</h4>
 						<div className='color-container'>
-							<button style={{"background-color": "#383438"}} disabled={preferences.headerColor === '#383438'} onClick={() => setPreference('headerColor','#383438')} className='color dark'></button>
-							<button style={{"background-color": "#0D0207"}} disabled={preferences.headerColor === '#0D0207'} onClick={() => setPreference('headerColor','#0D0207')} className='color dark'></button>
-							<button style={{"background-color": "#DA0061"}} disabled={preferences.headerColor === '#DA0061'} onClick={() => setPreference('headerColor','#DA0061')} className='color'></button>
-							<button style={{"background-color": "#7100D9"}} disabled={preferences.headerColor === '#7100D9'} onClick={() => setPreference('headerColor','#7100D9')} className='color'></button>
+							<button style={{backgroundColor: "#383438"}} disabled={preferences.headerColor === '#383438'} onClick={() => setPreference('headerColor','#383438')} className='color dark'></button>
+							<button style={{backgroundColor: "#0D0207"}} disabled={preferences.headerColor === '#0D0207'} onClick={() => setPreference('headerColor','#0D0207')} className='color dark'></button>
+							<button style={{backgroundColor: "#DA0061"}} disabled={preferences.headerColor === '#DA0061'} onClick={() => setPreference('headerColor','#DA0061')} className='color'></button>
+							<button style={{backgroundColor: "#7100D9"}} disabled={preferences.headerColor === '#7100D9'} onClick={() => setPreference('headerColor','#7100D9')} className='color'></button>
 						</div>
 						
 						<h4 className='label'>Footer</h4>
 						<div className='color-container'>
-							<button style={{"background-color": "#383438"}} disabled={preferences.footerColor === '#383438'} onClick={() => setPreference('footerColor','#383438')} className='color dark'></button>
-							<button style={{"background-color": "#0D0207"}} disabled={preferences.footerColor === '#0D0207'} onClick={() => setPreference('footerColor','#0D0207')} className='color dark'></button>
-							<button style={{"background-color": "#DA0061"}} disabled={preferences.footerColor === '#DA0061'} onClick={() => setPreference('footerColor','#DA0061')} className='color'></button>
-							<button style={{"background-color": "#7100D9"}} disabled={preferences.footerColor === '#7100D9'} onClick={() => setPreference('footerColor','#7100D9')} className='color'></button>
+							<button style={{backgroundColor: "#383438"}} disabled={preferences.footerColor === '#383438'} onClick={() => setPreference('footerColor','#383438')} className='color dark'></button>
+							<button style={{backgroundColor: "#0D0207"}} disabled={preferences.footerColor === '#0D0207'} onClick={() => setPreference('footerColor','#0D0207')} className='color dark'></button>
+							<button style={{backgroundColor: "#DA0061"}} disabled={preferences.footerColor === '#DA0061'} onClick={() => setPreference('footerColor','#DA0061')} className='color'></button>
+							<button style={{backgroundColor: "#7100D9"}} disabled={preferences.footerColor === '#7100D9'} onClick={() => setPreference('footerColor','#7100D9')} className='color'></button>
 						</div>
 						
 						<h4 className='label'>Buttons</h4>
 						<div className='color-container'>
-							<button style={{"background-color": "#E1DEF9"}} disabled={preferences.buttonColor === '#E1DEF9'} onClick={() => setPreference('buttonColor','#E1DEF9')} className='color'></button>
-							<button style={{"background-color": "#383438"}} disabled={preferences.buttonColor === '#383438'} onClick={() => setPreference('buttonColor','#383438')} className='color dark'></button>
-							<button style={{"background-color": "#DA0061"}} disabled={preferences.buttonColor === '#DA0061'} onClick={() => setPreference('buttonColor','#DA0061')} className='color'></button>
-							<button style={{"background-color": "#7100D9"}} disabled={preferences.buttonColor === '#7100D9'} onClick={() => setPreference('buttonColor','#7100D9')} className='color'></button>
+							<button style={{backgroundColor: "#E1DEF9"}} disabled={preferences.buttonColor === '#E1DEF9'} onClick={() => setPreference('buttonColor','#E1DEF9')} className='color'></button>
+							<button style={{backgroundColor: "#383438"}} disabled={preferences.buttonColor === '#383438'} onClick={() => setPreference('buttonColor','#383438')} className='color dark'></button>
+							<button style={{backgroundColor: "#DA0061"}} disabled={preferences.buttonColor === '#DA0061'} onClick={() => setPreference('buttonColor','#DA0061')} className='color'></button>
+							<button style={{backgroundColor: "#7100D9"}} disabled={preferences.buttonColor === '#7100D9'} onClick={() => setPreference('buttonColor','#7100D9')} className='color'></button>
 						</div>
 					</div>
 				</section>
@@ -122,10 +122,10 @@ function Settings(props) {
 					<div className='container'>
 						<h4 className='label'>Color</h4>
 						<div className='color-container'>
-							<button style={{"background-color": "#E1DEF9"}} disabled={preferences.sidebarColor === '#E1DEF9'} onClick={() => setPreference('sidebarColor','#E1DEF9')} className='color'></button>
-							<button style={{"background-color": "#383438"}} disabled={preferences.sidebarColor === '#383438'} onClick={() => setPreference('sidebarColor','#383438')} className='color dark'></button>
-							<button style={{"background-color": "#141314"}} disabled={preferences.sidebarColor === '#141314'} onClick={() => setPreference('sidebarColor','#141314')} className='color dark'></button>
-							<button style={{"background-color": "#0D0207"}} disabled={preferences.sidebarColor === '#0D0207'} onClick={() => setPreference('sidebarColor','#0D0207')} className='color dark'></button>
+							<button style={{backgroundColor: "#E1DEF9"}} disabled={preferences.sidebarColor === '#E1DEF9'} onClick={() => setPreference('sidebarColor','#E1DEF9')} className='color'></button>
+							<button style={{backgroundColor: "#383438"}} disabled={preferences.sidebarColor === '#383438'} onClick={() => setPreference('sidebarColor','#383438')} className='color dark'></button>
+							<button style={{backgroundColor: "#141314"}} disabled={preferences.sidebarColor === '#141314'} onClick={() => setPreference('sidebarColor','#141314')} className='color dark'></button>
+							<button style={{backgroundColor: "#0D0207"}} disabled={preferences.sidebarColor === '#0D0207'} onClick={() => setPreference('sidebarColor','#0D0207')} className='color dark'></button>
 						</div>
 					</div>
 					
@@ -133,10 +133,10 @@ function Settings(props) {
 					<div className='container'>
 						<h4 className='label'>Color</h4>
 						<div className='color-container'>
-							<button style={{"background-color": "#E1DEF9"}} disabled={preferences.gameButtonColor === '#E1DEF9'} onClick={() => setPreference('gameButtonColor','#E1DEF9')} className='color'></button>
-							<button style={{"background-color": "#383438"}} disabled={preferences.gameButtonColor === '#383438'} onClick={() => setPreference('gameButtonColor','#383438')} className='color dark'></button>
-							<button style={{"background-color": "#DA0061"}} disabled={preferences.gameButtonColor === '#DA0061'} onClick={() => setPreference('gameButtonColor','#DA0061')} className='color'></button>
-							<button style={{"background-color": "#7100D9"}} disabled={preferences.gameButtonColor === '#7100D9'} onClick={() => setPreference('gameButtonColor','#7100D9')} className='color'></button>
+							<button style={{backgroundColor: "#E1DEF9"}} disabled={preferences.gameButtonColor === '#E1DEF9'} onClick={() => setPreference('gameButtonColor','#E1DEF9')} className='color'></button>
+							<button style={{backgroundColor: "#383438"}} disabled={preferences.gameButtonColor === '#383438'} onClick={() => setPreference('gameButtonColor','#383438')} className='color dark'></button>
+							<button style={{backgroundColor: "#DA0061"}} disabled={preferences.gameButtonColor === '#DA0061'} onClick={() => setPreference('gameButtonColor','#DA0061')} className='color'></button>
+							<button style={{backgroundColor: "#7100D9"}} disabled={preferences.gameButtonColor === '#7100D9'} onClick={() => setPreference('gameButtonColor','#7100D9')} className='color'></button>
 						</div>
 					</div>
 				</section>
