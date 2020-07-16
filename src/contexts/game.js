@@ -3,6 +3,7 @@ import React, {
 	useState,
 	useReducer,
 	useMemo,
+	useCallback,
 	createContext,
 	useContext 
 } from 'react';
@@ -22,7 +23,7 @@ export const GameProvider = ({children}) => {
 	const { settings } = useSettings();
 	const [poliminos, setPoliminos] = useState(null);
 	const [quickFall, setQuickFall] = useState(false);
-	const [isPaused, setIsPaused] = useState(false);
+	const [isPaused, setIsPaused] = useState(true);
 	const [nextBlocks, setNextBlocks] = useState([]);
 	const [level, setLevel] = useState('level1');
 
@@ -252,6 +253,10 @@ export const GameProvider = ({children}) => {
 		setNextBlocks(newBlocks);
 	}, [gameState.nextBlocks]);
 	
+	const start = useCallback(() => {
+		setIsPaused(false)
+	}, []);
+	
 	const play = () => setIsPaused(false);
 	
 	const pause = () => setIsPaused(true);
@@ -269,7 +274,7 @@ export const GameProvider = ({children}) => {
 	const clockwiseRotate = () => dispatch({type: 'rotate right'})
 	
 	return (
-		<GameContext.Provider value={{ level: level.slice(5), play, pause, isPaused, ended: gameState.ended, playingTime: gameState.playingTime, deletedLines: gameState.deletedLines, gTimer: gameState.gTimer, score: gameState.score, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickFall, clockwiseRotate, antiClockwiseRotate, nextBlocks }}>
+		<GameContext.Provider value={{ soundEnabled: settings.sound, level: level.slice(5), start, play, pause, isPaused, ended: gameState.ended, playingTime: gameState.playingTime, deletedLines: gameState.deletedLines, gTimer: gameState.gTimer, score: gameState.score, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickFall, clockwiseRotate, antiClockwiseRotate, nextBlocks }}>
 			{children}
 		</GameContext.Provider>
 	);
