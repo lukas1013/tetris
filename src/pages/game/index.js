@@ -31,8 +31,9 @@ function Game() {
   			</div>
   		</header>
   		
+  		{soundEnabled && <Soundtrack paused={isPaused} ended={ended}/>}
   		<GameOverModal show={ended} playingTime={parseTime(playingTime)} score={score} deletedLines={deletedLines}/>
-  		
+		
 		<div id='game-content' className='content'>
 			<svg version="1.1"
    			xmlns="http://www.w3.org/2000/svg"
