@@ -82,7 +82,7 @@
 	border: 1px solid var(--dogwoodRose);
 }
 
-#check-container{
+.check-container{
 	display: grid;
 	grid-template-columns: 5.5vw 1fr 5.5vw 1fr 5.5vw 1fr;
 	grid-template-rows: 5.5vw;
@@ -92,12 +92,12 @@
 	margin-left: 2%;
 }
 
-#check-container h4{
+.check-container h4{
 	grid-column: span 1;
 }
 
 /*fullscreen, sound, vibrate*/
-#check-container > input{
+.check-container > input{
 	all: unset;
 	grid-column: span 1;
 	width: 100%;
@@ -107,18 +107,18 @@
 	background-color: var(--lavenderWeb);
 }
 
-#check-container > input:disabled{
+.check-container > input:disabled{
 	opacity: .7;
 }
 
-#check-container > input:checked{
+.check-container > input:checked{
 	background-color: var(--dogwoodRose);
 	text-align: center;
 	font-size: 5vw;
 	line-height: 5.5vw;
 }
 
-#check-container > input:checked::after{
+.check-container > input:checked::after{
 	/*check mark unicode*/
 	content: '\2713';
 }

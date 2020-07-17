@@ -16,6 +16,7 @@ export const SettingsProvider = ({ children }) => {
 		gameButtonColor: '#E1DEF9',
 		fullscreen: false,
 		sound:true,
+		track: 1,
 		vibrate:true
 	});
 	
@@ -52,6 +53,7 @@ export const SettingsProvider = ({ children }) => {
 		//quick access to firefox
 		try{
 			localStorage.setItem('fullscreen', JSON.stringify(preferences.fullscreen));
+			localStorage.setItem('track', preferences.track)
 		}catch(e){
 			console.log(e.message)
 		}
@@ -73,10 +75,12 @@ export const SettingsProvider = ({ children }) => {
 			gameButtonColor: '#E1DEF9',
 			fullscreen: false,
 			sound:true,
+			track: 1,
 			vibrate:true
 		}
 		try{
 			localStorage.setItem('fullscreen', JSON.stringify(false));
+			localStorage.setItem('track', 1);
 		}catch(e){
 			console.log(e.message)
 		}
