@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FaGithub } from 'react-icons/fa';
 
 import './styles.css';
 
-export default function About(props) {
-	const [display, setDisplay] = useState('flex');
-	
-	if (!props.show) return null;
+export default function About({ show, children }) {
+	if (!show) return null;
 	
 	return (
-		<div id='about-modal' style={{display}}>
+		<div id='about-modal'>
 			<header>
 				<div className='container'>
 					<h2 id='modal-title'>About</h2>
@@ -28,9 +26,7 @@ export default function About(props) {
 			</div>
 			
 			<footer>
-				<button className='button large' id='ok-modal' onClick={() => setDisplay('none')}>
-					Ok
-				</button>
+				{children}
 			</footer>
 		</div>
 	);

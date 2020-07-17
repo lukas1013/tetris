@@ -19,7 +19,11 @@ export default function Home() {
 			</header>
 			
 			<main id='home-content' className='content'>
-				<AboutModal show={showModal} />
+				<AboutModal show={showModal}>
+					<button className='button large' id='ok-modal' onClick={() => setShowModal(false)}>
+						Ok
+					</button>
+				</AboutModal>
 				
 				<button onClick={() => {requestFullscreen();history.push('/game')}} className='button large'>Play</button>
 				<button onClick={() => history.push('/scores')} className='button large'>Scores</button>
