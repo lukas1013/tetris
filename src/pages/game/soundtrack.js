@@ -28,7 +28,7 @@ function Soundtrack({ paused, ended }) {
 	if (ended) return null;
 	
 	return (
-		<audio ref={audioRef} autoPlay loop>
+		<audio ref={audioRef} crossOrigin='anonymous' autoPlay loop>
 			<source src={localStorage.getItem('track') === '2' ? track_02 : track_01} type='audio/mpeg'/>
 		</audio>
 	);

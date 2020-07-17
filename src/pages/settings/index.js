@@ -135,7 +135,7 @@ function Settings(props) {
 					
 					<h3>Soundtrack</h3>
 					<div className='check-container'>
-						{listening && <audio ref={trackPreviewRef} autoPlay src={listening === 1 ? track_01 : track_02}></audio>}
+						{listening && <audio ref={trackPreviewRef} autoPlay crossOrigin='anonymous' src={listening === 1 ? track_01 : track_02}></audio>}
 						
 						<input onClick={() => setListening(!listening || listening === 2 ? 1 : false)} disabled={!preferences.sound} onChange={() => setPreference('track', 1)} checked={preferences.track === 1} id='check-track01' type='checkbox' />
 						<h4><label htmlFor='check-track01'>Track 01</label></h4>
