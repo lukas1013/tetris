@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { requestFullscreen } from '../../helpers/fullscreen';
-import Ads from './ads';
 
 import './styles.css';
 
@@ -26,7 +25,6 @@ export default function Home() {
 				<button onClick={() => history.push('/scores')} className='button large'>Scores</button>
 				<button onClick={() => setShowModal(true)} className='button large'>About</button>
 				<button onClick={() => history.push('/settings')} className='button large'>Settings</button>
-				<Ads/>
 			</main>
 		</>
 	);
