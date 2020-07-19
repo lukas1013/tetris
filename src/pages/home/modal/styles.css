@@ -1,0 +1,49 @@
+#about-modal{
+	position: absolute;
+	background-color: var(--lavenderWeb);
+	width: 90%;
+	left: 5%;
+	top: 30%;
+	flex-wrap: wrap;
+	border-radius: 1.3vw;
+	overflow: hidden;
+	color: var(--xiketic);
+	display: flex;
+}
+
+#about-modal header > .container{
+	background-color: var(--dogwoodRose);
+}
+
+#modal-title{
+	display: inline-block;
+	margin: 0;
+	flex: 1 0 auto;
+}
+
+#about-modal .content{
+	padding: 2% 1%;
+	width: 94%;
+	margin: auto;
+}
+
+#github-link, #github-link:visited{
+	color: var(--dogwoodRose);
+	text-decoration: none;
+}
+
+#github{
+	width: 5.5vw;
+	height: 5.5vw;
+	vertical-align: bottom;
+	color: #000;
+}
+
+#about-modal footer{
+	width: 100%;
+}
+
+#ok-modal{
+	margin: auto;
+	display: block;
+}

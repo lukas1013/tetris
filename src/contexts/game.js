@@ -3,6 +3,7 @@ import React, {
 	useState,
 	useReducer,
 	useMemo,
+	useCallback,
 	createContext,
 	useContext 
 } from 'react';
@@ -13,6 +14,7 @@ import * as motionHelper from '../helpers/motion';
 import * as rotationHelper from '../helpers/rotation';
 import * as lineHelper from '../helpers/line';
 import * as gameHelper from '../helpers/game';
+import * as soundHelper from '../helpers/sound';
 
 import Polimino from '../components/polimino/';
 
@@ -22,7 +24,7 @@ export const GameProvider = ({children}) => {
 	const { settings } = useSettings();
 	const [poliminos, setPoliminos] = useState(null);
 	const [quickFall, setQuickFall] = useState(false);
-	const [isPaused, setIsPaused] = useState(false);
+	const [isPaused, setIsPaused] = useState(true);
 	const [nextBlocks, setNextBlocks] = useState([]);
 	const [level, setLevel] = useState('level1');
 
@@ -70,6 +72,7 @@ export const GameProvider = ({children}) => {
 			case 'left':
 				if (motionHelper.canMoveLeft(newState.poliminos, newState.poliminos[inFocus])) {
 					motionHelper.move(newState.poliminos[inFocus], 'left');
+					//soundHelper.playMotionSound();
 				}else{
 					vibrate();
 				}
@@ -78,6 +81,7 @@ export const GameProvider = ({children}) => {
 			case 'right':
 				if (motionHelper.canMoveRight(newState.poliminos, newState.poliminos[inFocus])) {
 					motionHelper.move(newState.poliminos[inFocus], 'right');
+					//soundHelper.playMotionSound();
 				}else{
 					vibrate();
 				}
@@ -155,6 +159,7 @@ export const GameProvider = ({children}) => {
 				const lines = lineHelper.getFilledLines(newState.theyArrived)
 				if (lines.length) {
 					lineHelper.removeFilledLines(newState.theyArrived, lines)
+					soundHelper.playLineRemovalSound();
 					//if all blocks have been removed, remove from the game
 					newState.poliminos = newState.poliminos.filter(p => {
 						const r = p.removeds || [];
@@ -252,6 +257,16 @@ export const GameProvider = ({children}) => {
 		setNextBlocks(newBlocks);
 	}, [gameState.nextBlocks]);
 	
+	useEffect(() => {
+		if (gameState.ended) {
+			soundHelper.playGameOverSound();
+		}
+	}, [gameState.ended]);
+	
+	const start = useCallback(() => {
+		setIsPaused(false)
+	}, []);
+	
 	const play = () => setIsPaused(false);
 	
 	const pause = () => setIsPaused(true);
@@ -269,7 +284,7 @@ export const GameProvider = ({children}) => {
 	const clockwiseRotate = () => dispatch({type: 'rotate right'})
 	
 	return (
-		<GameContext.Provider value={{ level: level.slice(5), play, pause, isPaused, ended: gameState.ended, playingTime: gameState.playingTime, deletedLines: gameState.deletedLines, gTimer: gameState.gTimer, score: gameState.score, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickFall, clockwiseRotate, antiClockwiseRotate, nextBlocks }}>
+		<GameContext.Provider value={{ soundEnabled: settings.sound, level: level.slice(5), start, play, pause, isPaused, ended: gameState.ended, playingTime: gameState.playingTime, deletedLines: gameState.deletedLines, gTimer: gameState.gTimer, score: gameState.score, poliminos, moveLeft, moveRight, getDownFaster, cancelQuickFall, clockwiseRotate, antiClockwiseRotate, nextBlocks }}>
 			{children}
 		</GameContext.Provider>
 	);

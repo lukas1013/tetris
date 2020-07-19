@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useRef, memo } from 'react';
 import { useSettings } from '../../contexts/settings';
 
+import track_01 from '../../assets/track_01.mp3';
+import track_02 from '../../assets/track_02.mp3';
+
 import './styles.css';
 
 function Settings(props) {
 	const { settings, savePreferences, resetDefault } = useSettings();
 	const [preferences, setPreferences] = useState(settings);
+	const [listening, setListening] = useState(false);
 	const fSizeRef = useRef(null);
+	const trackPreviewRef = useRef(null);
 	const { width } = document.body.getBoundingClientRect();
 	
 	//render font size changes
@@ -16,7 +21,18 @@ function Settings(props) {
 	
 	useEffect(() => {
 		setPreferences(settings)
+		setListening(false);
 	}, [settings]);
+	
+	useEffect(() => {
+		if (listening && trackPreviewRef.current) {
+			trackPreviewRef.current.onplay = function() {
+				setTimeout(() => {
+					setListening(false)
+				}, 10000);
+			}
+		}
+	}, [listening]);
 	
 	function setPreference(prop, value) {
 		const newPreferences = {...preferences}
@@ -106,15 +122,26 @@ function Settings(props) {
 				
 				<section className='setting'>
 					<h2>Game</h2>
-					<div id='check-container'>
+					<div className='check-container'>
 						<input onChange={() => setPreference('fullscreen', !preferences.fullscreen)} checked={preferences.fullscreen} id='fullscreen' type='checkbox' />
 						<h4><label htmlFor='fullscreen'>Fullscreen</label></h4>
 							
-						<input disabled={true} onChange={() => setPreference('sound', !preferences.sound)} checked={preferences.sound} id='sound' type='checkbox' />
+						<input onChange={() => setPreference('sound', !preferences.sound)} checked={preferences.sound} id='sound' type='checkbox' />
 						<h4><label htmlFor='sound'>Sound</label></h4>
 							
 						<input onChange={() => setPreference('vibrate', !preferences.vibrate)} checked={preferences.vibrate} id='vibrate' type='checkbox' />
 						<h4><label htmlFor='vibrate'>Vibrate</label></h4>
+					</div>
+					
+					<h3>Soundtrack</h3>
+					<div className='check-container'>
+						{listening && <audio ref={trackPreviewRef} autoPlay crossOrigin='anonymous' src={listening === 1 ? track_01 : track_02}></audio>}
+						
+						<input onClick={() => setListening(!listening || listening === 2 ? 1 : false)} disabled={!preferences.sound} onChange={() => setPreference('track', 1)} checked={preferences.track === 1} id='check-track01' type='checkbox' />
+						<h4><label htmlFor='check-track01'>Track 01</label></h4>
+							
+						<input onClick={() => setListening(!listening || listening === 1 ? 2 : false)} disabled={!preferences.sound} onChange={() => setPreference('track', 2)} checked={preferences.track === 2} id='check-track02' type='checkbox' />
+						<h4><label htmlFor='check-track02'>Track 02</label></h4>
 					</div>
 					
 					<h3>Sidebar</h3>

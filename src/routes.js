@@ -3,9 +3,9 @@ import { Switch, Route } from 'react-router-dom';
 import { GameProvider } from './contexts/game';
 import { ScoreProvider } from './contexts/score';
 
-import Home from './pages/home/';
-import Game from './pages/game/';
-const Score = React.lazy(() => import('./pages/scores/'));
+const Home = React.lazy(() => import('./pages/home/'));
+const Game = React.lazy(() => import('./pages/game/'));
+const Scores = React.lazy(() => import('./pages/scores/'));
 const Settings = React.lazy(() => import('./pages/settings/'));
 
 export default function Routes() {
@@ -22,7 +22,7 @@ export default function Routes() {
 				
 				<Route path='/scores'>
 					<ScoreProvider>
-						<Score/>
+						<Scores/>
 					</ScoreProvider>
 				</Route>
 				

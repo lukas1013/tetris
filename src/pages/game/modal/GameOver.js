@@ -6,17 +6,17 @@ import './styles.css';
 
 export default function GameOver(props) {
 	const history = useHistory();
-	const [closed, setClosed] = useState(false)
-	
+	const [display, setDisplay] = useState('flex');
+
 	if (!props.show) return null;
 	
 	return (
-		<div id='modal' style={{display: closed ? 'none' : 'flex'}}>
+		<div id='modal' style={{display}}>
 			<div className='container'>
 				<header>
 					<div className='container'>
 						<h2 id='title'>Game Over</h2>
-						<span onClick={() => setClosed(true)} id='close'>X</span>
+						<span onClick={() => setDisplay('none')} id='close'>X</span>
 					</div>
 				</header>
 				
